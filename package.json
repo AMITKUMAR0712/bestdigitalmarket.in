@@ -1,0 +1,38 @@
+{
+  "name": "premium-digital-marketing-agency",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-three/drei": "latest",
+    "@react-three/fiber": "latest",
+    "framer-motion": "latest",
+    "next": "^15.5.19",
+    "nodemailer": "^8.0.10",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-icons": "latest",
+    "three": "latest"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "latest",
+    "@tailwindcss/postcss": "latest",
+    "@types/node": "latest",
+    "@types/nodemailer": "^8.0.0",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/three": "latest",
+    "autoprefixer": "^10.5.0",
+    "eslint": "latest",
+    "eslint-config-next": "^15.5.19",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^3.4.19",
+    "typescript": "latest"
+  }
+}
