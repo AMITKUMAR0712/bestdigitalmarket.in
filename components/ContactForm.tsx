@@ -106,9 +106,9 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="holo-panel luxury-border rounded-[2rem] border border-white/10 p-5 shadow-2xl shadow-teal-950/40 backdrop-blur-2xl sm:p-8">
       <div className="mb-6 rounded-3xl border border-teal-300/15 bg-teal-300/10 p-5">
-        <p className="text-sm font-semibold uppercase tracking-[0.28em] text-teal-300">Start Growth Plan</p>
-        <h3 className="mt-2 text-2xl font-black text-white">Get your free strategy call</h3>
-        <p className="mt-2 text-sm leading-6 text-slate-300">Fill the form and our team will contact you with a practical lead generation roadmap.</p>
+        <p className="text-sm font-semibold uppercase tracking-[0.28em] text-teal-300">Technology Consultation</p>
+        <h3 className="mt-2 text-2xl font-black text-white">Get a free expert consultation</h3>
+        <p className="mt-2 text-sm leading-6 text-slate-300">Tell us what you want to build. We will review your requirement and suggest the right modern website, software, automation system or growth solution.</p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <input className={inputClass} value={form.name} onChange={(event) => updateField("name", event.target.value)} placeholder="Name" aria-label="Name" />
@@ -138,7 +138,7 @@ export function ContactForm() {
         disabled={status === "loading"}
         className="cta-glow mt-5 w-full rounded-2xl bg-gradient-to-r from-teal-200 via-cyan-200 to-fuchsia-300 px-6 py-4 font-black text-slate-950 transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
       >
-        {status === "loading" ? "Sending..." : "Get Free Consultation"}
+        {status === "loading" ? "Sending..." : "Request Free Consultation"}
       </button>
       {status === "success" && (
         <div className="mt-4 rounded-2xl border border-emerald-300/20 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200">

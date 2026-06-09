@@ -5,8 +5,8 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { faqs } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Digital Marketing FAQs | SEO, Ads, Websites & Lead Generation",
-  description: "Answers to common questions about digital marketing, SEO, Google Ads, Meta Ads, website development and lead generation in Noida NCR and India.",
+  title: "Website Development, SEO & Software FAQs",
+  description: "Answers to common questions about website development, custom software, CRM, mobile apps, SEO, Google Ads, Meta Ads and lead generation services in Noida NCR and India.",
 };
 
 export default function FaqPage() {
@@ -14,8 +14,8 @@ export default function FaqPage() {
     <main className="relative z-10 overflow-hidden text-white">
       <PageHero
         eyebrow="FAQ"
-        title="Everything you need to know before starting digital marketing."
-        description="Clear answers about SEO, Google Ads, Meta Ads, website development and lead generation for businesses in Noida NCR and across India."
+        title="Everything you need to know before starting your digital project."
+        description="Clear answers about website development, custom software, CRM, mobile apps, SEO, Google Ads, Meta Ads and lead generation for businesses in Noida NCR and across India."
       />
       <section className="px-5 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-5xl space-y-4">

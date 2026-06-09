@@ -5,8 +5,8 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { processSteps } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Our Digital Marketing Process | Strategy to Scale",
-  description: "Discover our process for business analysis, strategy planning, campaign launch, optimization and growth scaling.",
+  title: "Website, Software & Digital Marketing Process",
+  description: "Discover our process for business analysis, website planning, software development, SEO strategy, campaign launch, testing, deployment and growth optimization.",
 };
 
 export default function ProcessPage() {
@@ -14,8 +14,8 @@ export default function ProcessPage() {
     <main className="relative z-10 overflow-hidden text-white">
       <PageHero
         eyebrow="Process"
-        title="A clear growth system from business analysis to scalable campaigns."
-        description="We keep digital marketing simple, measurable and conversion focused with a process that connects strategy, launch, optimization and scale."
+        title="A clear process from business analysis to launch and growth."
+        description="We connect website strategy, software planning, digital marketing, testing, deployment and optimization into one measurable execution process."
       />
       <section className="px-5 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-5xl space-y-5">

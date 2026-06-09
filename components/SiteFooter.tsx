@@ -33,10 +33,10 @@ export function SiteFooter() {
       <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1fr]">
         <div className="holo-panel luxury-border rounded-[2rem] border border-white/10 p-6">
           <h2 className="text-2xl font-black">
-            Digital<span className="text-teal-300"> Future</span>
+            Digital<span className="text-teal-300"> Future</span><span className="ml-1 text-xs font-black text-fuchsia-300">AI</span>
           </h2>
           <p className="mt-4 max-w-sm leading-7 text-slate-400">
-            Premium digital marketing agency serving all over India, with stronger on-ground focus on Noida and Delhi NCR growth campaigns.
+            End-to-end technology services for businesses: website development, software, CRM, mobile apps, hosting, deployment, digital marketing and ongoing improvement.
           </p>
           <a
             href={siteConfig.mapUrl}

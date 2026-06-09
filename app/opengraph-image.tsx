@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/site";
 
 export const runtime = "edge";
-export const alt = "Digital Marketing Agency Delhi NCR";
+export const alt = "Website Development, Software and Digital Marketing Company Delhi NCR";
 export const size = {
   width: 1200,
   height: 630,
@@ -28,10 +28,10 @@ export default function Image() {
           {siteConfig.name}
         </div>
         <div style={{ marginTop: 28, maxWidth: 900, fontSize: 76, fontWeight: 900, lineHeight: 0.95 }}>
-          Scale Your Business With Result-Driven Digital Marketing
+          Website, Software & Digital Marketing Services
         </div>
         <div style={{ marginTop: 32, fontSize: 30, color: "#cbd5e1" }}>
-          SEO • Google Ads • Meta Ads • Websites • Lead Generation
+          Website Development • Software • SEO • Google Ads • Lead Generation
         </div>
       </div>
     ),

@@ -7,8 +7,8 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { callLink, siteConfig, whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact Software, IT & Digital Services Team in Noida",
-  description: "Contact Digital Future for website design, full-stack development, custom software, mobile apps, CRM, DevOps, hosting, SEO, ads and lead generation.",
+  title: "Contact Website Development & Software Company in Noida",
+  description: "Contact Digital Future for website development, full-stack development, custom software, mobile apps, CRM, DevOps, hosting, SEO, Google Ads, Meta Ads and lead generation.",
 };
 
 export default function ContactPage() {
@@ -23,8 +23,8 @@ export default function ContactPage() {
     <main className="relative z-10 overflow-hidden text-white">
       <PageHero
         eyebrow="Contact"
-        title="Let’s build your next lead generation system."
-        description="Tell us about your business. We serve clients all over India, with deeper focus and faster local strategy for Noida and Delhi NCR."
+        title="Let’s plan your complete digital and technology system."
+        description="Tell us what you want to build. We help with websites, software, apps, CRM, hosting, deployment, marketing and ongoing support across India."
       />
       <section className="px-5 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.85fr_1.15fr]">

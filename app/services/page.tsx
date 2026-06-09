@@ -6,8 +6,8 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { serviceCategories } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Software, IT & Digital Services in Noida & Delhi NCR",
-  description: "Explore website design, full-stack development, MERN and MARN stack, DevOps, testing, hosting, CRM, mobile apps, automation and digital marketing services.",
+  title: "Website Development, Software & IT Services in Noida",
+  description: "Explore website development, full-stack development, MERN and MARN stack, DevOps, testing, hosting, CRM, mobile apps, automation, SEO and digital marketing services.",
 };
 
 export default function ServicesPage() {
@@ -15,8 +15,8 @@ export default function ServicesPage() {
     <main className="relative z-10 overflow-hidden text-white">
       <PageHero
         eyebrow="Services"
-        title="End-to-end software, IT and digital growth services."
-        description="From websites, mobile apps and custom software to CRM, DevOps, testing, hosting, deployment and marketing, we provide complete technology solutions for growing businesses."
+        title="Website development, software and digital marketing services for growing businesses."
+        description="From strategy, UI/UX design and full-stack development to CRM, mobile apps, DevOps, testing, hosting, deployment, SEO and paid marketing, we provide complete technology solutions under one team."
       />
       <section className="px-5 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-2">
