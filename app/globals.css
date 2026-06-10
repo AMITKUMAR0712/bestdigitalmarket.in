@@ -758,6 +758,32 @@ details summary::-webkit-details-marker {
   animation-delay: -2.8s;
 }
 
+/* Keep motion focused on the hero, Technology Stack and footer for faster rendering. */
+.ai-neural-grid,
+.soft-orb,
+.star-field,
+.shooting-star,
+.space-orbit,
+.rotating-star-ring,
+.cosmic-scan,
+.constellation-web,
+.planet-core,
+.aurora-orb,
+.gradient-title,
+.nav-float,
+.attention-fab,
+.attention-fab::before,
+.attention-fab::after,
+.fab-icon,
+.call-now-pulse,
+.call-now-pulse::after,
+.live-dot,
+.live-metric-row,
+.css-globe-orb,
+.review-card {
+  animation: none !important;
+}
+
 @keyframes drift {
   from {
     transform: translate3d(-16px, 12px, 0) scale(1);

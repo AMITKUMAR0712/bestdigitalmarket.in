@@ -4,7 +4,6 @@ import Script from "next/script";
 import type { ReactNode } from "react";
 import "./globals.css";
 import { FloatingActions } from "@/components/FloatingActions";
-import { SpaceBackground } from "@/components/SpaceBackground";
 import { faqs, serviceCategories } from "@/lib/data";
 import { siteConfig } from "@/lib/site";
 
@@ -137,8 +136,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             title="Google Tag Manager"
           />
         </noscript>
-        <Script src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`} strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`} strategy="lazyOnload" />
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -146,7 +145,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             gtag('config', '${googleAnalyticsId}');
           `}
         </Script>
-        <Script id="google-tag-manager" strategy="afterInteractive">
+        <Script id="google-tag-manager" strategy="lazyOnload">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -155,7 +154,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             })(window,document,'script','dataLayer','${googleTagManagerId}');
           `}
         </Script>
-        <SpaceBackground />
         {children}
         <FloatingActions />
         {[localBusinessSchema, serviceSchema, faqSchema].map((schema, index) => (

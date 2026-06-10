@@ -26,14 +26,14 @@ type ReformingParticle = {
 };
 
 const settings = {
-  cellSize: 3,
+  cellSize: 4,
   startText: "Coding",
   hiddenText: "clean code, creative websites, real growth",
-  releaseTestsPerFrame: 4200,
+  releaseTestsPerFrame: 2200,
   releaseChance: 0.16,
   gravity: 1900,
   airDrag: 0.985,
-  settleStepsPerFrame: 9,
+  settleStepsPerFrame: 5,
   pileHoldSeconds: 0.12,
   hiddenFadeInSeconds: 0.12,
   reformDurationSeconds: 0.55,
@@ -56,7 +56,7 @@ export function FooterSandCanvas() {
 
     let width = 0;
     let height = 0;
-    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let dpr = Math.min(window.devicePixelRatio || 1, 1.35);
     let cols = 0;
     let rows = 0;
     let fixedCoding = new Uint8Array();
@@ -70,6 +70,7 @@ export function FooterSandCanvas() {
     let phaseTime = 0;
     let lastTime = performance.now();
     let animationId = 0;
+    let isRunning = false;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const index = (col: number, row: number) => row * cols + col;
@@ -147,7 +148,7 @@ export function FooterSandCanvas() {
       const bounds = parent.getBoundingClientRect();
       width = Math.max(280, Math.floor(bounds.width));
       height = Math.max(210, Math.floor(bounds.height));
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.35);
 
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
@@ -515,6 +516,8 @@ export function FooterSandCanvas() {
     }
 
     const tick = (now: number) => {
+      if (!isRunning) return;
+
       const dt = Math.min((now - lastTime) / 1000, 0.033);
       lastTime = now;
 
@@ -531,17 +534,40 @@ export function FooterSandCanvas() {
       animationId = requestAnimationFrame(tick);
     };
 
+    const startAnimation = () => {
+      if (reduceMotion || isRunning) return;
+      isRunning = true;
+      lastTime = performance.now();
+      animationId = requestAnimationFrame(tick);
+    };
+
+    const stopAnimation = () => {
+      if (!isRunning) return;
+      isRunning = false;
+      cancelAnimationFrame(animationId);
+    };
+
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(parent);
     resize();
 
-    if (!reduceMotion) {
-      animationId = requestAnimationFrame(tick);
-    }
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
+      },
+      { rootMargin: "160px" }
+    );
+
+    intersectionObserver.observe(parent);
 
     return () => {
-      cancelAnimationFrame(animationId);
+      stopAnimation();
       resizeObserver.disconnect();
+      intersectionObserver.disconnect();
     };
   }, []);
 

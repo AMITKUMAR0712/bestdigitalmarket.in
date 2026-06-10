@@ -11,17 +11,17 @@ export function FloatingActions() {
           href={whatsappLink}
           target="_blank"
           rel="noreferrer"
-          className="attention-fab whatsapp-fab group flex h-14 w-14 items-center justify-center rounded-full bg-emerald-400 text-slate-950 shadow-2xl shadow-emerald-500/30 transition hover:scale-110"
+          className="whatsapp-fab group flex h-14 w-14 items-center justify-center rounded-full bg-emerald-400 text-slate-950 shadow-2xl shadow-emerald-500/30 transition hover:scale-105"
           aria-label="Chat on WhatsApp"
         >
-          <FiMessageCircle className="fab-icon text-2xl transition group-hover:rotate-12" />
+          <FiMessageCircle className="text-2xl transition group-hover:rotate-12" />
         </a>
         <a
           href={callLink}
-          className="attention-fab call-fab group flex h-14 w-14 items-center justify-center rounded-full bg-cyan-300 text-slate-950 shadow-2xl shadow-cyan-500/30 transition hover:scale-110"
+          className="call-fab group flex h-14 w-14 items-center justify-center rounded-full bg-cyan-300 text-slate-950 shadow-2xl shadow-cyan-500/30 transition hover:scale-105"
           aria-label="Call now"
         >
-          <FiPhoneCall className="fab-icon text-2xl transition group-hover:rotate-12" />
+          <FiPhoneCall className="text-2xl transition group-hover:rotate-12" />
         </a>
       </div>
       <div className="fixed inset-x-3 bottom-3 z-40 grid grid-cols-2 gap-3 sm:hidden">
