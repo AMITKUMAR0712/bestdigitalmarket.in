@@ -3,6 +3,7 @@ import { FiArrowRight } from "react-icons/fi";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { SiteFooter } from "@/components/SiteFooter";
+import { TechIconCloud } from "@/components/TechIconCloud";
 import { serviceCategories } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function ServicesPage() {
         title="Website development, software and digital marketing services for growing businesses."
         description="From strategy, UI/UX design and full-stack development to CRM, mobile apps, DevOps, testing, hosting, deployment, SEO and paid marketing, we provide complete technology solutions under one team."
       />
+      <TechIconCloud />
       <section className="px-5 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-2">
           {serviceCategories.map((category, index) => {

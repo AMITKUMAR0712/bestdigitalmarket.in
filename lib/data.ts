@@ -348,6 +348,42 @@ export const testimonials = [
     rating: 5,
     review: "The ecommerce campaigns delivered stronger ROAS and the creative testing process was very impressive.",
   },
+  {
+    name: "Sandeep Chauhan",
+    company: "Aaqafleet",
+    rating: 5,
+    review: "They planned our fleet website and enquiry flow very professionally. The final experience looked premium and helped customers understand our services faster.",
+  },
+  {
+    name: "Ritika Sharma",
+    company: "SmartServe CRM",
+    rating: 5,
+    review: "The CRM workflow made our follow-ups much easier. Lead tracking, team visibility and status updates became far more organized.",
+  },
+  {
+    name: "Mohit Verma",
+    company: "QuickBill ERP",
+    rating: 5,
+    review: "Their software planning was clear from day one. The dashboard structure, user roles and reports matched our business process well.",
+  },
+  {
+    name: "Nitin Rawat",
+    company: "Hotel Royal Stay",
+    rating: 5,
+    review: "The hotel website, local SEO and booking enquiry setup improved our direct enquiries. The design feels clean and trustworthy.",
+  },
+  {
+    name: "Pooja Singh",
+    company: "MedCloud Clinic",
+    rating: 5,
+    review: "They built a modern clinic web presence with clear service pages and fast contact options. Patients can now reach us more easily.",
+  },
+  {
+    name: "Arjun Kapoor",
+    company: "EduPrime LMS",
+    rating: 5,
+    review: "We needed a professional education portal structure. Their team handled design, pages, lead forms and launch support smoothly.",
+  },
 ];
 
 export const faqs = [

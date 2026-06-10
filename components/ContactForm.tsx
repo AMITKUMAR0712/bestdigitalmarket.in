@@ -104,13 +104,13 @@ export function ContactForm() {
     "w-full rounded-2xl border border-white/10 bg-slate-950/50 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-500 hover:border-teal-300/30 hover:bg-white/[0.06] focus:border-teal-300/70 focus:bg-white/[0.08] focus:ring-4 focus:ring-teal-300/10";
 
   return (
-    <form onSubmit={handleSubmit} className="holo-panel luxury-border rounded-[2rem] border border-white/10 p-5 shadow-2xl shadow-teal-950/40 backdrop-blur-2xl sm:p-8">
-      <div className="mb-6 rounded-3xl border border-teal-300/15 bg-teal-300/10 p-5">
+    <form onSubmit={handleSubmit} className="holo-panel luxury-border rounded-[1.8rem] border border-white/10 p-4 shadow-2xl shadow-teal-950/40 backdrop-blur-2xl sm:p-6">
+      <div className="mb-5 rounded-[1.5rem] border border-teal-300/15 bg-teal-300/10 p-4">
         <p className="text-sm font-semibold uppercase tracking-[0.28em] text-teal-300">Technology Consultation</p>
         <h3 className="mt-2 text-2xl font-black text-white">Get a free expert consultation</h3>
         <p className="mt-2 text-sm leading-6 text-slate-300">Tell us what you want to build. We will review your requirement and suggest the right modern website, software, automation system or growth solution.</p>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-2">
         <input className={inputClass} value={form.name} onChange={(event) => updateField("name", event.target.value)} placeholder="Name" aria-label="Name" />
         <input className={inputClass} value={form.phone} onChange={(event) => updateField("phone", event.target.value)} placeholder="Phone Number" aria-label="Phone Number" />
         <input className={inputClass} value={form.email} onChange={(event) => updateField("email", event.target.value)} placeholder="Email" aria-label="Email" />
@@ -136,7 +136,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="cta-glow mt-5 w-full rounded-2xl bg-gradient-to-r from-teal-200 via-cyan-200 to-fuchsia-300 px-6 py-4 font-black text-slate-950 transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
+        className="cta-glow mt-4 w-full rounded-2xl bg-gradient-to-r from-teal-200 via-cyan-200 to-fuchsia-300 px-6 py-3.5 font-black text-slate-950 transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
       >
         {status === "loading" ? "Sending..." : "Request Free Consultation"}
       </button>

@@ -1,10 +1,13 @@
 import { FiArrowRight, FiAward, FiBarChart2, FiMapPin, FiMousePointer, FiPhoneCall, FiStar, FiZap } from "react-icons/fi";
 import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
+import { LiquidHeroBackground } from "@/components/LiquidHeroBackground";
 import { Reveal } from "@/components/Reveal";
+import { ReviewCarousel } from "@/components/ReviewCarousel";
 import { SectionHeader } from "@/components/SectionHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
+import { TechIconCloud } from "@/components/TechIconCloud";
 import { caseStudies, serviceCategories, testimonials } from "@/lib/data";
 import { callLink, siteConfig, whatsappLink } from "@/lib/site";
 
@@ -12,6 +15,7 @@ export default function Home() {
   return (
     <main className="relative z-10 overflow-hidden bg-transparent text-white">
       <HeroSection />
+      <TechIconCloud compact />
       <ServicesSection />
       <CaseStudies />
       <TestimonialsSection />
@@ -24,8 +28,7 @@ export default function Home() {
 function HeroSection() {
   return (
     <section id="home" className="relative min-h-[100svh] overflow-hidden px-4 pb-8 pt-20 sm:px-6 sm:pb-10 sm:pt-28 lg:px-10 lg:pb-6 lg:pt-24">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(45,212,191,0.16),transparent_28rem),radial-gradient(circle_at_88%_18%,rgba(217,70,239,0.18),transparent_30rem)]" />
-      <div className="space-grid absolute inset-0 opacity-20" />
+      <LiquidHeroBackground />
       <SiteNav />
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-5 pt-2 sm:gap-7 sm:pt-4 lg:min-h-[calc(100svh-88px)] lg:grid-cols-[1.04fr_0.96fr] lg:gap-7 lg:pt-0 xl:gap-10">
@@ -198,24 +201,24 @@ function ServicesSection() {
 
 function CaseStudies() {
   return (
-    <section id="case-studies" className="relative px-4 py-12 sm:px-6 sm:py-14 lg:px-10 lg:py-16">
-      <div className="absolute inset-x-8 top-28 h-80 rounded-full bg-cyan-400/10 blur-3xl" />
+    <section id="case-studies" className="relative px-4 py-8 sm:px-6 sm:py-10 lg:px-10 lg:py-12">
+      <div className="absolute inset-x-8 top-20 h-60 rounded-full bg-cyan-400/10 blur-3xl" />
       <div className="mx-auto max-w-7xl">
         <SectionHeader eyebrow="Technology Projects" title="Real projects across fleet, hotel, government, CRM and software." description="A growing portfolio of modern websites, custom software, mobile app flows, dashboards, hosting, testing and smart marketing systems." />
-        <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 xl:grid-cols-3">
-          {caseStudies.slice(0, 6).map((study, index) => (
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {caseStudies.slice(0, 3).map((study, index) => (
             <Reveal key={study.industry} delay={index * 0.06}>
-              <article className="premium-card group relative min-h-64 overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-teal-300/12 via-white/[0.04] to-fuchsia-500/15 p-6 shadow-2xl shadow-slate-950/30 transition hover:-translate-y-2">
-                <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-teal-300/25 blur-2xl transition group-hover:scale-150" />
+              <article className="premium-card group relative min-h-52 overflow-hidden rounded-[1.7rem] border border-white/10 bg-gradient-to-br from-teal-300/12 via-white/[0.04] to-fuchsia-500/15 p-5 shadow-2xl shadow-slate-950/30 transition hover:-translate-y-2">
+                <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-teal-300/25 blur-2xl transition group-hover:scale-150" />
                 <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-teal-300 via-fuchsia-400 to-amber-300" />
-                <p className="text-sm uppercase tracking-[0.25em] text-slate-400">{study.industry}</p>
-                <h3 className="mt-6 text-3xl font-black text-teal-200">{study.result}</h3>
-                <p className="mt-5 leading-7 text-slate-300">{study.detail}</p>
+                <p className="text-xs uppercase tracking-[0.22em] text-slate-400">{study.industry}</p>
+                <h3 className="mt-5 text-2xl font-black text-teal-200">{study.result}</h3>
+                <p className="mt-4 line-clamp-3 text-sm leading-6 text-slate-300">{study.detail}</p>
               </article>
             </Reveal>
           ))}
         </div>
-        <div className="mt-10 text-center">
+        <div className="mt-7 text-center">
           <Link href="/case-studies" className="inline-flex items-center justify-center gap-2 rounded-full border border-teal-300/25 bg-teal-300/10 px-6 py-3 font-bold text-teal-100 transition hover:scale-105 hover:border-teal-300/50">
             View Case Studies <FiArrowRight />
           </Link>
@@ -226,33 +229,33 @@ function CaseStudies() {
 }
 
 function TestimonialsSection() {
+  const googleReviews = testimonials.slice(0, 8);
+
   return (
-    <section className="relative px-4 py-12 sm:px-6 sm:py-14 lg:px-10 lg:py-16">
-      <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-500/10 blur-3xl" />
+    <section className="relative px-4 py-8 sm:px-6 sm:py-10 lg:px-10 lg:py-12">
+      <div className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-500/10 blur-3xl" />
       <div className="mx-auto max-w-7xl">
-        <SectionHeader eyebrow="Client Trust" title="Trusted by founders, marketers and local business owners." description="Clients choose us for modern UI, clear strategy, premium execution and measurable digital growth." />
-        <div className="mt-8 grid gap-5 sm:mt-10 md:grid-cols-2 lg:mt-12 lg:grid-cols-4">
-          {testimonials.slice(0, 4).map((testimonial, index) => (
-            <Reveal key={`${testimonial.name}-${testimonial.company}`} delay={(index % 4) * 0.04}>
-              <figure className="premium-card h-full rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-5 shadow-xl shadow-slate-950/25 transition hover:-translate-y-1">
-                <div className="flex gap-1 text-amber-300">
-                  {Array.from({ length: testimonial.rating }).map((_, starIndex) => (
+        <div className="rounded-[1.8rem] border border-white/10 bg-white/[0.045] p-4 shadow-2xl shadow-slate-950/25 backdrop-blur-xl sm:p-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-xl font-black text-white">
+                <span className="text-[#4285f4]">G</span><span className="text-[#ea4335]">o</span><span className="text-[#fbbc05]">o</span><span className="text-[#4285f4]">g</span><span className="text-[#34a853]">l</span><span className="text-[#ea4335]">e</span> Reviews
+              </p>
+              <div className="mt-2 flex items-center gap-2">
+                <span className="text-2xl font-black text-white">5.0</span>
+                <div className="flex gap-0.5 text-amber-300">
+                  {Array.from({ length: 5 }).map((_, starIndex) => (
                     <FiStar key={starIndex} fill="currentColor" />
                   ))}
                 </div>
-                <blockquote className="mt-5 leading-7 text-slate-300">“{testimonial.review}”</blockquote>
-                <figcaption className="mt-6">
-                  <p className="font-bold text-white">{testimonial.name}</p>
-                  <p className="text-sm text-teal-300">{testimonial.company}</p>
-                </figcaption>
-              </figure>
-            </Reveal>
-          ))}
-        </div>
-        <div className="mt-10 text-center">
-          <Link href="/testimonials" className="inline-flex items-center justify-center gap-2 rounded-full border border-teal-300/25 bg-teal-300/10 px-6 py-3 font-bold text-teal-100 transition hover:scale-105 hover:border-teal-300/50">
-            Read More Reviews <FiArrowRight />
-          </Link>
+                <span className="text-sm font-semibold text-slate-400">({testimonials.length}+ reviews)</span>
+              </div>
+            </div>
+            <Link href="/testimonials" className="inline-flex w-fit items-center justify-center gap-2 rounded-full border border-teal-300/25 bg-teal-300/10 px-5 py-2.5 text-sm font-bold text-teal-100 transition hover:scale-105 hover:border-teal-300/50">
+              View All Reviews <FiArrowRight />
+            </Link>
+          </div>
+          <ReviewCarousel reviews={googleReviews} />
         </div>
       </div>
     </section>
@@ -261,16 +264,16 @@ function TestimonialsSection() {
 
 function ContactSection() {
   return (
-    <section id="contact" className="relative px-4 py-12 sm:px-6 sm:py-14 lg:px-10 lg:py-16">
-      <div className="absolute inset-x-0 bottom-0 h-96 bg-teal-500/14 blur-3xl" />
-      <div className="absolute right-10 top-16 h-72 w-72 rounded-full bg-fuchsia-500/14 blur-3xl" />
-      <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+    <section id="contact" className="relative px-4 py-8 sm:px-6 sm:py-10 lg:px-10 lg:py-12">
+      <div className="absolute inset-x-0 bottom-0 h-72 bg-teal-500/12 blur-3xl" />
+      <div className="absolute right-10 top-16 h-56 w-56 rounded-full bg-fuchsia-500/12 blur-3xl" />
+      <div className="relative mx-auto grid max-w-7xl gap-6 lg:grid-cols-[0.82fr_1.18fr]">
         <Reveal>
           <div>
             <SectionHeader align="left" eyebrow="Contact" title="Ready to build something modern and reliable?" description="Share your requirement and our team will suggest the right technology solution across website development, software, mobile apps, CRM, hosting, digital marketing and ongoing support." />
-            <div className="holo-panel mt-8 rounded-[2rem] border border-teal-300/15 p-5 shadow-xl shadow-teal-950/30 backdrop-blur-xl">
+            <div className="holo-panel mt-6 rounded-[1.6rem] border border-teal-300/15 p-4 shadow-xl shadow-teal-950/30 backdrop-blur-xl">
               <div className="flex items-start gap-4">
-                <div className="rounded-2xl bg-teal-300 p-3 text-slate-950">
+                <div className="rounded-2xl bg-teal-300 p-2.5 text-slate-950">
                   <FiZap className="text-xl" />
                 </div>
                 <div>
@@ -279,15 +282,15 @@ function ContactSection() {
                 </div>
               </div>
             </div>
-            <div className="mt-8 space-y-4">
-              <a href={callLink} className="premium-card flex items-center gap-4 rounded-3xl border border-white/10 bg-white/[0.05] p-5 transition hover:-translate-y-1 hover:border-teal-300/40">
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+              <a href={callLink} className="premium-card flex items-center gap-4 rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-4 transition hover:-translate-y-1 hover:border-teal-300/40">
                 <FiPhoneCall className="text-2xl text-teal-300" />
                 <span>
                   <span className="block text-sm text-slate-400">Call for consultation</span>
                   <span className="font-bold">+91 {siteConfig.callNumber}</span>
                 </span>
               </a>
-              <div className="premium-card flex items-center gap-4 rounded-3xl border border-white/10 bg-white/[0.05] p-5">
+              <div className="premium-card flex items-center gap-4 rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-4">
                 <FiMapPin className="text-2xl text-fuchsia-300" />
                 <span>
                   <span className="block text-sm text-slate-400">Serving</span>

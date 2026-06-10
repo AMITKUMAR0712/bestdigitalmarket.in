@@ -126,7 +126,7 @@ const faqSchema = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en-IN" className={inter.variable}>
+    <html lang="en-IN" className={inter.variable} suppressHydrationWarning>
       <body>
         <noscript>
           <iframe
