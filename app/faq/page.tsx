@@ -5,8 +5,19 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { faqs } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Website Development, SEO & Software FAQs",
-  description: "Answers to common questions about website development, custom software, CRM, mobile apps, SEO, Google Ads, Meta Ads and lead generation services in Noida NCR and India.",
+  title: "SEO, Website Design & Digital Marketing FAQs for Noida Businesses",
+  description:
+    "Answers about SEO-friendly website development, local SEO, Google Business Profile, AEO/GEO, Google Ads, Meta Ads, software and lead generation for Noida, Greater Noida and India.",
+  keywords: [
+    "SEO FAQ Noida",
+    "website development FAQ Greater Noida",
+    "local SEO questions India",
+    "AEO GEO SEO services India",
+    "Google Business Profile optimization Noida",
+  ],
+  alternates: {
+    canonical: "/faq",
+  },
 };
 
 export default function FaqPage() {
@@ -14,8 +25,8 @@ export default function FaqPage() {
     <main className="relative z-10 overflow-hidden text-white">
       <PageHero
         eyebrow="FAQ"
-        title="Everything you need to know before starting your digital project."
-        description="Clear answers about website development, custom software, CRM, mobile apps, SEO, Google Ads, Meta Ads and lead generation for businesses in Noida NCR and across India."
+        title="Everything you need to know before starting your SEO or web project."
+        description="Clear answers about SEO-friendly website development, local SEO, Google Business Profile optimization, custom software, CRM, mobile apps, Google Ads, Meta Ads and lead generation for businesses in Noida NCR and across India."
       />
       <section className="px-5 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-5xl space-y-4">

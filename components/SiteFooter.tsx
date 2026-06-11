@@ -38,7 +38,7 @@ export function SiteFooter() {
             Digital<span className="text-teal-300"> Future</span><span className="ml-1 text-xs font-black text-fuchsia-300">AI</span>
           </h2>
           <p className="mt-4 max-w-sm leading-7 text-slate-400">
-            End-to-end technology services for businesses: website development, software, CRM, mobile apps, hosting, deployment, digital marketing and ongoing improvement.
+            Best Digital Market by Digital Future provides end-to-end technology services for businesses: SEO-friendly website development, software, CRM, mobile apps, hosting, deployment, digital marketing and ongoing improvement.
           </p>
           <a
             href={siteConfig.mapUrl}

@@ -8,8 +8,19 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { aboutPoints, stats, whyChooseUs } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "About Amit Kumar Talan | Founder of Ramhari Enterprises",
-  description: "Meet Amit Kumar Talan, founder of Ramhari Enterprises, with 5+ years of experience in website development, digital marketing, full-stack software, DevOps, testing, hosting and IT solutions.",
+  title: "About Best Digital Market | Web Design & SEO Expert in Greater Noida",
+  description:
+    "Meet Amit Kumar Talan and Best Digital Market by Digital Future, a Greater Noida based team for SEO-friendly website design, digital marketing, software, CRM and IT solutions.",
+  keywords: [
+    "web design expert Greater Noida",
+    "SEO expert Greater Noida",
+    "digital marketing consultant Noida",
+    "Best Digital Market founder",
+    "Amit Kumar Talan",
+  ],
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 const founderSkills = [
@@ -59,8 +70,8 @@ export default function AboutPage() {
     <main className="relative z-10 overflow-hidden text-white">
       <PageHero
         eyebrow="About Us"
-        title="Led by Amit Kumar Talan, founder of Ramhari Enterprises."
-        description="A modern technology and digital growth team delivering website development, custom software, digital marketing, hosting, testing and IT support from strategy to launch."
+        title="Led by Amit Kumar Talan for SEO-first websites, software and digital growth."
+        description="A Greater Noida based technology and digital growth team delivering SEO-friendly website development, custom software, digital marketing, hosting, testing and IT support from strategy to launch."
       />
       <section className="px-5 py-14 sm:px-8 sm:py-16 lg:px-12">
         <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[0.9fr_1.1fr]">

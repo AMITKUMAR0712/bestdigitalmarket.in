@@ -6,8 +6,18 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { testimonials } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Client Testimonials | Website, Software & Marketing Reviews",
-  description: "Read client testimonials for website development, custom software, CRM systems, SEO, Google Ads, Meta Ads and lead generation projects.",
+  title: "Client Reviews for Website Design, SEO & Digital Marketing",
+  description:
+    "Read client testimonials for SEO-friendly website development, custom software, CRM systems, local SEO, Google Ads, Meta Ads and lead generation projects.",
+  keywords: [
+    "website design reviews Noida",
+    "SEO agency reviews India",
+    "digital marketing client testimonials",
+    "Best Digital Market reviews",
+  ],
+  alternates: {
+    canonical: "/testimonials",
+  },
 };
 
 export default function TestimonialsPage() {
@@ -15,8 +25,8 @@ export default function TestimonialsPage() {
     <main className="relative z-10 overflow-hidden text-white">
       <PageHero
         eyebrow="Testimonials"
-        title="What founders and growing brands say about our technology and marketing work."
-        description="Clients trust us for professional website development, software delivery, CRM systems, SEO strategy, measurable reporting and consistent lead generation improvements."
+        title="What founders and growing brands say about our SEO and technology work."
+        description="Clients trust us for professional website development, software delivery, CRM systems, local SEO strategy, measurable reporting and consistent lead generation improvements."
       />
       <section className="px-5 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-3">

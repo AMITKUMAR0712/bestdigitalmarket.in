@@ -68,12 +68,14 @@ export const serviceCategories = [
   {
     title: "SEO Growth Engine",
     icon: FiSearch,
-    description: "Search-first systems built to increase qualified organic traffic across Delhi NCR and beyond.",
+    description: "Search-first systems built to increase qualified organic traffic across Noida, Greater Noida, Delhi NCR and national Indian markets.",
     services: [
       "SEO Services",
       "Local SEO",
       "Technical SEO",
       "Google Business Profile Optimization",
+      "AEO / GEO Search Optimization",
+      "LLM SEO Readiness",
       "Keyword Research",
       "On Page SEO",
       "Off Page SEO",
@@ -119,9 +121,11 @@ export const serviceCategories = [
   {
     title: "Websites & CRO",
     icon: FiMonitor,
-    description: "Conversion-focused websites, landing pages and funnels designed to turn traffic into pipeline.",
+    description: "SEO-friendly websites, landing pages and funnels designed to rank better, load fast and turn traffic into pipeline.",
     services: [
       "Website Development",
+      "SEO Friendly Website Development",
+      "Website Design Company Services",
       "Business Websites",
       "Landing Pages",
       "Corporate Websites",
@@ -130,6 +134,7 @@ export const serviceCategories = [
       "Web Portals",
       "UI/UX Design",
       "Conversion Rate Optimization",
+      "Core Web Vitals Optimization",
       "Analytics & Reporting",
     ],
   },
@@ -388,14 +393,24 @@ export const testimonials = [
 
 export const faqs = [
   {
-    question: "Which is the best digital marketing agency in Delhi NCR for lead generation?",
+    question: "Are you the best web design company in Noida or Greater Noida?",
     answer:
-      "The best agency is one that understands your business model, tracks every conversion and builds a channel mix around profitable leads. Digital Future focuses on SEO, Google Ads, Meta Ads, landing pages and WhatsApp follow-up systems for Delhi NCR businesses.",
+      "Best Digital Market focuses on SEO-friendly website design, fast loading pages, conversion-focused content and clean technical foundations for businesses in Noida, Greater Noida and Delhi NCR. The right web design company should build a website that looks professional, ranks better and generates enquiries, not just a good-looking layout.",
   },
   {
-    question: "Do you provide SEO services in Noida, Faridabad, Gurugram and Ghaziabad?",
+    question: "Which low-competition SEO keywords should a local business target first?",
     answer:
-      "Yes. We provide local SEO, technical SEO, content SEO and Google Business Profile optimization for businesses across Noida, Greater Noida, Faridabad, Gurugram, Ghaziabad and Delhi NCR.",
+      "Most local businesses should start with long-tail service and location keywords such as SEO friendly website development in Greater Noida, local SEO services in Noida, Google Business Profile optimization Noida, affordable website design company in Noida and web design and SEO company in Greater Noida. These are usually more practical than only targeting broad high-competition keywords.",
+  },
+  {
+    question: "Which is the best digital marketing agency in Delhi NCR for lead generation?",
+    answer:
+      "The best agency is one that understands your business model, tracks every conversion and builds a channel mix around profitable leads. Best Digital Market by Digital Future focuses on SEO, Google Ads, Meta Ads, landing pages and WhatsApp follow-up systems for Delhi NCR businesses.",
+  },
+  {
+    question: "Do you provide SEO services in Noida, Greater Noida, Mumbai, Pune and Chandigarh?",
+    answer:
+      "Yes. We provide local SEO, technical SEO, content SEO, AEO/GEO readiness and Google Business Profile optimization for businesses across Noida, Greater Noida, Delhi NCR, Mumbai, Pune, Chandigarh and other Indian markets.",
   },
   {
     question: "How long does SEO take to show results?",
@@ -431,6 +446,16 @@ export const faqs = [
     question: "Can you help with local SEO and Google Business Profile ranking?",
     answer:
       "Yes. We optimize categories, services, photos, posts, citations, reviews, landing pages and local signals to improve Google Maps and local search visibility.",
+  },
+  {
+    question: "Do you build SEO-friendly websites that can rank from day one?",
+    answer:
+      "Yes. We build websites with clean page structure, optimized titles and descriptions, heading hierarchy, internal links, schema markup, sitemap, robots.txt, fast loading layouts, responsive design and conversion-focused content so Google can crawl and understand the site properly.",
+  },
+  {
+    question: "What is AEO, GEO and LLM SEO?",
+    answer:
+      "AEO, GEO and LLM SEO prepare your content for answer engines, generative search results and AI assistants. We improve entity clarity, FAQs, schema, service pages, direct answers, topical coverage and internal linking so your business is easier for search and AI systems to understand.",
   },
   {
     question: "Do you provide monthly reports?",

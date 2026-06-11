@@ -7,8 +7,20 @@ import { TechIconCloud } from "@/components/TechIconCloud";
 import { serviceCategories } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Website Development, Software & IT Services in Noida",
-  description: "Explore website development, full-stack development, MERN and MARN stack, DevOps, testing, hosting, CRM, mobile apps, automation, SEO and digital marketing services.",
+  title: "SEO Friendly Website Development, Software & Digital Marketing Services",
+  description:
+    "Explore SEO-friendly web design, website development, local SEO, Google Ads, custom software, CRM, mobile apps and automation services for Noida, Greater Noida, Mumbai, Pune and Chandigarh.",
+  keywords: [
+    "SEO friendly website development in Noida",
+    "website development company in Greater Noida",
+    "web design and SEO company in Greater Noida",
+    "digital marketing services Noida",
+    "local SEO services Greater Noida",
+    "custom software development company India",
+  ],
+  alternates: {
+    canonical: "/services",
+  },
 };
 
 export default function ServicesPage() {
@@ -17,7 +29,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Services"
         title="Website development, software and digital marketing services for growing businesses."
-        description="From strategy, UI/UX design and full-stack development to CRM, mobile apps, DevOps, testing, hosting, deployment, SEO and paid marketing, we provide complete technology solutions under one team."
+        description="From SEO-friendly web design, UI/UX and full-stack development to CRM, mobile apps, DevOps, technical SEO, AEO/GEO readiness, Google Ads and paid marketing, we provide complete growth solutions under one team."
       />
       <TechIconCloud />
       <section className="px-5 py-16 sm:px-8 lg:px-12">

@@ -20,10 +20,14 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.title,
-    template: `%s | ${siteConfig.name}`,
+    template: `%s | ${siteConfig.domainName}`,
   },
   description: siteConfig.description,
   keywords: siteConfig.keywords,
+  authors: [{ name: "Amit Kumar Talan" }],
+  creator: "Amit Kumar Talan",
+  publisher: siteConfig.domainName,
+  applicationName: siteConfig.domainName,
   alternates: {
     canonical: "/",
   },
@@ -32,14 +36,14 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     title: siteConfig.title,
     description: siteConfig.description,
-    siteName: siteConfig.name,
+    siteName: siteConfig.domainName,
     locale: "en_IN",
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Premium Digital Marketing Agency Delhi NCR",
+        alt: "Best Digital Market - SEO friendly website design and digital marketing agency in Noida",
       },
     ],
   },
@@ -64,9 +68,10 @@ export const metadata: Metadata = {
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": ["LocalBusiness", "ProfessionalService"],
   "@id": `${siteConfig.url}/#localbusiness`,
-  name: siteConfig.name,
+  name: siteConfig.domainName,
+  alternateName: `${siteConfig.name} AI`,
   url: siteConfig.url,
   telephone: `+91${siteConfig.callNumber}`,
   email: siteConfig.email,
@@ -80,17 +85,31 @@ const localBusinessSchema = {
     addressCountry: "IN",
   },
   areaServed: siteConfig.areas.map((area) => ({ "@type": "City", name: area })),
+  knowsAbout: siteConfig.keywords,
   priceRange: "₹₹",
   sameAs: [siteConfig.social.linkedin, siteConfig.social.github, siteConfig.social.instagram, siteConfig.social.facebook].filter(
     (url) => url !== "#"
   ),
 };
 
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteConfig.url}/#website`,
+  name: siteConfig.domainName,
+  alternateName: siteConfig.name,
+  url: siteConfig.url,
+  inLanguage: "en-IN",
+  publisher: {
+    "@id": `${siteConfig.url}/#localbusiness`,
+  },
+};
+
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "@id": `${siteConfig.url}/#services`,
-  name: siteConfig.name,
+  name: `${siteConfig.domainName} Website Design, SEO and Digital Marketing Services`,
   url: siteConfig.url,
   telephone: `+91${siteConfig.callNumber}`,
   areaServed: siteConfig.areas,
@@ -156,7 +175,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </Script>
         {children}
         <FloatingActions />
-        {[localBusinessSchema, serviceSchema, faqSchema].map((schema, index) => (
+        {[websiteSchema, localBusinessSchema, serviceSchema, faqSchema].map((schema, index) => (
           <script
             key={index}
             type="application/ld+json"

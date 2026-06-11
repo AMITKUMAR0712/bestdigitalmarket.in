@@ -7,8 +7,18 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { callLink, siteConfig, whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact Website Development & Software Company in Noida",
-  description: "Contact Digital Future for website development, full-stack development, custom software, mobile apps, CRM, DevOps, hosting, SEO, Google Ads, Meta Ads and lead generation.",
+  title: "Contact Best Digital Market | Website Design & SEO Company Noida",
+  description:
+    "Contact Best Digital Market for SEO-friendly website design, digital marketing, local SEO, Google Ads, software, CRM and lead generation in Noida, Greater Noida, Delhi NCR and India.",
+  keywords: [
+    "contact website design company Noida",
+    "contact SEO company Greater Noida",
+    "digital marketing consultation Noida",
+    "Best Digital Market contact",
+  ],
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 export default function ContactPage() {
@@ -23,8 +33,8 @@ export default function ContactPage() {
     <main className="relative z-10 overflow-hidden text-white">
       <PageHero
         eyebrow="Contact"
-        title="Let’s plan your complete digital and technology system."
-        description="Tell us what you want to build. We help with websites, software, apps, CRM, hosting, deployment, marketing and ongoing support across India."
+        title="Let’s plan your SEO-friendly website, marketing or software project."
+        description="Tell us what you want to build. We help with websites, SEO, Google Ads, software, apps, CRM, hosting, deployment and ongoing support across Noida, Greater Noida, Delhi NCR, Mumbai, Pune, Chandigarh and India."
       />
       <section className="px-5 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.85fr_1.15fr]">
@@ -44,7 +54,7 @@ export default function ContactPage() {
               );
             })}
             <div className="holo-panel rounded-[2rem] border border-teal-300/15 p-5 text-slate-300">
-              <strong className="text-white">Service Area:</strong> All over India. Priority local focus: Noida, Greater Noida and Delhi NCR.
+              <strong className="text-white">Service Area:</strong> All over India. Priority local focus: Noida, Greater Noida, Delhi NCR, Mumbai, Pune and Chandigarh.
             </div>
           </div>
           <Reveal delay={0.1}>

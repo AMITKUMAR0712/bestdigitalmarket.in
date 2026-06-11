@@ -6,6 +6,9 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Terms and Conditions",
   description: `Terms and conditions for using ${siteConfig.name} services and website.`,
+  alternates: {
+    canonical: "/terms",
+  },
 };
 
 const terms = [

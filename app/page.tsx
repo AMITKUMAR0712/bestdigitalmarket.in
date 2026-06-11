@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { FiArrowRight, FiAward, FiBarChart2, FiMapPin, FiMousePointer, FiPhoneCall, FiStar, FiZap } from "react-icons/fi";
 import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
@@ -11,12 +12,30 @@ import { TechIconCloud } from "@/components/TechIconCloud";
 import { caseStudies, serviceCategories, testimonials } from "@/lib/data";
 import { callLink, siteConfig, whatsappLink } from "@/lib/site";
 
+export const metadata: Metadata = {
+  title: "Best Web Design Company in Noida | SEO & Digital Marketing Agency",
+  description:
+    "Best Digital Market builds SEO-friendly websites, custom software, CRM and lead generation systems for Noida, Greater Noida, Delhi NCR, Mumbai, Pune, Chandigarh and India.",
+  keywords: [
+    "best web design company in Noida",
+    "best web design company in Greater Noida",
+    "digital marketing agency in Noida",
+    "SEO friendly website development",
+    "web design and SEO company in Noida",
+    "Best Digital Market",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+};
+
 export default function Home() {
   return (
     <main className="relative z-10 overflow-hidden bg-transparent text-white">
       <HeroSection />
       <TechIconCloud compact />
       <ServicesSection />
+      <LocalSeoSection />
       <CaseStudies />
       <TestimonialsSection />
       <ContactSection />
@@ -89,6 +108,60 @@ function HeroSection() {
         <Reveal delay={0.15}>
           <HeroPreview />
         </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function LocalSeoSection() {
+  const cityClusters = [
+    {
+      title: "Noida & Greater Noida",
+      text: "SEO-friendly website design, local SEO, Google Business Profile optimization, web design and SEO services for service businesses, startups, hotels, clinics, real estate and local brands.",
+    },
+    {
+      title: "Delhi NCR & Uttar Pradesh",
+      text: "Technical SEO, lead generation landing pages, custom software, CRM systems, Google Ads and performance marketing built for competitive NCR searches.",
+    },
+    {
+      title: "Mumbai, Pune & Chandigarh",
+      text: "Remote-first website development, digital marketing, AEO/GEO SEO readiness and conversion-focused campaigns for growing businesses across major Indian markets.",
+    },
+  ];
+
+  const keywordPillars = [
+    "Best web design company",
+    "SEO friendly website development",
+    "Local SEO services",
+    "AEO / GEO search optimization",
+    "Google Ads lead generation",
+    "Custom software & CRM",
+  ];
+
+  return (
+    <section className="relative px-4 py-8 sm:px-6 sm:py-10 lg:px-10 lg:py-12">
+      <div className="absolute inset-x-10 top-14 h-72 rounded-full bg-teal-300/10 blur-3xl" />
+      <div className="relative mx-auto max-w-7xl">
+        <SectionHeader
+          eyebrow="SEO Focus Areas"
+          title="Built for high-intent searches across Noida, Greater Noida and India."
+          description="Best Digital Market combines web design, on-page SEO, technical SEO, local search optimization and lead generation so your website is structured to rank, load fast and convert enquiries."
+        />
+        <div className="mt-8 grid gap-4 lg:grid-cols-3">
+          {cityClusters.map((cluster) => (
+            <article key={cluster.title} className="premium-card rounded-[1.7rem] border border-white/10 bg-white/[0.05] p-5 shadow-xl shadow-slate-950/25">
+              <h3 className="text-xl font-black text-teal-200">{cluster.title}</h3>
+              <p className="mt-3 leading-7 text-slate-300">{cluster.text}</p>
+            </article>
+          ))}
+        </div>
+        <div className="mt-5 flex flex-wrap justify-center gap-2">
+          {keywordPillars.map((pillar) => (
+            <span key={pillar} className="rounded-full border border-teal-300/20 bg-teal-300/10 px-4 py-2 text-sm font-bold text-teal-100">
+              {pillar}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );

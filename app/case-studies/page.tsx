@@ -5,8 +5,19 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { caseStudies } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Website, Software & Digital Marketing Case Studies",
-  description: "Explore website development, CRM software, fleet platform, hotel website, mobile app, DevOps, testing and digital marketing project case studies.",
+  title: "SEO Website, Software & Digital Marketing Case Studies",
+  description:
+    "Explore SEO-friendly website development, CRM software, hotel SEO, fleet platform, mobile app, DevOps, testing and digital marketing project case studies for Indian businesses.",
+  keywords: [
+    "website development case studies India",
+    "SEO case studies Noida",
+    "digital marketing case studies India",
+    "CRM software project India",
+    "lead generation case studies",
+  ],
+  alternates: {
+    canonical: "/case-studies",
+  },
 };
 
 export default function CaseStudiesPage() {
@@ -14,8 +25,8 @@ export default function CaseStudiesPage() {
     <main className="relative z-10 overflow-hidden text-white">
       <PageHero
         eyebrow="Projects & Case Studies"
-        title="Website, software and marketing projects built for real businesses."
-        description="Explore fleet, hotel, government-style portal, CRM software, mobile app, DevOps, testing and digital marketing projects delivered with practical business outcomes."
+        title="SEO websites, software and marketing projects built for real businesses."
+        description="Explore fleet, hotel, government-style portal, CRM software, mobile app, DevOps, testing, local SEO and digital marketing projects delivered with practical business outcomes."
       />
       <section className="px-5 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2">
