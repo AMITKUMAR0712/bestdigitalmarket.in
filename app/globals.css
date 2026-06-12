@@ -30,6 +30,11 @@ a {
   text-decoration: none;
 }
 
+main > section:not(#home) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
 ::selection {
   background: rgba(34, 211, 238, 0.35);
   color: #ffffff;
@@ -782,6 +787,32 @@ details summary::-webkit-details-marker {
 .css-globe-orb,
 .review-card {
   animation: none !important;
+}
+
+@media (max-width: 767px) {
+  .ai-neural-grid,
+  .hero-star-layer,
+  .hero-shooting-star {
+    display: none !important;
+  }
+
+  .soft-orb {
+    filter: blur(28px);
+    opacity: 0.42;
+    will-change: auto;
+  }
+
+  .holo-panel,
+  .hero-mobile-shell,
+  .premium-card,
+  .tech-icon-card,
+  .review-card {
+    backdrop-filter: none !important;
+  }
+
+  .blur-3xl {
+    filter: blur(28px);
+  }
 }
 
 @keyframes drift {

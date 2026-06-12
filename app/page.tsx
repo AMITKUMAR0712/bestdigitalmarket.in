@@ -5,6 +5,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { LiquidHeroBackground } from "@/components/LiquidHeroBackground";
 import { Reveal } from "@/components/Reveal";
 import { ReviewCarousel } from "@/components/ReviewCarousel";
+import { ScrollToContactButton } from "@/components/ScrollToContactButton";
 import { SectionHeader } from "@/components/SectionHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
@@ -15,14 +16,14 @@ import { callLink, siteConfig, whatsappLink } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Best Web Design Company in Noida | SEO & Digital Marketing Agency",
   description:
-    "Best Digital Market builds SEO-friendly websites, custom software, CRM and lead generation systems for Noida, Greater Noida, Delhi NCR, Mumbai, Pune, Chandigarh and India.",
+    "TradeOrbit Global builds SEO-friendly websites, custom software, CRM and lead generation systems for Noida, Greater Noida, Delhi NCR, Mumbai, Pune, Chandigarh and India.",
   keywords: [
     "best web design company in Noida",
     "best web design company in Greater Noida",
     "digital marketing agency in Noida",
     "SEO friendly website development",
     "web design and SEO company in Noida",
-    "Best Digital Market",
+    "TradeOrbit Global",
   ],
   alternates: {
     canonical: "/",
@@ -46,7 +47,7 @@ export default function Home() {
 
 function HeroSection() {
   return (
-    <section id="home" className="relative min-h-[100svh] overflow-hidden px-4 pb-8 pt-20 sm:px-6 sm:pb-10 sm:pt-28 lg:px-10 lg:pb-6 lg:pt-24">
+    <section id="home" className="relative min-h-[100svh] overflow-hidden px-4 pb-8 pt-44 sm:px-6 sm:pb-10 sm:pt-40 lg:px-10 lg:pb-6 lg:pt-32">
       <LiquidHeroBackground />
       <SiteNav />
 
@@ -86,9 +87,7 @@ function HeroSection() {
               })}
             </div>
             <div className="mt-4 flex flex-col gap-3 sm:mt-5 sm:flex-row sm:justify-center lg:justify-start xl:mt-6">
-              <a href="https://ramhari-enterprises-com.vercel.app/" target="_blank" rel="noreferrer" className="cta-glow group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-teal-200 via-cyan-200 to-fuchsia-300 px-6 py-3.5 text-sm font-black text-slate-950 transition hover:scale-105 sm:min-h-0 sm:rounded-full sm:px-7 sm:py-4 sm:text-base">
-                Start Your Project <FiArrowRight className="transition group-hover:translate-x-1" />
-              </a>
+              <ScrollToContactButton />
               <a href={whatsappLink} target="_blank" rel="noreferrer" className="inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/[0.08] px-6 py-3.5 text-sm font-bold text-white shadow-xl shadow-emerald-950/20 backdrop-blur-xl transition hover:scale-105 hover:border-emerald-300/60 hover:bg-emerald-300/10 sm:min-h-0 sm:rounded-full sm:px-7 sm:py-4 sm:text-base">
                 WhatsApp Consultation
               </a>
@@ -145,7 +144,7 @@ function LocalSeoSection() {
         <SectionHeader
           eyebrow="SEO Focus Areas"
           title="Built for high-intent searches across Noida, Greater Noida and India."
-          description="Best Digital Market combines web design, on-page SEO, technical SEO, local search optimization and lead generation so your website is structured to rank, load fast and convert enquiries."
+          description="TradeOrbit Global combines web design, on-page SEO, technical SEO, local search optimization and lead generation so your website is structured to rank, load fast and convert enquiries."
         />
         <div className="mt-8 grid gap-4 lg:grid-cols-3">
           {cityClusters.map((cluster) => (
@@ -337,7 +336,7 @@ function TestimonialsSection() {
 
 function ContactSection() {
   return (
-    <section id="contact" className="relative px-4 py-8 sm:px-6 sm:py-10 lg:px-10 lg:py-12">
+    <section id="contact" className="relative scroll-mt-36 px-4 py-8 sm:scroll-mt-40 sm:px-6 sm:py-10 lg:scroll-mt-32 lg:px-10 lg:py-12">
       <div className="absolute inset-x-0 bottom-0 h-72 bg-teal-500/12 blur-3xl" />
       <div className="absolute right-10 top-16 h-56 w-56 rounded-full bg-fuchsia-500/12 blur-3xl" />
       <div className="relative mx-auto grid max-w-7xl gap-6 lg:grid-cols-[0.82fr_1.18fr]">

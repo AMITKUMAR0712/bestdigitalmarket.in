@@ -68,13 +68,17 @@ export function LiquidHeroBackground() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    const saveData = "connection" in navigator && Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData);
 
-    if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (!canvas || prefersReducedMotion || isMobile || saveData) {
       return;
     }
 
     let app: LiquidBackgroundApp | null = null;
     let cancelled = false;
+    let cancelScheduledInit = () => {};
 
     async function initLiquidBackground() {
       try {
@@ -100,10 +104,22 @@ export function LiquidHeroBackground() {
       }
     }
 
-    initLiquidBackground();
+    const scheduleInit = () => {
+      if ("requestIdleCallback" in window) {
+        const idleHandle = window.requestIdleCallback(() => initLiquidBackground(), { timeout: 2200 });
+        cancelScheduledInit = () => window.cancelIdleCallback(idleHandle);
+        return;
+      }
+
+      const timeoutHandle = globalThis.setTimeout(initLiquidBackground, 1200);
+      cancelScheduledInit = () => globalThis.clearTimeout(timeoutHandle);
+    };
+
+    scheduleInit();
 
     return () => {
       cancelled = true;
+      cancelScheduledInit();
       app?.destroy?.();
       app?.dispose?.();
       app = null;

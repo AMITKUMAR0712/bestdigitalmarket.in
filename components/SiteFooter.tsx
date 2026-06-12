@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FiFacebook, FiGithub, FiInstagram, FiLinkedin } from "react-icons/fi";
+import { BrandLogo } from "@/components/BrandLogo";
 import { FooterSandCanvas } from "@/components/FooterSandCanvas";
 import { siteConfig } from "@/lib/site";
 
@@ -34,11 +35,9 @@ export function SiteFooter() {
       <div className="absolute inset-x-0 top-0 z-0 h-32 bg-teal-300/10 blur-3xl" />
       <div className="relative z-10 mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1.15fr_0.75fr_0.8fr_1fr]">
         <div className="holo-panel luxury-border rounded-[1.7rem] border border-white/10 p-5">
-          <h2 className="text-2xl font-black">
-            Digital<span className="text-teal-300"> Future</span><span className="ml-1 text-xs font-black text-fuchsia-300">AI</span>
-          </h2>
+          <BrandLogo />
           <p className="mt-4 max-w-sm leading-7 text-slate-400">
-            Best Digital Market by Digital Future provides end-to-end technology services for businesses: SEO-friendly website development, software, CRM, mobile apps, hosting, deployment, digital marketing and ongoing improvement.
+            TradeOrbit Global provides end-to-end technology services for businesses: SEO-friendly website development, software, CRM, mobile apps, hosting, deployment, digital marketing and ongoing improvement.
           </p>
           <a
             href={siteConfig.mapUrl}

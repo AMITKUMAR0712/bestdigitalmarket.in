@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
+import { BrandLogo } from "@/components/BrandLogo";
 import { callLink } from "@/lib/site";
 
 const links = [
@@ -20,10 +21,8 @@ export function SiteNav() {
 
   return (
     <div className="fixed inset-x-0 top-3 z-[80] px-3 sm:top-5 sm:px-6 lg:px-10">
-      <nav className="nav-float luxury-border holo-panel mx-auto flex max-w-7xl items-center justify-between rounded-[1.7rem] border border-white/10 px-3 py-2.5 backdrop-blur-2xl sm:px-4 sm:py-3">
-        <Link href="/" className="reveal-line text-base font-black tracking-tight sm:text-lg">
-          Digital<span className="text-teal-300"> Future</span><span className="ml-1 text-[10px] font-black text-fuchsia-300">AI</span>
-        </Link>
+      <nav className="nav-float luxury-border holo-panel mx-auto flex max-w-7xl items-center justify-between rounded-[1.7rem] border border-white/10 bg-slate-950/35 px-3 py-2.5 backdrop-blur-xl sm:px-4 sm:py-3">
+        <BrandLogo compact className="reveal-line" />
         <div className="hidden items-center gap-1 text-xs text-slate-300 lg:flex xl:gap-4 xl:text-sm">
           {links.map((link) => (
             <Link key={link.href} href={link.href} className="rounded-full px-2.5 py-2 transition hover:bg-white/10 hover:text-teal-200 xl:px-3">

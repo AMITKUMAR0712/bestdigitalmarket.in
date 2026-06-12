@@ -8,14 +8,14 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { aboutPoints, stats, whyChooseUs } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "About Best Digital Market | Web Design & SEO Expert in Greater Noida",
+  title: "About TradeOrbit Global | Web Design & SEO Expert in Greater Noida",
   description:
-    "Meet Amit Kumar Talan and Best Digital Market by Digital Future, a Greater Noida based team for SEO-friendly website design, digital marketing, software, CRM and IT solutions.",
+    "Meet Amit Kumar Talan and TradeOrbit Global, a Greater Noida based team for SEO-friendly website design, digital marketing, software, CRM and IT solutions.",
   keywords: [
     "web design expert Greater Noida",
     "SEO expert Greater Noida",
     "digital marketing consultant Noida",
-    "Best Digital Market founder",
+    "TradeOrbit Global founder",
     "Amit Kumar Talan",
   ],
   alternates: {
@@ -80,7 +80,7 @@ export default function AboutPage() {
               <div className="relative min-h-[430px] overflow-hidden rounded-[1.8rem] bg-slate-950 sm:min-h-[560px] lg:min-h-[620px]">
                 <Image
                   src="/amit-kumar-talan-founder.png"
-                  alt="Amit Kumar Talan, founder of Ramhari Enterprises"
+                  alt="Amit Kumar Talan, founder of TradeOrbit Global"
                   fill
                   priority
                   className="object-cover object-center"
@@ -98,7 +98,7 @@ export default function AboutPage() {
                 <div className="absolute bottom-4 left-4 right-4 rounded-3xl border border-white/10 bg-slate-950/76 p-5 backdrop-blur-xl sm:bottom-5 sm:left-5 sm:right-5">
                   <p className="text-xs font-black uppercase tracking-[0.25em] text-teal-300">Founder</p>
                   <h2 className="mt-2 text-2xl font-black text-white">Amit Kumar Talan</h2>
-                  <p className="mt-2 text-sm font-semibold text-fuchsia-200">Ramhari Enterprises Company</p>
+                  <p className="mt-2 text-sm font-semibold text-fuchsia-200">TradeOrbit Global</p>
                   <p className="mt-3 text-sm leading-6 text-slate-300">
                     Building practical digital products for businesses that need trust, speed and reliable technical execution.
                   </p>
@@ -112,7 +112,7 @@ export default function AboutPage() {
                 align="left"
                 eyebrow="Founder Profile"
                 title="Hands-on knowledge across marketing, software and complete technology delivery."
-                description="Amit Kumar Talan brings 5+ years of practical experience across digital marketing, website design, full-stack development, AI software, DevOps, testing, hosting and deployment. Ramhari Enterprises is built for businesses that need one dependable team from planning to launch."
+                description="Amit Kumar Talan brings 5+ years of practical experience across digital marketing, website design, full-stack development, AI software, DevOps, testing, hosting and deployment. TradeOrbit Global is built for businesses that need one dependable team from planning to launch."
               />
               <div className="mt-7 grid gap-3 sm:grid-cols-2">
                 {founderSkills.map((skill) => (
@@ -141,7 +141,7 @@ export default function AboutPage() {
           <SectionHeader
             eyebrow="Complete Support"
             title="One team for strategy, software, launch and growth."
-            description="Instead of managing separate vendors for website design, software development, marketing, hosting and deployment, Ramhari Enterprises brings the complete execution system together."
+            description="Instead of managing separate vendors for website design, software development, marketing, hosting and deployment, TradeOrbit Global brings the complete execution system together."
           />
           <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
             {supportPillars.map((pillar, index) => {

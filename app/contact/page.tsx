@@ -7,14 +7,14 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { callLink, siteConfig, whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact Best Digital Market | Website Design & SEO Company Noida",
+  title: "Contact TradeOrbit Global | Website Design & SEO Company Noida",
   description:
-    "Contact Best Digital Market for SEO-friendly website design, digital marketing, local SEO, Google Ads, software, CRM and lead generation in Noida, Greater Noida, Delhi NCR and India.",
+    "Contact TradeOrbit Global for SEO-friendly website design, digital marketing, local SEO, Google Ads, software, CRM and lead generation in Noida, Greater Noida, Delhi NCR and India.",
   keywords: [
     "contact website design company Noida",
     "contact SEO company Greater Noida",
     "digital marketing consultation Noida",
-    "Best Digital Market contact",
+    "TradeOrbit Global contact",
   ],
   alternates: {
     canonical: "/contact",

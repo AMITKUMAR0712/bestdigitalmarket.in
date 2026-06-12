@@ -1,10 +1,10 @@
 export const siteConfig = {
-  name: "Digital Future",
+  name: "TradeOrbit Global",
   url: "https://www.bestdigitalmarket.in",
-  domainName: "Best Digital Market",
+  domainName: "TradeOrbit Global",
   title: "Best Web Design Company, SEO & Digital Marketing Agency in Noida",
   description:
-    "Best Digital Market by Digital Future provides SEO-friendly website design, web development, software, CRM, SEO, Google Ads and lead generation services for Noida, Greater Noida, Delhi NCR, Mumbai, Pune, Chandigarh and India.",
+    "TradeOrbit Global provides SEO-friendly website design, web development, software, CRM, SEO, Google Ads and lead generation services for Noida, Greater Noida, Delhi NCR, Mumbai, Pune, Chandigarh and India.",
   callNumber: "9992196879",
   whatsappNumber: "9350031246",
   email: "amit.tech1970@gmail.com",

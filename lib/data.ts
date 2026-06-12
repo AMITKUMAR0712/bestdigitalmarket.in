@@ -53,7 +53,7 @@ export const brands = [
   "Elite Fashion",
   "Bharat Connect",
   "Travel Hive",
-  "Digital Future",
+  "TradeOrbit Global",
 ];
 
 export const aboutPoints = [
@@ -395,7 +395,7 @@ export const faqs = [
   {
     question: "Are you the best web design company in Noida or Greater Noida?",
     answer:
-      "Best Digital Market focuses on SEO-friendly website design, fast loading pages, conversion-focused content and clean technical foundations for businesses in Noida, Greater Noida and Delhi NCR. The right web design company should build a website that looks professional, ranks better and generates enquiries, not just a good-looking layout.",
+      "TradeOrbit Global focuses on SEO-friendly website design, fast loading pages, conversion-focused content and clean technical foundations for businesses in Noida, Greater Noida and Delhi NCR. The right web design company should build a website that looks professional, ranks better and generates enquiries, not just a good-looking layout.",
   },
   {
     question: "Which low-competition SEO keywords should a local business target first?",
@@ -405,7 +405,7 @@ export const faqs = [
   {
     question: "Which is the best digital marketing agency in Delhi NCR for lead generation?",
     answer:
-      "The best agency is one that understands your business model, tracks every conversion and builds a channel mix around profitable leads. Best Digital Market by Digital Future focuses on SEO, Google Ads, Meta Ads, landing pages and WhatsApp follow-up systems for Delhi NCR businesses.",
+      "The best agency is one that understands your business model, tracks every conversion and builds a channel mix around profitable leads. TradeOrbit Global focuses on SEO, Google Ads, Meta Ads, landing pages and WhatsApp follow-up systems for Delhi NCR businesses.",
   },
   {
     question: "Do you provide SEO services in Noida, Greater Noida, Mumbai, Pune and Chandigarh?",

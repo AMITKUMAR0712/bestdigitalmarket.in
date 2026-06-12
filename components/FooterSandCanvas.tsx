@@ -72,6 +72,8 @@ export function FooterSandCanvas() {
     let animationId = 0;
     let isRunning = false;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    const saveData = "connection" in navigator && Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData);
 
     const index = (col: number, row: number) => row * cols + col;
     const colFromIndex = (i: number) => i % cols;
@@ -535,7 +537,7 @@ export function FooterSandCanvas() {
     };
 
     const startAnimation = () => {
-      if (reduceMotion || isRunning) return;
+      if (isRunning) return;
       isRunning = true;
       lastTime = performance.now();
       animationId = requestAnimationFrame(tick);
@@ -550,6 +552,12 @@ export function FooterSandCanvas() {
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(parent);
     resize();
+
+    if (reduceMotion || isMobile || saveData) {
+      return () => {
+        resizeObserver.disconnect();
+      };
+    }
 
     const intersectionObserver = new IntersectionObserver(
       ([entry]) => {

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     "website design reviews Noida",
     "SEO agency reviews India",
     "digital marketing client testimonials",
-    "Best Digital Market reviews",
+    "TradeOrbit Global reviews",
   ],
   alternates: {
     canonical: "/testimonials",

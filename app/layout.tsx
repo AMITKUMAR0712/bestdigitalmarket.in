@@ -43,7 +43,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Best Digital Market - SEO friendly website design and digital marketing agency in Noida",
+        alt: "TradeOrbit Global - SEO friendly website design and digital marketing agency in Noida",
       },
     ],
   },
