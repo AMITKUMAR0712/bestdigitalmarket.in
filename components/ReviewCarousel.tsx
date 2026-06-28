@@ -52,27 +52,27 @@ export function ReviewCarousel({ reviews }: ReviewCarouselProps) {
       {reviews.map((testimonial, index) => (
         <figure
           key={`${testimonial.name}-${testimonial.company}`}
-          className="review-card min-w-[235px] max-w-[235px] rounded-[1.4rem] border border-white/10 bg-slate-950/60 p-4 shadow-xl shadow-slate-950/25 backdrop-blur-xl transition hover:-translate-y-1 hover:border-teal-300/35 sm:min-w-[260px] sm:max-w-[260px]"
+          className="review-card min-w-[235px] max-w-[235px] rounded-[1.4rem] border border-[var(--border-warm)] bg-white p-4 shadow-soft transition hover:-translate-y-1 hover:border-terracotta/30 sm:min-w-[260px] sm:max-w-[260px]"
           style={{ animationDelay: `${index * 120}ms` }}
         >
           <figcaption className="flex items-center gap-3">
-            <div className="relative grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-pink-500 to-fuchsia-500 text-sm font-black text-white">
+            <div className="relative grid h-10 w-10 place-items-center rounded-full bg-terracotta/10 text-sm font-black text-terracotta">
               {testimonial.name.split(" ").map((part) => part[0]).join("")}
-              <span className="absolute -bottom-1 -right-1 grid h-5 w-5 place-items-center rounded-full bg-white text-[10px] font-black text-[#4285f4]">G</span>
+              <span className="absolute -bottom-1 -right-1 grid h-5 w-5 place-items-center rounded-full bg-white text-[10px] font-black text-[#4285f4] shadow-sm">G</span>
             </div>
             <div className="min-w-0">
-              <p className="truncate text-sm font-black text-white">{testimonial.name}</p>
-              <p className="text-xs font-semibold text-slate-400">{index + 1} month ago</p>
+              <p className="truncate text-sm font-black text-charcoal">{testimonial.name}</p>
+              <p className="text-xs font-semibold text-charcoal-light">{index + 1} month ago</p>
             </div>
-            <span className="ml-auto rounded-full bg-sky-400 px-1.5 py-0.5 text-[9px] font-black text-white">✓</span>
+            <span className="ml-auto rounded-full bg-sky-100 px-1.5 py-0.5 text-[9px] font-black text-sky-600">✓</span>
           </figcaption>
-          <div className="mt-4 flex gap-0.5 text-amber-300">
+          <div className="mt-4 flex gap-0.5 text-amber-400">
             {Array.from({ length: testimonial.rating }).map((_, starIndex) => (
               <FiStar key={starIndex} className="text-sm" fill="currentColor" />
             ))}
           </div>
-          <blockquote className="mt-3 line-clamp-4 text-sm leading-6 text-slate-300">{testimonial.review}</blockquote>
-          <p className="mt-2 text-sm font-bold text-sky-300">Read more</p>
+          <blockquote className="mt-3 line-clamp-4 text-sm leading-6 text-charcoal-light">{testimonial.review}</blockquote>
+          <p className="mt-2 text-sm font-bold text-terracotta">Read more</p>
         </figure>
       ))}
     </div>

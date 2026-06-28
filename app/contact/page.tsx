@@ -4,6 +4,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { SiteFooter } from "@/components/SiteFooter";
+import { TrustBar } from "@/components/TrustBar";
 import { callLink, siteConfig, whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -30,12 +31,14 @@ export default function ContactPage() {
   ];
 
   return (
-    <main className="relative z-10 overflow-hidden text-white">
+    <main className="relative z-10 overflow-hidden bg-cream text-charcoal">
       <PageHero
+        category="contact"
         eyebrow="Contact"
-        title="Let’s plan your SEO-friendly website, marketing or software project."
+        title="Let's plan your complete digital growth journey."
         description="Tell us what you want to build. We help with websites, SEO, Google Ads, software, apps, CRM, hosting, deployment and ongoing support across Noida, Greater Noida, Delhi NCR, Mumbai, Pune, Chandigarh and India."
       />
+      <TrustBar compact showBadges={false} />
       <section className="px-5 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.85fr_1.15fr]">
           <div className="space-y-4">
@@ -43,18 +46,18 @@ export default function ContactPage() {
               const Icon = card.icon;
               return (
                 <Reveal key={card.label} delay={index * 0.05}>
-                  <a href={card.href} target={card.href.startsWith("http") ? "_blank" : undefined} rel={card.href.startsWith("http") ? "noreferrer" : undefined} className="premium-card magnetic-glow flex items-center gap-4 rounded-3xl border border-white/10 bg-white/[0.05] p-5 hover:border-teal-300/40">
-                    <Icon className="text-2xl text-teal-300" />
+                  <a href={card.href} target={card.href.startsWith("http") ? "_blank" : undefined} rel={card.href.startsWith("http") ? "noreferrer" : undefined} className="premium-card magnetic-glow flex items-center gap-4 rounded-3xl border border-[var(--border-warm)] p-5 hover:border-terracotta/30">
+                    <Icon className="text-2xl text-terracotta" />
                     <span>
-                      <span className="block text-sm text-slate-400">{card.label}</span>
-                      <span className="font-bold">{card.value}</span>
+                      <span className="block text-sm text-charcoal-light">{card.label}</span>
+                      <span className="font-bold text-charcoal">{card.value}</span>
                     </span>
                   </a>
                 </Reveal>
               );
             })}
-            <div className="holo-panel rounded-[2rem] border border-teal-300/15 p-5 text-slate-300">
-              <strong className="text-white">Service Area:</strong> All over India. Priority local focus: Noida, Greater Noida, Delhi NCR, Mumbai, Pune and Chandigarh.
+            <div className="rounded-[2rem] border border-terracotta/15 bg-terracotta/5 p-5 text-charcoal-light">
+              <strong className="text-charcoal">Service Area:</strong> All over India. Priority local focus: Noida, Greater Noida, Delhi NCR, Mumbai, Pune and Chandigarh.
             </div>
           </div>
           <Reveal delay={0.1}>

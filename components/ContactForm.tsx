@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { serviceCategories } from "@/lib/data";
+import { serviceCategories, companyTrust } from "@/lib/data";
 import { siteConfig } from "@/lib/site";
 
 type FormState = {
@@ -101,14 +101,15 @@ export function ContactForm() {
   }
 
   const inputClass =
-    "w-full rounded-2xl border border-white/10 bg-slate-950/50 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-500 hover:border-teal-300/30 hover:bg-white/[0.06] focus:border-teal-300/70 focus:bg-white/[0.08] focus:ring-4 focus:ring-teal-300/10";
+    "w-full rounded-xl border border-[var(--border-warm)] bg-cream-50 px-3.5 py-3 text-[14px] text-charcoal outline-none transition placeholder:text-charcoal-light/60 hover:border-terracotta/30 focus:border-terracotta/50 focus:bg-white focus:ring-4 focus:ring-terracotta/10";
 
   return (
-    <form onSubmit={handleSubmit} className="holo-panel luxury-border rounded-[1.8rem] border border-white/10 p-4 shadow-2xl shadow-teal-950/40 backdrop-blur-2xl sm:p-6">
-      <div className="mb-5 rounded-[1.5rem] border border-teal-300/15 bg-teal-300/10 p-4">
-        <p className="text-sm font-semibold uppercase tracking-[0.28em] text-teal-300">Technology Consultation</p>
-        <h3 className="mt-2 text-2xl font-black text-white">Get a free expert consultation</h3>
-        <p className="mt-2 text-sm leading-6 text-slate-300">Tell us what you want to build. We will review your requirement and suggest the right modern website, software, automation system or growth solution.</p>
+    <form onSubmit={handleSubmit} className="rounded-2xl border border-[var(--border-warm)] bg-white p-4 shadow-card sm:p-5">
+      <div className="mb-4 rounded-2xl border border-terracotta/15 bg-terracotta/5 p-3.5 sm:p-4">
+        <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-terracotta">End-to-End Consultation</p>
+        <h3 className="mt-1.5 text-lg font-bold text-charcoal sm:text-xl">Get a free expert consultation</h3>
+        <p className="mt-2 text-[13px] leading-5 text-charcoal-light">Tell us what you want to build. Trusted by {companyTrust.happyClients} clients · {companyTrust.yearsExperience} years experience · free honest consultation.</p>
+        <p className="mt-2 text-[11px] font-medium text-terracotta/90">✓ {companyTrust.onTimeDelivery} on-time delivery · ✓ {companyTrust.googleRating}★ Google rating · ✓ Direct founder support</p>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
         <input className={inputClass} value={form.name} onChange={(event) => updateField("name", event.target.value)} placeholder="Name" aria-label="Name" />
@@ -116,11 +117,11 @@ export function ContactForm() {
         <input className={inputClass} value={form.email} onChange={(event) => updateField("email", event.target.value)} placeholder="Email" aria-label="Email" />
         <input className={inputClass} value={form.business} onChange={(event) => updateField("business", event.target.value)} placeholder="Business Name" aria-label="Business Name" />
         <select className={`${inputClass} sm:col-span-2`} value={form.service} onChange={(event) => updateField("service", event.target.value)} aria-label="Service Interested In">
-          <option value="" className="bg-slate-950">
+          <option value="" className="bg-white">
             Service Interested In
           </option>
           {services.map((service) => (
-            <option key={service} value={service} className="bg-slate-950">
+            <option key={service} value={service} className="bg-white">
               {service}
             </option>
           ))}
@@ -136,22 +137,22 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="cta-glow mt-4 w-full rounded-2xl bg-gradient-to-r from-teal-200 via-cyan-200 to-fuchsia-300 px-6 py-3.5 font-black text-slate-950 transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
+        className="cta-glow mt-4 w-full rounded-full bg-terracotta px-6 py-3.5 font-bold text-white transition hover:bg-terracotta-600 disabled:cursor-not-allowed disabled:opacity-70"
       >
         {status === "loading" ? "Sending..." : "Request Free Consultation"}
       </button>
       {status === "success" && (
-        <div className="mt-4 rounded-2xl border border-emerald-300/20 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200">
+        <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
           <p>Thank you. Your message has been sent successfully. Our team will contact you as soon as possible. For urgent support, please call +91 {siteConfig.callNumber}.</p>
           {whatsappLeadLink && (
-            <a href={whatsappLeadLink} target="_blank" rel="noreferrer" className="mt-3 inline-flex rounded-full bg-emerald-300 px-4 py-2 font-bold text-emerald-950">
+            <a href={whatsappLeadLink} target="_blank" rel="noreferrer" className="mt-3 inline-flex rounded-full bg-[#25D366] px-4 py-2 font-bold text-white">
               Open WhatsApp Message
             </a>
           )}
         </div>
       )}
       {status === "error" && error && (
-        <p className="mt-4 rounded-2xl border border-rose-300/20 bg-rose-400/10 px-4 py-3 text-sm text-rose-200">{error}</p>
+        <p className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</p>
       )}
     </form>
   );

@@ -6,32 +6,35 @@ import { callLink, whatsappLink } from "@/lib/site";
 export function FloatingActions() {
   return (
     <>
-      <div className="fixed bottom-24 right-4 z-50 flex flex-col gap-4 sm:bottom-6 sm:right-6">
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noreferrer"
-          className="whatsapp-fab group flex h-14 w-14 items-center justify-center rounded-full bg-emerald-400 text-slate-950 shadow-2xl shadow-emerald-500/30 transition hover:scale-105"
-          aria-label="Chat on WhatsApp"
-        >
-          <FiMessageCircle className="text-2xl transition group-hover:rotate-12" />
-        </a>
-        <a
-          href={callLink}
-          className="call-fab group flex h-14 w-14 items-center justify-center rounded-full bg-cyan-300 text-slate-950 shadow-2xl shadow-cyan-500/30 transition hover:scale-105"
-          aria-label="Call now"
-        >
-          <FiPhoneCall className="text-2xl transition group-hover:rotate-12" />
-        </a>
-      </div>
-      <div className="fixed inset-x-3 bottom-3 z-40 grid grid-cols-2 gap-3 sm:hidden">
-        <a href="#contact" className="rounded-2xl bg-white px-4 py-3 text-center text-sm font-bold text-slate-950 shadow-xl">
-          Contact Us
-        </a>
-        <a href={whatsappLink} target="_blank" rel="noreferrer" className="rounded-2xl bg-gradient-to-r from-emerald-300 to-cyan-300 px-4 py-3 text-center text-sm font-bold text-slate-950 shadow-xl">
-          WhatsApp
-        </a>
-      </div>
+      <a
+        href="#contact"
+        className="fab-assistant fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] left-3 z-50 flex max-w-[11rem] items-center gap-2.5 rounded-2xl border border-[var(--border-warm)] bg-white py-2 pl-2 pr-3 shadow-card transition hover:scale-[1.02] sm:bottom-6 sm:left-6 lg:bottom-6"
+        aria-label="Get free consultation"
+      >
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-terracotta/10 text-terracotta">
+          <FiPhoneCall className="text-lg" />
+        </span>
+        <span>
+          <span className="block text-[11px] font-bold leading-tight text-charcoal">Free Consultation</span>
+          <span className="block text-[10px] leading-tight text-charcoal-light">Strategy • Services • Quote</span>
+        </span>
+      </a>
+
+      <a
+        href={whatsappLink}
+        target="_blank"
+        rel="noreferrer"
+        className="fab-whatsapp fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-3 z-50 flex items-center gap-2.5 rounded-2xl border border-[var(--border-warm)] bg-white py-2 pl-2 pr-3 shadow-card transition hover:scale-[1.02] sm:bottom-6 sm:right-6 lg:bottom-6"
+        aria-label="Chat on WhatsApp"
+      >
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#25D366] text-white">
+          <FiMessageCircle className="text-lg" />
+        </span>
+        <span className="hidden min-[380px]:block">
+          <span className="block text-[11px] font-bold leading-tight text-charcoal">WhatsApp</span>
+          <span className="block text-[10px] leading-tight text-charcoal-light">Instant reply</span>
+        </span>
+      </a>
     </>
   );
 }

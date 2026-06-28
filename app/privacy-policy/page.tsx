@@ -40,7 +40,7 @@ const privacyItems = [
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="relative z-10 overflow-hidden text-white">
+    <main className="relative z-10 overflow-hidden bg-cream text-charcoal">
       <PageHero
         eyebrow="Privacy"
         title="Privacy Policy"
@@ -49,9 +49,9 @@ export default function PrivacyPolicyPage() {
       <section className="px-5 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-4xl space-y-5">
           {privacyItems.map((item) => (
-            <article key={item.title} className="premium-card rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-6">
-              <h2 className="text-xl font-black text-white">{item.title}</h2>
-              <p className="mt-3 leading-7 text-slate-300">{item.text}</p>
+            <article key={item.title} className="premium-card rounded-[1.75rem] border border-[var(--border-warm)] p-6">
+              <h2 className="text-xl font-black text-charcoal">{item.title}</h2>
+              <p className="mt-3 leading-7 text-charcoal-light">{item.text}</p>
             </article>
           ))}
         </div>

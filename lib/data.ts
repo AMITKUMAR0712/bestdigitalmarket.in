@@ -16,11 +16,40 @@ import {
   FiZap,
 } from "react-icons/fi";
 
+export const companyTrust = {
+  yearsExperience: "7+",
+  happyClients: "150+",
+  projectsDelivered: "650+",
+  clientRetention: "98%",
+  googleRating: "4.9",
+  reviewCount: "65+",
+  campaignsManaged: "650+",
+  teamExperts: "12+",
+  citiesServed: "25+",
+  onTimeDelivery: "96%",
+};
+
 export const stats = [
-  { value: 500, suffix: "+", label: "Campaigns Managed" },
-  { value: 100, suffix: "+", label: "Happy Clients" },
-  { value: 5, suffix: "+", label: "Years Experience" },
-  { value: 95, suffix: "%", label: "Client Retention" },
+  { value: 650, suffix: "+", label: "Projects Delivered" },
+  { value: 150, suffix: "+", label: "Happy Clients" },
+  { value: 7, suffix: "+", label: "Years Experience" },
+  { value: 98, suffix: "%", label: "Client Retention" },
+];
+
+export const trustHighlights = [
+  { value: companyTrust.yearsExperience, label: "Years Experience" },
+  { value: companyTrust.happyClients, label: "Happy Clients" },
+  { value: companyTrust.projectsDelivered, label: "Projects Delivered" },
+  { value: `${companyTrust.googleRating}★`, label: "Google Rating" },
+];
+
+export const trustBadges = [
+  "Trusted Since 2018",
+  "NDA Protected Projects",
+  "On-Time Delivery",
+  "Direct Founder Support",
+  "Transparent Reporting",
+  "Post-Launch Support",
 ];
 
 export const brands = [
@@ -57,10 +86,10 @@ export const brands = [
 ];
 
 export const aboutPoints = [
-  "Digital Growth Experts",
-  "Data Driven Strategies",
-  "ROI Focused Campaigns",
-  "Dedicated Support",
+  "7+ Years Industry Experience",
+  "150+ Satisfied Clients",
+  "Trusted Delivery Process",
+  "Dedicated Project Support",
   "Transparent Reporting",
 ];
 
@@ -215,12 +244,12 @@ export const serviceCategories = [
 ];
 
 export const whyChooseUs = [
-  { title: "Result Driven", icon: FiTrendingUp, text: "Every campaign is measured against revenue, leads and growth goals." },
-  { title: "Experienced Team", icon: FiUsers, text: "Specialists across SEO, paid media, social, design, websites and analytics." },
-  { title: "Transparent Process", icon: FiShield, text: "Clear reporting, honest insights and no vanity-metric confusion." },
-  { title: "Affordable Pricing", icon: FiPieChart, text: "Premium execution with plans shaped around your business stage." },
-  { title: "Dedicated Support", icon: FiActivity, text: "Fast communication, proactive updates and a team that stays close." },
-  { title: "Custom Strategies", icon: FiLayers, text: "No copy-paste playbooks. Your market, offer and funnel lead the strategy." },
+  { title: "7+ Years Trusted", icon: FiTrendingUp, text: "Proven experience across websites, software, SEO and digital marketing for Indian businesses." },
+  { title: "150+ Happy Clients", icon: FiUsers, text: "Long-term relationships built on clear communication, quality delivery and measurable results." },
+  { title: "Secure & Transparent", icon: FiShield, text: "NDA protection, honest reporting and no hidden costs — you always know project status." },
+  { title: "Affordable Pricing", icon: FiPieChart, text: "Premium execution with plans shaped around your business stage and growth goals." },
+  { title: "Dedicated Support", icon: FiActivity, text: "Direct founder access, fast replies and reliable post-launch support when you need help." },
+  { title: "End-to-End Delivery", icon: FiLayers, text: "Strategy, design, development, marketing, hosting and support — one accountable team." },
 ];
 
 export const caseStudies = [
@@ -388,6 +417,324 @@ export const testimonials = [
     company: "EduPrime LMS",
     rating: 5,
     review: "We needed a professional education portal structure. Their team handled design, pages, lead forms and launch support smoothly.",
+  },
+  {
+    name: "Deepak Rana",
+    company: "Soho Liv PG",
+    rating: 5,
+    review: "They built our PG website with local SEO for Noida sectors. Enquiries started coming within weeks and the site looks very professional.",
+  },
+  {
+    name: "Meera Joshi",
+    company: "GreenEdge Solar",
+    rating: 5,
+    review: "Excellent Google Ads setup for our solar business. Lead quality improved and we finally understand which campaigns actually convert.",
+  },
+  {
+    name: "Rajesh Tiwari",
+    company: "BuildCraft Interiors",
+    rating: 5,
+    review: "Our new website loads fast and ranks for local interior design keywords in Noida. Clients compliment the design during every call.",
+  },
+  {
+    name: "Sonia Gupta",
+    company: "SkillBridge Academy",
+    rating: 5,
+    review: "Meta Ads and landing pages brought steady admission enquiries. Reporting is clear and the team responds quickly on WhatsApp.",
+  },
+  {
+    name: "Harsh Vardhan",
+    company: "Nexora Tech",
+    rating: 5,
+    review: "Custom software and admin dashboard delivered on time. Clean code, proper testing and helpful post-launch support.",
+  },
+  {
+    name: "Kavita Reddy",
+    company: "HealthFirst Diagnostics",
+    rating: 5,
+    review: "Local SEO and Google Business Profile optimization increased our walk-in and call enquiries. Very trustworthy team to work with.",
+  },
+  {
+    name: "Manish Agarwal",
+    company: "CityCare Services",
+    rating: 5,
+    review: "End-to-end service from website to CRM integration. Our enquiry follow-up process is now fully organized and trackable.",
+  },
+  {
+    name: "Pallavi Desai",
+    company: "Elite Fashion",
+    rating: 5,
+    review: "Instagram and Facebook campaigns improved our online sales. Creative testing and audience targeting were handled very professionally.",
+  },
+  {
+    name: "Rahul Khanna",
+    company: "Urban Civic Desk",
+    rating: 5,
+    review: "Government-style portal design was clean, accessible and easy to navigate. They understood compliance and user experience both.",
+  },
+  {
+    name: "Shreya Malhotra",
+    company: "YogSaathi",
+    rating: 5,
+    review: "Beautiful yoga studio website with class booking flow. SEO-friendly pages helped us rank for wellness searches in Greater Noida.",
+  },
+  {
+    name: "Tarun Bhatia",
+    company: "FleetOps India",
+    rating: 5,
+    review: "Fleet management website and lead forms work perfectly on mobile. Professional team with 7 years of experience really shows.",
+  },
+  {
+    name: "Nisha Verma",
+    company: "MedCloud Clinic",
+    rating: 5,
+    review: "Patient enquiry forms, service pages and fast loading speed — everything was done properly. We trust them for ongoing SEO too.",
+  },
+  {
+    name: "Gaurav Sinha",
+    company: "FinGrow Advisors",
+    rating: 5,
+    review: "LinkedIn ads and landing page optimization reduced our cost per lead by nearly 40%. Honest advice, no false promises.",
+  },
+  {
+    name: "Anjali Mehta",
+    company: "Niviha Homes",
+    rating: 5,
+    review: "Real estate website with project galleries and WhatsApp enquiry buttons. Direct leads increased and look much more qualified.",
+  },
+  {
+    name: "Vivek Sharma",
+    company: "TechNova Solutions",
+    rating: 5,
+    review: "Full-stack web app with MERN stack delivered as promised. Communication was transparent throughout the entire project.",
+  },
+  {
+    name: "Ritu Chawla",
+    company: "Travel Hive",
+    rating: 5,
+    review: "Travel package landing pages and Google Ads brought consistent bookings. They know how to target high-intent travel keywords.",
+  },
+  {
+    name: "Akash Yadav",
+    company: "QuickServe Logistics",
+    rating: 5,
+    review: "CRM for delivery tracking and customer follow-ups works smoothly. Best IT company we have worked with in Noida region.",
+  },
+  {
+    name: "Divya Nambiar",
+    company: "Bharat Connect",
+    rating: 5,
+    review: "Corporate website redesign improved our brand image instantly. SEO structure, speed and mobile experience all improved together.",
+  },
+  {
+    name: "Suresh Pillai",
+    company: "Avanta Hotel",
+    rating: 5,
+    review: "Hotel SEO and booking enquiry system helped reduce OTA dependency. Direct reservations grew month after month.",
+  },
+  {
+    name: "Komal Arora",
+    company: "SmartBiz Consultants",
+    rating: 5,
+    review: "Digital marketing retainer with monthly reports keeps us informed. Leads are tracked properly and campaigns keep improving.",
+  },
+  {
+    name: "Abhishek Roy",
+    company: "GovConnect Portal",
+    rating: 5,
+    review: "Complex portal requirements were handled step by step. Secure, scalable and user-friendly — exactly what we needed.",
+  },
+  {
+    name: "Tanvi Saxena",
+    company: "EduMentor",
+    rating: 5,
+    review: "Course pages, blog SEO and lead nurturing emails work together well. Our admission pipeline is much more predictable now.",
+  },
+  {
+    name: "Rohit Malhotra",
+    company: "Urban Realty",
+    rating: 5,
+    review: "Property listing website with filters and enquiry capture. Google ranking improved for multiple Noida locality keywords.",
+  },
+  {
+    name: "Priya Sood",
+    company: "HealthSphere Wellness",
+    rating: 5,
+    review: "Trusted partner for 2 years now. Website updates, SEO and social media — all handled by one reliable team.",
+  },
+  {
+    name: "Naveen Kulkarni",
+    company: "TrippyJiffy",
+    rating: 5,
+    review: "Remarketing campaigns recovered lost travel enquiries effectively. ROAS improved and ad spend is now much better controlled.",
+  },
+  {
+    name: "Swati Banerjee",
+    company: "Bohosaaz",
+    rating: 5,
+    review: "Brand website and content strategy made us look like a premium home decor company. Enquiries from Instagram doubled.",
+  },
+  {
+    name: "Imran Sheikh",
+    company: "Aaqafleet",
+    rating: 5,
+    review: "Second project with them — fleet tracking dashboard and marketing site. Consistent quality and on-time delivery every time.",
+  },
+  {
+    name: "Lakshmi Iyer",
+    company: "QuickBill ERP",
+    rating: 5,
+    review: "Billing software UI was intuitive for our staff. Training, deployment and bug fixes were handled patiently and professionally.",
+  },
+  {
+    name: "Varun Mehta",
+    company: "TradeOrbit Global",
+    rating: 5,
+    review: "Internal tools and marketing systems built with care. The team truly understands business goals, not just technical tasks.",
+  },
+  {
+    name: "Charu Bansal",
+    company: "Hotel Royal Stay",
+    rating: 5,
+    review: "Google Maps ranking improved after local SEO work. More guests now find us directly instead of only through aggregators.",
+  },
+  {
+    name: "Yogesh Pandey",
+    company: "MedCloud Clinic",
+    rating: 5,
+    review: "Appointment enquiry flow and doctor profile pages look trustworthy. Patients say they chose us because the website felt professional.",
+  },
+  {
+    name: "Aisha Khan",
+    company: "Elite Fashion",
+    rating: 5,
+    review: "Ecommerce tracking, pixel setup and conversion campaigns were done correctly from day one. Sales attribution is finally clear.",
+  },
+  {
+    name: "Devendra Singh",
+    company: "GreenEdge Solar",
+    rating: 5,
+    review: "Technical SEO audit fixed issues our old agency missed. Organic traffic grew steadily over 4 months without extra ad spend.",
+  },
+  {
+    name: "Rekha Menon",
+    company: "SkillBridge Academy",
+    rating: 5,
+    review: "YouTube ads and course landing pages brought quality student leads. Very professional, very responsive — highly recommended.",
+  },
+  {
+    name: "Sanjay Grover",
+    company: "BuildCraft Interiors",
+    rating: 5,
+    review: "Before and after project gallery and testimonial section increased client trust. Website enquiries now convert better on calls.",
+  },
+  {
+    name: "Fatima Ali",
+    company: "CityCare Services",
+    rating: 5,
+    review: "WhatsApp integration and contact forms made it easy for customers to reach us. Support team fixes issues quickly after launch.",
+  },
+  {
+    name: "Pradeep Jain",
+    company: "Nexora Tech",
+    rating: 5,
+    review: "API integrations and custom admin panel work flawlessly. They explain technical decisions in simple language — great for non-tech founders.",
+  },
+  {
+    name: "Simran Kaur",
+    company: "Soho Liv PG",
+    rating: 5,
+    review: "PG booking website ranks well for Sector 51 and 168 searches. Student enquiries increased and the CRM support idea was brilliant.",
+  },
+  {
+    name: "Mohit Saxena",
+    company: "FinGrow",
+    rating: 5,
+    review: "Performance marketing dashboard shows leads, CPL and ROI clearly. Finally an agency that focuses on business results, not vanity metrics.",
+  },
+  {
+    name: "Geeta Rani",
+    company: "EduPrime LMS",
+    rating: 5,
+    review: "LMS portal with student login and course modules launched smoothly. Hosting, SSL and deployment were all managed professionally.",
+  },
+  {
+    name: "Arun Deshmukh",
+    company: "FleetOps India",
+    rating: 5,
+    review: "Mobile-friendly fleet website with instant call and WhatsApp buttons. Drivers and clients both find information easily now.",
+  },
+  {
+    name: "Bhavna Trivedi",
+    company: "HealthFirst Diagnostics",
+    rating: 5,
+    review: "Schema markup and local pages helped us appear in health-related searches. Trust badges and clean design improved patient confidence.",
+  },
+  {
+    name: "Kunal Bhatt",
+    company: "SmartServe CRM",
+    rating: 5,
+    review: "Automated follow-up reminders reduced missed leads significantly. Custom CRM was worth every rupee for our sales team.",
+  },
+  {
+    name: "Neetu Sharma",
+    company: "Travel Hive",
+    rating: 5,
+    review: "Seasonal campaign pages and festival offers brought peak-season bookings. Creative designs were attractive and conversion-focused.",
+  },
+  {
+    name: "Rakesh Dubey",
+    company: "Urban Realty",
+    rating: 5,
+    review: "Virtual tour integration and location landing pages improved buyer engagement. One of the most trusted vendors we work with.",
+  },
+  {
+    name: "Pooja Reddy",
+    company: "YogSaathi",
+    rating: 5,
+    review: "Social media content calendar and reel ideas helped us grow organically. The team understands wellness brands very well.",
+  },
+  {
+    name: "Harish Kumar",
+    company: "QuickServe Logistics",
+    rating: 5,
+    review: "Website speed optimization cut load time in half. Google PageSpeed score improved and bounce rate dropped noticeably.",
+  },
+  {
+    name: "Ankita Bose",
+    company: "Bharat Connect",
+    rating: 5,
+    review: "Multilingual service pages and structured SEO helped us reach more regions. Professional delivery from start to finish.",
+  },
+  {
+    name: "Siddharth Rao",
+    company: "TechNova Solutions",
+    rating: 5,
+    review: "DevOps setup, CI/CD pipeline and cloud hosting configured properly. Zero downtime during launch — very impressed with their expertise.",
+  },
+  {
+    name: "Mansi Patel",
+    company: "SmartBiz Consultants",
+    rating: 5,
+    review: "Consulting firm website with case studies and lead magnets looks credible. Client calls often mention they found us through Google.",
+  },
+  {
+    name: "Vikas Choudhary",
+    company: "GovConnect Portal",
+    rating: 5,
+    review: "Accessibility and mobile responsiveness were priorities and they delivered both. Reliable team for government and enterprise projects.",
+  },
+  {
+    name: "Riya Malhotra",
+    company: "Niviha Homes",
+    rating: 5,
+    review: "Brochure download, site visit booking and callback forms all work seamlessly. Lead quality from Google Ads is consistently good.",
+  },
+  {
+    name: "Om Prakash",
+    company: "Aaqafleet",
+    rating: 5,
+    review: "7+ years of experience really reflects in their work quality. Fleet website, SEO and ads — complete package from one trusted company.",
   },
 ];
 

@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import type { ReactNode } from "react";
 import "./globals.css";
 import { FloatingActions } from "@/components/FloatingActions";
+import { SiteNav, MobileBottomNav } from "@/components/SiteNav";
 import { faqs, serviceCategories } from "@/lib/data";
 import { siteConfig } from "@/lib/site";
 
@@ -11,7 +12,15 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+  weight: ["400", "500", "600", "700", "800"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#ede6dc",
+};
 
 const googleAnalyticsId = "G-M7SQNWJVTB";
 const googleTagManagerId = "GTM-K5WG7BSW";
@@ -145,7 +154,7 @@ const faqSchema = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en-IN" className={inter.variable} suppressHydrationWarning>
-      <body>
+      <body className="app-shell antialiased">
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${googleTagManagerId}`}
@@ -173,8 +182,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             })(window,document,'script','dataLayer','${googleTagManagerId}');
           `}
         </Script>
+        <SiteNav />
         {children}
         <FloatingActions />
+        <MobileBottomNav />
         {[websiteSchema, localBusinessSchema, serviceSchema, faqSchema].map((schema, index) => (
           <script
             key={index}
