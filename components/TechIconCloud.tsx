@@ -33,6 +33,7 @@ import {
   SiWordpress,
 } from "react-icons/si";
 import { Reveal } from "@/components/Reveal";
+import { RevealGroup, RevealItem } from "@/components/RevealGroup";
 import { SectionHeader } from "@/components/SectionHeader";
 
 type StackCategory = "Web Apps" | "Software" | "Cloud & DevOps" | "Digital Marketing" | "AI & Automation";
@@ -153,25 +154,25 @@ export function TechIconCloud({ compact = false }: TechIconCloudProps) {
               </div>
             </div>
 
-            <div className="relative grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12">
-              {visibleStack.map((tech, index) => {
+            <RevealGroup className="relative grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12" stagger={0.04}>
+              {visibleStack.map((tech) => {
                 const Icon = tech.icon;
 
                 return (
-                  <div
-                    key={tech.name}
-                    className="tech-icon-card group relative overflow-hidden rounded-2xl border border-[var(--border-warm)] bg-white p-3 text-center shadow-soft transition hover:-translate-y-1 hover:border-terracotta/30"
-                    style={{ animationDelay: `${(index % 12) * 120}ms` }}
-                    title={tech.name}
-                  >
+                  <RevealItem key={tech.name}>
+                    <div
+                      className="tech-icon-card motion-card group relative overflow-hidden rounded-2xl border border-[var(--border-warm)] bg-white p-3 text-center shadow-soft transition hover:-translate-y-1 hover:border-terracotta/30"
+                      title={tech.name}
+                    >
                     <div className="relative mx-auto grid h-10 w-10 place-items-center rounded-2xl border border-[var(--border-warm)] bg-cream-50 transition group-hover:scale-110 sm:h-12 sm:w-12">
                       <Icon className="text-2xl transition sm:text-3xl" style={{ color: tech.color }} />
                     </div>
                     <p className="relative mt-2 truncate text-[10px] font-bold text-charcoal-light group-hover:text-terracotta sm:text-xs">{tech.name}</p>
-                  </div>
+                    </div>
+                  </RevealItem>
                 );
               })}
-            </div>
+            </RevealGroup>
 
             {canExpand && (
               <div className="relative mt-6 text-center">

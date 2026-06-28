@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
 import { HeroTypewriter } from "@/components/HeroTypewriter";
 import { Reveal } from "@/components/Reveal";
+import { RevealGroup, RevealItem } from "@/components/RevealGroup";
 import { ReviewCarousel } from "@/components/ReviewCarousel";
 import { ScrollToContactButton } from "@/components/ScrollToContactButton";
 import { SectionHeader } from "@/components/SectionHeader";
@@ -69,38 +70,50 @@ function HeroSection() {
       <WarmHeroBackground />
 
       <div className="app-container relative z-20 pt-2 text-center sm:pt-4">
-        <Reveal>
-          <div className="pro-badge mx-auto mb-3 sm:text-[11px]">
-            <span className="pro-badge-dot" />
-            Trusted IT &amp; Digital Company · Noida &amp; All India
-          </div>
-          <h1 className="gradient-title hero-headline mx-auto max-w-4xl text-[clamp(1.45rem,4.6vw,2.75rem)] font-bold leading-[1.14] tracking-tight">
-            <span className="hero-headline-line">We Build</span>
-            <span className="hero-typewriter-slot">
-              <HeroTypewriter />
-            </span>
-            <span className="hero-headline-line">That Grow Your Business</span>
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-pretty text-[13px] leading-6 text-charcoal-light sm:text-sm sm:leading-relaxed">
-            {siteConfig.domainName} is a trusted IT company with {companyTrust.yearsExperience} years of experience, serving {companyTrust.happyClients} clients across India. We design fast SEO-friendly websites, develop custom software &amp; CRM, run Google Ads &amp; SEO, and manage hosting to launch — all from one reliable team.
-          </p>
-          <div className="hero-stat-row mx-auto mt-4">
-            {trustHighlights.slice(0, 3).map((item) => (
-              <span key={item.label} className="hero-stat-pill">
-                <strong>{item.value}</strong> {item.label}
+        <RevealGroup trigger="mount" className="hero-copy mx-auto max-w-4xl" delayChildren={0.08}>
+          <RevealItem>
+            <div className="pro-badge hero-eyebrow mx-auto mb-3 sm:mb-4">
+              <span className="pro-badge-dot" />
+              Trusted IT &amp; Digital Company · Noida &amp; All India
+            </div>
+          </RevealItem>
+          <RevealItem>
+            <h1 className="gradient-title hero-headline mx-auto max-w-4xl font-extrabold">
+              <span className="hero-headline-line">We Build</span>
+              <span className="hero-typewriter-slot">
+                <HeroTypewriter />
               </span>
-            ))}
-          </div>
-          <div className="mx-auto mt-5 flex max-w-sm flex-col gap-2.5 sm:max-w-none sm:mt-6 sm:flex-row sm:justify-center">
-            <ScrollToContactButton />
-            <Link href="/services" className="btn-pro-secondary sm:text-sm">
-              View All Services
-            </Link>
-          </div>
-          <p className="mx-auto mt-4 max-w-lg text-[12px] leading-5 text-charcoal-light sm:text-[13px]">
-            Delivered for hotels, fleet, government portals, CRM systems, ecommerce &amp; service businesses — with direct support from planning to launch.
-          </p>
-        </Reveal>
+              <span className="hero-headline-line">That Grow Your Business</span>
+            </h1>
+          </RevealItem>
+          <RevealItem>
+            <p className="hero-description mx-auto mt-4 max-w-2xl sm:mt-5">
+              {siteConfig.domainName} is a trusted IT company with {companyTrust.yearsExperience} years of experience, serving {companyTrust.happyClients} clients across India. We design fast SEO-friendly websites, develop custom software &amp; CRM, run Google Ads &amp; SEO, and manage hosting to launch — all from one reliable team.
+            </p>
+          </RevealItem>
+          <RevealItem>
+            <div className="hero-stat-row mx-auto mt-4 sm:mt-5">
+              {trustHighlights.slice(0, 3).map((item) => (
+                <span key={item.label} className="hero-stat-pill">
+                  <strong>{item.value}</strong> {item.label}
+                </span>
+              ))}
+            </div>
+          </RevealItem>
+          <RevealItem>
+            <div className="hero-actions mx-auto mt-5 flex max-w-sm flex-col gap-2.5 sm:max-w-none sm:mt-6 sm:flex-row sm:justify-center sm:gap-3">
+              <ScrollToContactButton className="hero-shine-btn hero-cta-btn" />
+              <Link href="/services" className="btn-pro-secondary hero-shine-btn-secondary hero-cta-btn">
+                <span className="relative z-[1]">View All Services</span>
+              </Link>
+            </div>
+          </RevealItem>
+          <RevealItem>
+            <p className="hero-footnote mx-auto mt-4 max-w-xl sm:mt-5">
+              Delivered for hotels, fleet, government portals, CRM systems, ecommerce &amp; service businesses — with direct support from planning to launch.
+            </p>
+          </RevealItem>
+        </RevealGroup>
       </div>
     </section>
   );
@@ -115,12 +128,12 @@ function EndToEndSection() {
           title="One team from strategy to launch and growth."
           description="From the first consultation to daily support — we handle website design, software development, SEO, paid ads, CRM, hosting, deployment and ongoing optimization so you never need multiple vendors."
         />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {endToEndSteps.map((item, index) => {
+        <RevealGroup className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {endToEndSteps.map((item) => {
             const Icon = item.icon;
             return (
-              <Reveal key={item.step} delay={index * 0.05}>
-                <article className="premium-card h-full rounded-2xl border border-[var(--border-warm)] p-4 sm:p-5">
+              <RevealItem key={item.step} hoverLift>
+                <article className="premium-card motion-card h-full rounded-2xl border border-[var(--border-warm)] p-4 sm:p-5">
                   <div className="mb-3 flex items-center gap-2.5">
                     <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-terracotta text-xs font-bold text-white">{item.step}</span>
                     <Icon className="text-lg text-terracotta" />
@@ -128,15 +141,17 @@ function EndToEndSection() {
                   <h3 className="text-[15px] font-bold text-charcoal sm:text-base">{item.title}</h3>
                   <p className="mt-1.5 text-[13px] leading-5 text-charcoal-light">{item.text}</p>
                 </article>
-              </Reveal>
+              </RevealItem>
             );
           })}
-        </div>
-        <div className="mt-8 text-center">
-          <Link href="/process" className="inline-flex items-center gap-2 rounded-full border border-terracotta/20 bg-terracotta/5 px-5 py-2.5 text-[13px] font-semibold text-terracotta transition hover:bg-terracotta/10">
-            See Our Full Process <FiArrowRight />
-          </Link>
-        </div>
+        </RevealGroup>
+        <Reveal>
+          <div className="mt-8 text-center">
+            <Link href="/process" className="inline-flex items-center gap-2 rounded-full border border-terracotta/20 bg-terracotta/5 px-5 py-2.5 text-[13px] font-semibold text-terracotta transition hover:bg-terracotta/10">
+              See Our Full Process <FiArrowRight />
+            </Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -151,19 +166,19 @@ function QuickSearchSection() {
           title="Find the right service with one click."
           description="Choose what matters most for your business. We provide complete solutions for every digital need."
         />
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {quickServices.map((service, index) => (
-            <Reveal key={service.label} delay={index * 0.04}>
-              <Link href={service.href} className="premium-card group block rounded-2xl border border-[var(--border-warm)] p-4 sm:p-5 transition hover:border-terracotta/30">
+        <RevealGroup className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {quickServices.map((service) => (
+            <RevealItem key={service.label} hoverLift>
+              <Link href={service.href} className="premium-card motion-card group block h-full rounded-2xl border border-[var(--border-warm)] p-4 sm:p-5 transition hover:border-terracotta/30">
                 <h3 className="text-[15px] font-bold text-charcoal group-hover:text-terracotta sm:text-base">{service.label}</h3>
                 <p className="mt-1.5 text-[13px] text-charcoal-light">{service.desc}</p>
                 <span className="mt-3 inline-flex items-center gap-1 text-[13px] font-semibold text-terracotta">
                   Learn more <FiArrowRight className="text-xs transition group-hover:translate-x-1" />
                 </span>
               </Link>
-            </Reveal>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );
@@ -202,24 +217,28 @@ function LocalSeoSection() {
           title="Built for high-intent searches across Noida, Greater Noida and India."
           description="TradeOrbit Global combines web design, on-page SEO, technical SEO, local search optimization and lead generation so your website is structured to rank, load fast and convert enquiries."
         />
-        <div className="mt-8 grid gap-4 lg:grid-cols-3">
+        <RevealGroup className="mt-8 grid gap-4 lg:grid-cols-3">
           {cityClusters.map((cluster) => (
-            <article key={cluster.title} className="premium-card rounded-2xl border border-[var(--border-warm)] p-4 sm:p-5">
-              <div className="mb-2.5 inline-flex rounded-full bg-terracotta/10 p-2 text-terracotta">
-                <FiGlobe className="text-base" />
-              </div>
-              <h3 className="text-base font-bold text-charcoal sm:text-lg">{cluster.title}</h3>
-              <p className="mt-2 text-[13px] leading-6 text-charcoal-light">{cluster.text}</p>
-            </article>
+            <RevealItem key={cluster.title} hoverLift>
+              <article className="premium-card motion-card h-full rounded-2xl border border-[var(--border-warm)] p-4 sm:p-5">
+                <div className="mb-2.5 inline-flex rounded-full bg-terracotta/10 p-2 text-terracotta">
+                  <FiGlobe className="text-base" />
+                </div>
+                <h3 className="text-base font-bold text-charcoal sm:text-lg">{cluster.title}</h3>
+                <p className="mt-2 text-[13px] leading-6 text-charcoal-light">{cluster.text}</p>
+              </article>
+            </RevealItem>
           ))}
-        </div>
-        <div className="mt-5 flex flex-wrap justify-center gap-2">
+        </RevealGroup>
+        <RevealGroup className="mt-5 flex flex-wrap justify-center gap-2" stagger={0.05}>
           {keywordPillars.map((pillar) => (
-            <span key={pillar} className="rounded-full border border-terracotta/20 bg-terracotta/5 px-3 py-1.5 text-[12px] font-semibold text-terracotta sm:text-[13px]">
-              {pillar}
-            </span>
+            <RevealItem key={pillar}>
+              <span className="inline-block rounded-full border border-terracotta/20 bg-terracotta/5 px-3 py-1.5 text-[12px] font-semibold text-terracotta sm:text-[13px]">
+                {pillar}
+              </span>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );
@@ -234,12 +253,12 @@ function ServicesSection() {
     <section id="services" className="app-section relative">
       <div className="app-container">
         <SectionHeader eyebrow="Why Choose Us" title="Everything you need for digital growth." description="One professional team for website design, software development, digital marketing, automation, CRM, testing, hosting, deployment and ongoing support." />
-        <div className="mt-8 grid gap-5 sm:mt-10 lg:grid-cols-2">
-          {homeServices.map((category, index) => {
+        <RevealGroup className="mt-8 grid gap-5 sm:mt-10 lg:grid-cols-2">
+          {homeServices.map((category) => {
             const Icon = category.icon;
             return (
-              <Reveal key={category.title} delay={index * 0.05}>
-                <article className="premium-card magnetic-glow group h-full rounded-2xl border border-[var(--border-warm)] p-4 sm:p-5">
+              <RevealItem key={category.title} hoverLift>
+                <article className="premium-card magnetic-glow motion-card group h-full rounded-2xl border border-[var(--border-warm)] p-4 sm:p-5">
                   <div className="flex items-start gap-3">
                     <div className="rounded-xl bg-terracotta/10 p-3 text-terracotta">
                       <Icon className="text-xl" />
@@ -257,15 +276,17 @@ function ServicesSection() {
                     ))}
                   </div>
                 </article>
-              </Reveal>
+              </RevealItem>
             );
           })}
-        </div>
-        <div className="mt-10 text-center">
-          <Link href="/services" className="inline-flex items-center justify-center gap-2 rounded-full bg-terracotta px-5 py-2.5 text-[13px] font-semibold text-white transition hover:bg-terracotta-600">
-            Explore All Services <FiArrowRight />
-          </Link>
-        </div>
+        </RevealGroup>
+        <Reveal>
+          <div className="mt-10 text-center">
+            <Link href="/services" className="inline-flex items-center justify-center gap-2 rounded-full bg-terracotta px-5 py-2.5 text-[13px] font-semibold text-white transition hover:bg-terracotta-600">
+              Explore All Services <FiArrowRight />
+            </Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -276,26 +297,28 @@ function CaseStudies() {
     <section id="case-studies" className="app-section relative">
       <div className="app-container">
         <SectionHeader eyebrow="Our Projects" title="Real projects across fleet, hotel, government, CRM and software." description="A growing portfolio of modern websites, custom software, mobile app flows, dashboards, hosting, testing and smart marketing systems." />
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {caseStudies.slice(0, 3).map((study, index) => (
-            <Reveal key={study.industry} delay={index * 0.06}>
-              <article className="premium-card group relative min-h-44 overflow-hidden rounded-2xl border border-[var(--border-warm)] p-4 transition hover:-translate-y-0.5 sm:p-5">
+        <RevealGroup className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {caseStudies.slice(0, 3).map((study) => (
+            <RevealItem key={study.industry} hoverLift>
+              <article className="premium-card motion-card group relative min-h-44 overflow-hidden rounded-2xl border border-[var(--border-warm)] p-4 transition sm:p-5">
                 <div className="absolute bottom-0 left-0 h-0.5 w-full bg-terracotta" />
                 <p className="text-[10px] uppercase tracking-[0.18em] text-charcoal-light">{study.industry}</p>
                 <h3 className="mt-3 text-lg font-bold text-terracotta sm:text-xl">{study.result}</h3>
                 <p className="mt-2 line-clamp-3 text-[13px] leading-5 text-charcoal-light">{study.detail}</p>
               </article>
-            </Reveal>
+            </RevealItem>
           ))}
-        </div>
-        <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Link href="/case-studies" className="inline-flex items-center justify-center gap-2 rounded-full border border-terracotta/20 bg-terracotta/5 px-6 py-3 font-bold text-terracotta transition hover:bg-terracotta/10">
-            View Case Studies <FiArrowRight />
-          </Link>
-          <Link href="/portfolio" className="inline-flex items-center justify-center gap-2 rounded-full bg-terracotta px-6 py-3 font-bold text-white transition hover:bg-terracotta-600">
-            View Portfolio <FiArrowRight />
-          </Link>
-        </div>
+        </RevealGroup>
+        <Reveal>
+          <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link href="/case-studies" className="inline-flex items-center justify-center gap-2 rounded-full border border-terracotta/20 bg-terracotta/5 px-6 py-3 font-bold text-terracotta transition hover:bg-terracotta/10">
+              View Case Studies <FiArrowRight />
+            </Link>
+            <Link href="/portfolio" className="inline-flex items-center justify-center gap-2 rounded-full bg-terracotta px-6 py-3 font-bold text-white transition hover:bg-terracotta-600">
+              View Portfolio <FiArrowRight />
+            </Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -307,7 +330,8 @@ function TestimonialsSection() {
   return (
     <section className="app-section relative">
       <div className="app-container">
-        <div className="rounded-2xl border border-[var(--border-warm)] bg-white p-4 shadow-card sm:p-5">
+        <Reveal>
+          <div className="rounded-2xl border border-[var(--border-warm)] bg-white p-4 shadow-card sm:p-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-base font-bold text-charcoal sm:text-lg">
@@ -328,7 +352,8 @@ function TestimonialsSection() {
             </Link>
           </div>
           <ReviewCarousel reviews={googleReviews} />
-        </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
