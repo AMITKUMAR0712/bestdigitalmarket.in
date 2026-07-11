@@ -27,6 +27,7 @@ export default function ContactPage() {
     { icon: FiPhoneCall, label: "Call", value: `+91 ${siteConfig.callNumber}`, href: callLink },
     { icon: FiMessageCircle, label: "WhatsApp", value: `+91 ${siteConfig.whatsappNumber}`, href: whatsappLink },
     { icon: FiMail, label: "Email", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
+    { icon: FiMail, label: "Email", value: siteConfig.emailSecondary, href: `mailto:${siteConfig.emailSecondary}` },
     { icon: FiMapPin, label: "Address", value: siteConfig.address, href: siteConfig.mapUrl },
   ];
 
@@ -45,7 +46,7 @@ export default function ContactPage() {
             {cards.map((card, index) => {
               const Icon = card.icon;
               return (
-                <Reveal key={card.label} delay={index * 0.05}>
+                <Reveal key={card.value} delay={index * 0.05}>
                   <a href={card.href} target={card.href.startsWith("http") ? "_blank" : undefined} rel={card.href.startsWith("http") ? "noreferrer" : undefined} className="premium-card magnetic-glow flex items-center gap-4 rounded-3xl border border-[var(--border-warm)] p-5 hover:border-terracotta/30">
                     <Icon className="text-2xl text-terracotta" />
                     <span>

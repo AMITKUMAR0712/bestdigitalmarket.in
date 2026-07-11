@@ -34,7 +34,7 @@ const privacyItems = [
   },
   {
     title: "Your Choices",
-    text: `You can request correction or deletion of your enquiry information by contacting us at ${siteConfig.email}.`,
+    text: `You can request correction or deletion of your enquiry information by contacting us at ${siteConfig.email} or ${siteConfig.emailSecondary}.`,
   },
 ];
 

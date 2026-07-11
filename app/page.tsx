@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { FiArrowRight, FiBarChart2, FiGlobe, FiLayers, FiMapPin, FiPhoneCall, FiSearch, FiStar, FiZap } from "react-icons/fi";
 import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
+import { HeroScrollParallax } from "@/components/HeroScrollParallax";
 import { HeroTypewriter } from "@/components/HeroTypewriter";
 import { Reveal } from "@/components/Reveal";
 import { RevealGroup, RevealItem } from "@/components/RevealGroup";
@@ -69,7 +70,7 @@ function HeroSection() {
     <section id="home" className="relative min-h-[calc(100dvh-4rem)] overflow-x-hidden pb-6 pt-6 sm:min-h-[calc(100dvh-4.5rem)] sm:pb-8 sm:pt-8 lg:pb-10">
       <WarmHeroBackground />
 
-      <div className="app-container relative z-20 pt-2 text-center sm:pt-4">
+      <HeroScrollParallax className="app-container relative z-20 pt-2 text-center sm:pt-4">
         <RevealGroup trigger="mount" className="hero-copy mx-auto max-w-4xl" delayChildren={0.08}>
           <RevealItem>
             <div className="pro-badge hero-eyebrow mx-auto mb-3 sm:mb-4">
@@ -114,7 +115,7 @@ function HeroSection() {
             </p>
           </RevealItem>
         </RevealGroup>
-      </div>
+      </HeroScrollParallax>
     </section>
   );
 }

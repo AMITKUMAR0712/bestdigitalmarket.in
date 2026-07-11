@@ -1,13 +1,17 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
 export const size = {
   width: 64,
   height: 64,
 };
 export const contentType = "image/png";
 
-export default function Icon() {
+export default async function Icon() {
+  const iconBuffer = await readFile(path.join(process.cwd(), "public", "tradeorbit-icon.png"));
+  const iconSrc = `data:image/png;base64,${iconBuffer.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -18,16 +22,18 @@ export default function Icon() {
           alignItems: "center",
           justifyContent: "center",
           borderRadius: 16,
-          color: "#f6d37a",
-          background: "radial-gradient(circle at 25% 15%, #1f6f68 0%, #071a24 42%, #020617 100%)",
-          border: "1px solid rgba(246, 211, 122, 0.55)",
-          fontFamily: "Georgia, serif",
-          fontSize: 22,
-          fontWeight: 900,
-          letterSpacing: 2,
+          background: "radial-gradient(circle at 30% 22%, #3a2418 0%, #1c1210 55%, #0c0806 100%)",
+          boxShadow: "inset 0 0 0 1px rgba(242, 193, 78, 0.4)",
         }}
       >
-        BDM
+        {/* eslint-disable-next-line @next/next/no-img-element -- satori requires a raw <img>, next/image can't run inside ImageResponse */}
+        <img
+          src={iconSrc}
+          alt=""
+          width={50}
+          height={50}
+          style={{ filter: "drop-shadow(0 0 8px rgba(242, 193, 78, 0.75))" }}
+        />
       </div>
     ),
     size

@@ -34,7 +34,7 @@ const terms = [
   },
   {
     title: "Contact",
-    text: `For questions about these terms, contact us at ${siteConfig.email}.`,
+    text: `For questions about these terms, contact us at ${siteConfig.email} or ${siteConfig.emailSecondary}.`,
   },
 ];
 

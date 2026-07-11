@@ -87,6 +87,7 @@ export function SiteFooter() {
             <p>Call: +91 {siteConfig.callNumber}</p>
             <p>WhatsApp: +91 {siteConfig.whatsappNumber}</p>
             <p>Email: {siteConfig.email}</p>
+            <p>Email: {siteConfig.emailSecondary}</p>
             <p>{siteConfig.address}</p>
           </div>
           <div className="mt-5 flex flex-wrap gap-2">
