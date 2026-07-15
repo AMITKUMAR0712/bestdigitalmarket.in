@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Male cartoon avatar">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#efe8ff"/>
+      <stop offset="100%" stop-color="#ddd0f5"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="100" fill="url(#bg)"/>
+  <ellipse cx="100" cy="168" rx="52" ry="28" fill="#7c3aed"/>
+  <circle cx="100" cy="100" r="46" fill="#f2c4a0"/>
+  <path d="M55 92c6-36 30-54 45-54s39 18 45 54c-10-12-26-18-45-18s-35 6-45 18z" fill="#4c1d95"/>
+  <path d="M70 70c8-18 20-28 30-28 10 0 22 10 30 28-12-8-22-10-30-10s-18 2-30 10z" fill="#5b21b6"/>
+  <ellipse cx="82" cy="102" rx="5" ry="6" fill="#3b0764"/>
+  <ellipse cx="118" cy="102" rx="5" ry="6" fill="#3b0764"/>
+  <path d="M88 120c7 9 17 9 24 0" fill="none" stroke="#c4724e" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="72" cy="110" r="7" fill="#f0a090" opacity=".4"/>
+  <circle cx="128" cy="110" r="7" fill="#f0a090" opacity=".4"/>
+</svg>

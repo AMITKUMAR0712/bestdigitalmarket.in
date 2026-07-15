@@ -12,7 +12,8 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "600", "700", "800"],
+  preload: true,
 });
 
 export const viewport: Viewport = {
@@ -87,10 +88,10 @@ const localBusinessSchema = {
   description: siteConfig.description,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Sector MU-1",
+    streetAddress: "Best Digital Market, C Block, Block C, Sector MU 1",
     addressLocality: "Greater Noida",
-    postalCode: "201310",
     addressRegion: "Uttar Pradesh",
+    postalCode: "201310",
     addressCountry: "IN",
   },
   areaServed: siteConfig.areas.map((area) => ({ "@type": "City", name: area })),
@@ -118,7 +119,7 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "@id": `${siteConfig.url}/#services`,
-  name: `${siteConfig.domainName} Website Design, SEO and Digital Marketing Services`,
+  name: `${siteConfig.domainName} AI Software, Custom Software, Website Design and Digital Marketing Services`,
   url: siteConfig.url,
   telephone: `+91${siteConfig.callNumber}`,
   areaServed: siteConfig.areas,

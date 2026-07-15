@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { FiArrowRight, FiBarChart2, FiGlobe, FiLayers, FiMapPin, FiPhoneCall, FiSearch, FiStar, FiZap } from "react-icons/fi";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import { FiArrowRight, FiBarChart2, FiCheckCircle, FiExternalLink, FiGlobe, FiLayers, FiMapPin, FiPhoneCall, FiSearch, FiStar, FiZap } from "react-icons/fi";
 import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
 import { HeroScrollParallax } from "@/components/HeroScrollParallax";
@@ -10,22 +12,35 @@ import { ReviewCarousel } from "@/components/ReviewCarousel";
 import { ScrollToContactButton } from "@/components/ScrollToContactButton";
 import { SectionHeader } from "@/components/SectionHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { TechIconCloud } from "@/components/TechIconCloud";
 import { WarmHeroBackground } from "@/components/WarmHeroBackground";
 import { TrustBar } from "@/components/TrustBar";
-import { caseStudies, companyTrust, serviceCategories, testimonials, trustHighlights } from "@/lib/data";
+import { companyTrust, serviceCategories, testimonials, trustHighlights } from "@/lib/data";
+import { portfolioProjects } from "@/lib/portfolio";
 import { callLink, siteConfig } from "@/lib/site";
 
+const TechIconCloud = dynamic(() => import("@/components/TechIconCloud").then((module) => module.TechIconCloud), {
+  loading: () => <div className="app-section min-h-[12rem]" aria-hidden />,
+});
+
+const TeamCarousel = dynamic(() => import("@/components/TeamCarousel").then((module) => module.TeamCarousel), {
+  loading: () => <div className="min-h-[16rem]" aria-hidden />,
+});
+
 export const metadata: Metadata = {
-  title: "Best Web Design Company in Noida | SEO & Digital Marketing Agency",
+  title: "Best AI Software Company in Noida & Greater Noida | Agentic AI & Custom Software",
   description:
-    "TradeOrbit Global builds SEO-friendly websites, custom software, CRM and lead generation systems for Noida, Greater Noida, Delhi NCR, Mumbai, Pune, Chandigarh and India.",
+    "TradeOrbit Global — best AI software company in Noida and Greater Noida for agentic AI, AI/ML, LLM models, custom software, SEO websites, CRM and digital marketing across India.",
   keywords: [
+    "best AI software company in Noida",
+    "best AI software company in Greater Noida",
+    "agentic AI company in Noida",
+    "agentic AI company in Greater Noida",
+    "custom software company in Noida",
+    "custom software company in Greater Noida",
+    "AI ML company in Noida",
+    "LLM model development company Noida",
     "best web design company in Noida",
-    "best web design company in Greater Noida",
     "digital marketing agency in Noida",
-    "SEO friendly website development",
-    "web design and SEO company in Noida",
     "TradeOrbit Global",
   ],
   alternates: {
@@ -40,24 +55,17 @@ const endToEndSteps = [
   { step: "04", title: "Launch & Support", text: "Hosting, deployment, testing, CRM support, reporting and ongoing optimization.", icon: FiZap },
 ];
 
-const quickServices = [
-  { label: "Website Design", desc: "SEO-friendly, fast-loading", href: "/services" },
-  { label: "Local SEO", desc: "Rank in Noida & NCR", href: "/services" },
-  { label: "Google Ads", desc: "Instant lead generation", href: "/services" },
-  { label: "Custom Software", desc: "CRM & automation", href: "/services" },
-];
-
 export default function Home() {
   return (
     <main className="relative z-10 overflow-hidden bg-cream text-charcoal">
       <HeroSection />
       <TrustBar />
       <EndToEndSection />
-      <QuickSearchSection />
       <TechIconCloud compact />
       <ServicesSection />
       <LocalSeoSection />
-      <CaseStudies />
+      <ProjectsSection />
+      <TeamSection />
       <TestimonialsSection />
       <ContactSection />
       <SiteFooter />
@@ -67,10 +75,10 @@ export default function Home() {
 
 function HeroSection() {
   return (
-    <section id="home" className="relative min-h-[calc(100dvh-4rem)] overflow-x-hidden pb-6 pt-6 sm:min-h-[calc(100dvh-4.5rem)] sm:pb-8 sm:pt-8 lg:pb-10">
+    <section id="home" className="hero-section relative overflow-x-hidden pb-4 pt-5 sm:min-h-[calc(100dvh-4.5rem)] sm:pb-8 sm:pt-8 lg:pb-10">
       <WarmHeroBackground />
 
-      <HeroScrollParallax className="app-container relative z-20 pt-2 text-center sm:pt-4">
+      <HeroScrollParallax className="app-container relative z-20 pt-1 text-center sm:pt-4">
         <RevealGroup trigger="mount" className="hero-copy mx-auto max-w-4xl" delayChildren={0.08}>
           <RevealItem>
             <div className="pro-badge hero-eyebrow mx-auto mb-3 sm:mb-4">
@@ -89,7 +97,7 @@ function HeroSection() {
           </RevealItem>
           <RevealItem>
             <p className="hero-description mx-auto mt-4 max-w-2xl sm:mt-5">
-              {siteConfig.domainName} is a trusted IT company with {companyTrust.yearsExperience} years of experience, serving {companyTrust.happyClients} clients across India. We design fast SEO-friendly websites, develop custom software &amp; CRM, run Google Ads &amp; SEO, and manage hosting to launch — all from one reliable team.
+              {siteConfig.domainName} is a trusted AI software &amp; IT company with {companyTrust.yearsExperience} years of experience, serving {companyTrust.happyClients} clients across India. We build SEO-friendly websites, custom software, CRM, AI/ML systems, agentic AI, LLM solutions, Google Ads &amp; SEO — from planning to launch.
             </p>
           </RevealItem>
           <RevealItem>
@@ -158,33 +166,6 @@ function EndToEndSection() {
   );
 }
 
-function QuickSearchSection() {
-  return (
-    <section className="app-section relative">
-      <div className="app-container">
-        <SectionHeader
-          eyebrow="Quick Search"
-          title="Find the right service with one click."
-          description="Choose what matters most for your business. We provide complete solutions for every digital need."
-        />
-        <RevealGroup className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {quickServices.map((service) => (
-            <RevealItem key={service.label} hoverLift>
-              <Link href={service.href} className="premium-card motion-card group block h-full rounded-2xl border border-[var(--border-warm)] p-4 sm:p-5 transition hover:border-terracotta/30">
-                <h3 className="text-[15px] font-bold text-charcoal group-hover:text-terracotta sm:text-base">{service.label}</h3>
-                <p className="mt-1.5 text-[13px] text-charcoal-light">{service.desc}</p>
-                <span className="mt-3 inline-flex items-center gap-1 text-[13px] font-semibold text-terracotta">
-                  Learn more <FiArrowRight className="text-xs transition group-hover:translate-x-1" />
-                </span>
-              </Link>
-            </RevealItem>
-          ))}
-        </RevealGroup>
-      </div>
-    </section>
-  );
-}
-
 function LocalSeoSection() {
   const cityClusters = [
     {
@@ -247,7 +228,7 @@ function LocalSeoSection() {
 
 function ServicesSection() {
   const homeServices = serviceCategories.filter((category) =>
-    ["Websites & CRO", "Software & Full-Stack Development", "Mobile Apps & Business Systems", "DevOps, Testing & Deployment"].includes(category.title)
+    ["Websites & CRO", "Software & Full-Stack Development", "AI, ML & Agentic Systems", "Mobile Apps & Business Systems"].includes(category.title)
   );
 
   return (
@@ -293,34 +274,100 @@ function ServicesSection() {
   );
 }
 
-function CaseStudies() {
+function ProjectsSection() {
+  const featuredProjects = portfolioProjects.filter((project) => project.featured).slice(0, 6);
+  const projectTrustPoints = [
+    `${companyTrust.projectsDelivered} projects delivered`,
+    `${companyTrust.happyClients} happy clients`,
+    `${companyTrust.onTimeDelivery} on-time delivery`,
+    "Live production websites",
+  ];
+
   return (
-    <section id="case-studies" className="app-section relative">
+    <section id="projects" className="app-section relative">
       <div className="app-container">
-        <SectionHeader eyebrow="Our Projects" title="Real projects across fleet, hotel, government, CRM and software." description="A growing portfolio of modern websites, custom software, mobile app flows, dashboards, hosting, testing and smart marketing systems." />
-        <RevealGroup className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {caseStudies.slice(0, 3).map((study) => (
-            <RevealItem key={study.industry} hoverLift>
-              <article className="premium-card motion-card group relative min-h-44 overflow-hidden rounded-2xl border border-[var(--border-warm)] p-4 transition sm:p-5">
-                <div className="absolute bottom-0 left-0 h-0.5 w-full bg-terracotta" />
-                <p className="text-[10px] uppercase tracking-[0.18em] text-charcoal-light">{study.industry}</p>
-                <h3 className="mt-3 text-lg font-bold text-terracotta sm:text-xl">{study.result}</h3>
-                <p className="mt-2 line-clamp-3 text-[13px] leading-5 text-charcoal-light">{study.detail}</p>
+        <SectionHeader
+          eyebrow="Trusted Projects"
+          title="Real client work you can preview — built for growth and credibility."
+          description="Browse live websites and digital products delivered for e-commerce, hotels, education, real estate, SaaS and service brands across India. Every project reflects clean design, SEO structure and reliable engineering."
+        />
+
+        <RevealGroup className="project-trust-row mt-6 flex flex-wrap justify-center gap-2 sm:gap-3" stagger={0.04}>
+          {projectTrustPoints.map((point) => (
+            <RevealItem key={point}>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-terracotta/15 bg-white/80 px-3 py-1.5 text-[12px] font-semibold text-charcoal sm:text-[13px]">
+                <FiCheckCircle className="shrink-0 text-terracotta" />
+                {point}
+              </span>
+            </RevealItem>
+          ))}
+        </RevealGroup>
+
+        <RevealGroup className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3 sm:gap-5">
+          {featuredProjects.map((project) => (
+            <RevealItem key={project.id} hoverLift>
+              <article className="home-project-card premium-card motion-card group overflow-hidden rounded-2xl border border-[var(--border-warm)] bg-white">
+                <div className="home-project-media relative aspect-[16/10] overflow-hidden bg-cream-200">
+                  <Image
+                    src={project.image}
+                    alt={`${project.title} — ${project.client} project by TradeOrbit Global`}
+                    fill
+                    className="object-cover transition duration-500 group-hover:scale-[1.04]"
+                    sizes="(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw"
+                  />
+                  <div className="home-project-media-overlay" />
+                  <span className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-terracotta shadow-sm">
+                    {project.category}
+                  </span>
+                </div>
+                <div className="p-4 sm:p-5">
+                  <h3 className="text-base font-bold text-charcoal sm:text-lg">{project.title}</h3>
+                  <p className="mt-1 text-xs font-medium text-charcoal-light">{project.client}</p>
+                  <p className="mt-2.5 line-clamp-2 text-[13px] leading-6 text-charcoal-light">{project.description}</p>
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-terracotta transition hover:gap-2.5"
+                  >
+                    Visit live project <FiExternalLink className="text-xs" />
+                  </a>
+                </div>
               </article>
             </RevealItem>
           ))}
         </RevealGroup>
+
         <Reveal>
-          <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link href="/case-studies" className="inline-flex items-center justify-center gap-2 rounded-full border border-terracotta/20 bg-terracotta/5 px-6 py-3 font-bold text-terracotta transition hover:bg-terracotta/10">
-              View Case Studies <FiArrowRight />
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link href="/portfolio" className="inline-flex items-center justify-center gap-2 rounded-full bg-terracotta px-6 py-3 text-sm font-bold text-white transition hover:bg-terracotta-600">
+              View Full Portfolio <FiArrowRight />
             </Link>
-            <Link href="/portfolio" className="inline-flex items-center justify-center gap-2 rounded-full bg-terracotta px-6 py-3 font-bold text-white transition hover:bg-terracotta-600">
-              View Portfolio <FiArrowRight />
+            <Link href="/case-studies" className="inline-flex items-center justify-center gap-2 rounded-full border border-terracotta/20 bg-terracotta/5 px-6 py-3 text-sm font-bold text-terracotta transition hover:bg-terracotta/10">
+              View Case Studies <FiArrowRight />
             </Link>
           </div>
         </Reveal>
       </div>
+    </section>
+  );
+}
+
+function TeamSection() {
+  return (
+    <section id="team" className="app-section relative overflow-hidden">
+      <div className="app-container">
+        <SectionHeader
+          eyebrow="Our Team"
+          title="The professionals behind every successful delivery."
+          description="Meet the specialists who design, develop, market and launch your digital products — a hands-on team focused on quality, clarity and long-term results."
+        />
+      </div>
+      <Reveal>
+        <div className="mt-8 sm:mt-10">
+          <TeamCarousel />
+        </div>
+      </Reveal>
     </section>
   );
 }

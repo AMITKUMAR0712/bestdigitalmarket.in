@@ -27,9 +27,9 @@ export function WarmHeroBackground() {
         <HeroVideoSlider />
       </motion.div>
 
-      <div aria-hidden="true" className="pointer-events-none absolute -left-20 top-16 h-72 w-72 rounded-full bg-terracotta/10 blur-3xl" />
-      <div aria-hidden="true" className="pointer-events-none absolute -right-16 top-24 h-80 w-80 rounded-full bg-terracotta/8 blur-3xl" />
-      <div aria-hidden="true" className="pointer-events-none absolute bottom-20 left-1/3 h-64 w-64 rounded-full bg-terracotta/6 blur-3xl" />
+      <div aria-hidden="true" className="pointer-events-none absolute -left-20 top-16 hidden h-72 w-72 rounded-full bg-terracotta/10 blur-3xl sm:block" />
+      <div aria-hidden="true" className="pointer-events-none absolute -right-16 top-24 hidden h-80 w-80 rounded-full bg-terracotta/8 blur-3xl sm:block" />
+      <div aria-hidden="true" className="pointer-events-none absolute bottom-20 left-1/3 hidden h-64 w-64 rounded-full bg-terracotta/6 blur-3xl sm:block" />
 
       <motion.div
         aria-hidden="true"

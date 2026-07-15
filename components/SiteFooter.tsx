@@ -17,9 +17,12 @@ const quickLinks = [
 
 const footerServices = [
   "Website Development",
+  "Custom Software",
+  "AI / ML",
+  "Agentic AI",
+  "LLM Models",
   "SEO & Local SEO",
   "Google Ads",
-  "Custom Software",
   "CRM Solutions",
   "Mobile Apps",
   "DevOps & Hosting",

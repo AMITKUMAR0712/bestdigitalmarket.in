@@ -4,7 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 
 const PHRASES = [
   "SEO-Friendly Websites",
-  "Custom Software & CRM",
+  "Custom Software",
+  "AI & Machine Learning",
+  "Agentic AI Systems",
+  "LLM Model Solutions",
   "Digital Marketing",
   "Google & Meta Ads",
   "Local SEO Solutions",

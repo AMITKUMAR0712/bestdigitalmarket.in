@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/site";
 
 export const runtime = "edge";
-export const alt = "Website Development, Software and Digital Marketing Company Delhi NCR";
+export const alt = "Best AI Software, Custom Software and Digital Marketing Company in Noida";
 export const size = {
   width: 1200,
   height: 630,
@@ -27,11 +27,11 @@ export default function Image() {
         <div style={{ fontSize: 28, letterSpacing: 8, color: "#67e8f9", textTransform: "uppercase" }}>
           {siteConfig.name}
         </div>
-        <div style={{ marginTop: 28, maxWidth: 900, fontSize: 76, fontWeight: 900, lineHeight: 0.95 }}>
-          Website, Software & Digital Marketing Services
+        <div style={{ marginTop: 28, maxWidth: 980, fontSize: 68, fontWeight: 900, lineHeight: 0.95 }}>
+          Best AI Software Company in Noida & Greater Noida
         </div>
-        <div style={{ marginTop: 32, fontSize: 30, color: "#cbd5e1" }}>
-          Website Development • Software • SEO • Google Ads • Lead Generation
+        <div style={{ marginTop: 32, fontSize: 28, color: "#cbd5e1" }}>
+          Agentic AI • AI/ML • LLM Models • Custom Software • SEO • Websites
         </div>
       </div>
     ),

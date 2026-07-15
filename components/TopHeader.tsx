@@ -4,6 +4,9 @@ import { callLink, siteConfig } from "@/lib/site";
 
 const topServices = [
   { label: "Website Development", href: "/services" },
+  { label: "Custom Software", href: "/services" },
+  { label: "AI Models", href: "/services" },
+  { label: "Agentic AI", href: "/services" },
   { label: "Software Development", href: "/services" },
   { label: "Mobile Apps", href: "/services" },
   { label: "SEO", href: "/services" },
@@ -25,9 +28,12 @@ export function TopHeader() {
           </a>
         </div>
 
-        <nav className="hidden items-center gap-0 text-[11px] md:flex lg:text-xs" aria-label="Top services">
+        <nav
+          className="hidden max-w-[58%] items-center gap-0 overflow-x-auto text-[11px] md:flex lg:max-w-none lg:text-xs [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          aria-label="Top services"
+        >
           {topServices.map((service, index) => (
-            <span key={service.label} className="inline-flex items-center">
+            <span key={service.label} className="inline-flex shrink-0 items-center">
               {index > 0 && <span className="mx-2 text-white/35" aria-hidden="true">|</span>}
               <Link href={service.href} className="whitespace-nowrap transition hover:text-white/80">
                 {service.label}

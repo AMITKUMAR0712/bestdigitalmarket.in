@@ -189,6 +189,21 @@ export const serviceCategories = [
     ],
   },
   {
+    title: "AI, ML & Agentic Systems",
+    icon: FiCpu,
+    description: "Practical AI software, machine learning models, LLM solutions and agentic AI systems built for real business workflows in Noida and Greater Noida.",
+    services: [
+      "AI Software Development",
+      "AI / ML Solutions",
+      "Agentic AI Systems",
+      "LLM Model Development",
+      "AI Chatbots & Assistants",
+      "Generative AI Integration",
+      "Machine Learning Models",
+      "AI Automation Workflows",
+    ],
+  },
+  {
     title: "Mobile Apps & Business Systems",
     icon: FiGlobe,
     description: "Mobile apps, CRM systems and internal tools that simplify operations and improve customer management.",

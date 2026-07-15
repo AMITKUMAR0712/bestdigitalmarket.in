@@ -83,6 +83,12 @@ export function ParticleCanvas() {
     const canvas = canvasRef.current;
     if (!container || !canvas) return;
 
+    // Skip particle animation on mobile for faster first paint.
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      container.style.display = "none";
+      return;
+    }
+
     const context = canvas.getContext("2d");
     if (!context) return;
 

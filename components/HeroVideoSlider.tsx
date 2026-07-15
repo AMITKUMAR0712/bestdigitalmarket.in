@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPoi
 import { useReducedMotion } from "framer-motion";
 import { heroVideos } from "@/lib/hero-videos";
 
-const AUTO_ADVANCE_MS = 6500;
+const MOBILE_ADVANCE_MS = 2800;
 const SWIPE_THRESHOLD = 45;
 const TOTAL_SLIDES = heroVideos.length;
 
@@ -16,7 +16,7 @@ export function HeroVideoSlider() {
   const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
   const pointerStartX = useRef<number | null>(null);
 
-  const useVideo = isDesktop && !prefersReducedMotion;
+  const useVideo = !prefersReducedMotion;
 
   const goNext = useCallback(() => setActiveIndex((index) => (index + 1) % TOTAL_SLIDES), []);
   const goPrev = useCallback(() => setActiveIndex((index) => (index - 1 + TOTAL_SLIDES) % TOTAL_SLIDES), []);
@@ -44,11 +44,12 @@ export function HeroVideoSlider() {
   }, [activeIndex, useVideo]);
 
   useEffect(() => {
-    if (useVideo || prefersReducedMotion) return;
+    if (prefersReducedMotion || isDesktop) return;
 
-    const timer = window.setInterval(goNext, AUTO_ADVANCE_MS);
+    // Mobile videos rotate quickly for a more energetic first impression.
+    const timer = window.setInterval(goNext, MOBILE_ADVANCE_MS);
     return () => window.clearInterval(timer);
-  }, [useVideo, prefersReducedMotion, goNext]);
+  }, [isDesktop, prefersReducedMotion, goNext, activeIndex]);
 
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     pointerStartX.current = event.clientX;
@@ -102,10 +103,11 @@ export function HeroVideoSlider() {
                   className="hero-swiper-video absolute inset-0 h-full w-full object-cover object-center"
                   muted
                   playsInline
-                  preload="auto"
+                  preload={isActive ? "auto" : "metadata"}
                   poster={video.poster}
                   autoPlay={isActive}
-                  onEnded={isActive ? goNext : undefined}
+                  loop={!isDesktop}
+                  onEnded={isActive && isDesktop ? goNext : undefined}
                 >
                   <source src={video.src} type="video/mp4" />
                 </video>

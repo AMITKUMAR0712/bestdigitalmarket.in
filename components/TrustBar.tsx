@@ -9,7 +9,7 @@ type TrustBarProps = {
 
 export function TrustBar({ compact = false, showBadges = true }: TrustBarProps) {
   return (
-    <section className={compact ? "relative px-4 py-4 sm:px-6" : "app-section relative py-6 sm:py-8"}>
+    <section className={compact ? "relative px-4 py-4 sm:px-6" : "app-section relative py-4 sm:py-8"}>
       <div className="app-container">
         <RevealGroup className={`grid gap-3 ${compact ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-2 lg:grid-cols-4"}`}>
           {trustHighlights.map((item) => (
