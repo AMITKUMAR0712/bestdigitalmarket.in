@@ -22,49 +22,15 @@ type MotionPresetOptions = {
 };
 
 export function getRevealOffset(direction: RevealDirection, mobile: boolean) {
-  const distance = mobile ? 28 : 52;
-
-  switch (direction) {
-    case "down":
-      return { y: -distance };
-    case "left":
-      return { x: distance };
-    case "right":
-      return { x: -distance };
-    case "none":
-      return {};
-    default:
-      return { y: distance };
-  }
+  void direction;
+  void mobile;
+  return { x: 0, y: 0 };
 }
 
-export function getRevealVariants({
-  direction = "up",
-  reducedMotion = false,
-  mobile = false,
-}: MotionPresetOptions = {}) {
-  if (reducedMotion) {
-    return {
-      hidden: { opacity: 0 },
-      visible: { opacity: 1 },
-    };
-  }
-
-  const offset = getRevealOffset(direction, mobile);
-
+/** Instant show — no blur / fade / slide-on-scroll for faster perceived load. */
+export function getRevealVariants(_options: MotionPresetOptions = {}) {
   return {
-    hidden: {
-      opacity: 0,
-      scale: mobile ? 0.98 : 0.94,
-      filter: mobile ? "blur(0px)" : "blur(12px)",
-      ...offset,
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      filter: "blur(0px)",
-      x: 0,
-      y: 0,
-    },
+    hidden: { opacity: 1, scale: 1, filter: "none", x: 0, y: 0 },
+    visible: { opacity: 1, scale: 1, filter: "none", x: 0, y: 0 },
   };
 }
