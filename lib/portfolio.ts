@@ -163,18 +163,7 @@ export const portfolioProjects: PortfolioProject[] = [
     url: "https://bpinfragroup.com/",
   },
   {
-    id: "itmc-systems",
-    title: "ITMC Systems",
-    client: "ITMC Systems, Inc.",
-    category: "Corporate & Business",
-    description:
-      "A dynamic global IT consulting and staffing portal developed for ITMC Systems, offering digital transformation, AI solutions, and workf.",
-    image: "/portfolio/itmc-systems.png",
-    url: "https://www.itmcsystems.com/",
-  },
-  {
-    id: "wizmytrip",
-    title: "WizMyTrip",
+    id: "wizmytrip",    title: "WizMyTrip",
     client: "WizMyTrip Pvt. Ltd.",
     category: "Travel & Hospitality",
     description:

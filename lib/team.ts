@@ -65,29 +65,28 @@ export const teamMembers: TeamMember[] = [
     image: "/team/mastan-ai-ml.jpg",
   },
   {
+    id: "manohar-singh",
+    name: "Manohar Singh",
+    role: "MARN Stack Developer",
+    description:
+      "Develops modern web applications with MongoDB, Apollo, React and Node.js — building scalable APIs, clean UIs and reliable full-stack product features.",
+    image: "/team/manohar-singh.jpg",
+  },
+  {
+    id: "vyom-sagar",
+    name: "Vyom Sagar",
+    role: "MERN Stack Developer",
+    description:
+      "Builds responsive web apps with MongoDB, Express, React and Node.js — focused on clean code, fast interfaces and smooth feature delivery for growing businesses.",
+    image: "/team/vyom-sagar.jpg",
+  },
+  {
     id: "divyam-sharma",
     name: "Divyam Sharma",
     role: "Digital Marketing Analyst",
     description:
       "Plans SEO, paid campaigns and performance reporting so websites attract the right traffic, convert enquiries and deliver measurable marketing ROI.",
     image: "/team/divyam-sharma.png",
-  },
-  {
-    id: "ankit",
-    name: "Ankit",
-    role: "Junior MERN Stack Developer",
-    description:
-      "Supports frontend and backend modules with React, Node.js and MongoDB — learning production practices while shipping clean, tested features with the senior team.",
-    image: "/team/avatars/ankit.svg",
-    internship: true,
-  },
-  {
-    id: "manish",
-    name: "Mansih",
-    role: "Backend Developer",
-    description:
-      "Builds secure APIs, database logic and server-side workflows so applications stay fast, reliable and ready for real business traffic.",
-    image: "/team/avatars/manish.svg",
   },
   {
     id: "sumit",
