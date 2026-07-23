@@ -43,9 +43,9 @@ export const teamMembers: TeamMember[] = [
   {
     id: "vikram-kumar-modi",
     name: "Vikram Kumar Modi",
-    role: "Java Full Stack Developer",
+    role: "Flutter Developer",
     description:
-      "Specializes in Java-based enterprise solutions, robust APIs and full-stack delivery for portals, service platforms and business-critical applications.",
+      "Builds cross-platform mobile apps with Flutter — clean UI, smooth performance and reliable Android & iOS delivery for real business products.",
     image: "/team/vikram-kumar-modi.jpg",
   },
   {
@@ -62,7 +62,7 @@ export const teamMembers: TeamMember[] = [
     role: "AI & Machine Learning Engineer",
     description:
       "Builds machine learning models and intelligent features for prediction, automation and data-driven products that support real business decision-making.",
-    image: "/team/mastan-ai-ml.jpg",
+    image: "/team/mastan.jpg",
   },
   {
     id: "manohar-singh",
