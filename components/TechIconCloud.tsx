@@ -4,34 +4,45 @@ import type { IconType } from "react-icons";
 import { useMemo, useState } from "react";
 import { FaFacebookF, FaGoogle, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import {
-  FiBarChart2,
-  FiCpu,
-  FiSearch,
-  FiTarget,
-  FiZap,
-} from "react-icons/fi";
-import {
   SiDocker,
   SiExpress,
   SiFigma,
   SiFirebase,
   SiGit,
   SiGithub,
+  SiGithubcopilot,
+  SiGooglegemini,
+  SiHuggingface,
   SiJavascript,
+  SiLangchain,
   SiLaravel,
   SiMongodb,
   SiMysql,
+  SiN8N,
   SiNextdotjs,
   SiNodedotjs,
+  SiOllama,
+  SiOpenai,
   SiPhp,
+  SiPytorch,
   SiPython,
   SiReact,
   SiShopify,
   SiTailwindcss,
+  SiTensorflow,
   SiTypescript,
   SiVercel,
   SiWordpress,
+  SiZapier,
 } from "react-icons/si";
+import {
+  FiBarChart2,
+  FiCpu,
+  FiMessageCircle,
+  FiSearch,
+  FiTarget,
+  FiZap,
+} from "react-icons/fi";
 import { Reveal } from "@/components/Reveal";
 import { RevealGroup, RevealItem } from "@/components/RevealGroup";
 import { SectionHeader } from "@/components/SectionHeader";
@@ -82,32 +93,49 @@ const techStack: TechItem[] = [
   { name: "WhatsApp Leads", icon: FaWhatsapp, color: "#25d366", category: "Digital Marketing" },
   { name: "Lead Generation", icon: FiTarget, color: "#9b5540", category: "Digital Marketing" },
   { name: "Analytics", icon: FiBarChart2, color: "#78716c", category: "Digital Marketing" },
+  { name: "OpenAI", icon: SiOpenai, color: "#10a37f", category: "AI & Automation", featured: true },
+  { name: "ChatGPT", icon: SiOpenai, color: "#0d9373", category: "AI & Automation", featured: true },
+  { name: "Gemini", icon: SiGooglegemini, color: "#8e75b2", category: "AI & Automation", featured: true },
+  { name: "Claude", icon: FiMessageCircle, color: "#d97706", category: "AI & Automation", featured: true },
+  { name: "GitHub Copilot", icon: SiGithubcopilot, color: "#1c1917", category: "AI & Automation", featured: true },
+  { name: "LangChain", icon: SiLangchain, color: "#1c3c3c", category: "AI & Automation", featured: true },
+  { name: "Hugging Face", icon: SiHuggingface, color: "#ffd21e", category: "AI & Automation", featured: true },
+  { name: "TensorFlow", icon: SiTensorflow, color: "#ff6f00", category: "AI & Automation", featured: true },
+  { name: "PyTorch", icon: SiPytorch, color: "#ee4c2c", category: "AI & Automation" },
+  { name: "Ollama", icon: SiOllama, color: "#1c1917", category: "AI & Automation" },
+  { name: "n8n", icon: SiN8N, color: "#ea4b71", category: "AI & Automation" },
+  { name: "Zapier", icon: SiZapier, color: "#ff4a00", category: "AI & Automation" },
+  { name: "Agentic AI", icon: FiCpu, color: "#7c3aed", category: "AI & Automation", featured: true },
+  { name: "LLM Models", icon: FiCpu, color: "#6366f1", category: "AI & Automation", featured: true },
+  { name: "AI Chatbots", icon: FiMessageCircle, color: "#0ea5e9", category: "AI & Automation" },
   { name: "Automation", icon: FiZap, color: "#d97706", category: "AI & Automation" },
-  { name: "AI Systems", icon: FiCpu, color: "#7c3aed", category: "AI & Automation" },
 ];
 
 type TechIconCloudProps = {
   compact?: boolean;
 };
 
+/** Default preview size on all devices; View All reveals the full list. */
+const PREVIEW_LIMIT = 12;
+
 export function TechIconCloud({ compact = false }: TechIconCloudProps) {
   const [showAll, setShowAll] = useState(false);
   const [activeCategory, setActiveCategory] = useState<StackCategory | "All">("All");
 
-  const visibleStack = useMemo(() => {
-    const pool =
+  const filteredStack = useMemo(
+    () =>
       activeCategory === "All"
         ? techStack
-        : techStack.filter((item) => item.category === activeCategory);
+        : techStack.filter((item) => item.category === activeCategory),
+    [activeCategory],
+  );
 
-    if (compact && !showAll && activeCategory === "All") {
-      return techStack.filter((item) => item.featured);
-    }
+  const visibleStack = useMemo(
+    () => (showAll ? filteredStack : filteredStack.slice(0, PREVIEW_LIMIT)),
+    [filteredStack, showAll],
+  );
 
-    return pool;
-  }, [activeCategory, compact, showAll]);
-
-  const canExpand = compact && !showAll && activeCategory === "All";
+  const hasMore = filteredStack.length > PREVIEW_LIMIT;
 
   return (
     <section className="app-section relative">
@@ -154,18 +182,18 @@ export function TechIconCloud({ compact = false }: TechIconCloudProps) {
               </div>
             </div>
 
-            <RevealGroup className="relative grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12" stagger={0.04}>
+            <RevealGroup className="relative grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-12" stagger={0.04}>
               {visibleStack.map((tech) => {
                 const Icon = tech.icon;
 
                 return (
                   <RevealItem key={tech.name}>
                     <div
-                      className="tech-icon-card motion-card group relative overflow-hidden rounded-2xl border border-[var(--border-warm)] bg-white p-3 text-center shadow-soft transition hover:-translate-y-1 hover:border-terracotta/30"
+                      className="tech-icon-card motion-card group relative overflow-hidden rounded-2xl border border-[var(--border-warm)] bg-white p-2.5 text-center shadow-soft transition hover:-translate-y-1 hover:border-terracotta/30 sm:p-3"
                       title={tech.name}
                     >
-                    <div className="relative mx-auto grid h-10 w-10 place-items-center rounded-2xl border border-[var(--border-warm)] bg-cream-50 transition group-hover:scale-110 sm:h-12 sm:w-12">
-                      <Icon className="text-2xl transition sm:text-3xl" style={{ color: tech.color }} />
+                    <div className="relative mx-auto grid h-9 w-9 place-items-center rounded-2xl border border-[var(--border-warm)] bg-cream-50 transition group-hover:scale-110 sm:h-12 sm:w-12">
+                      <Icon className="text-xl transition sm:text-3xl" style={{ color: tech.color }} />
                     </div>
                     <p className="relative mt-2 truncate text-[10px] font-bold text-charcoal-light group-hover:text-terracotta sm:text-xs">{tech.name}</p>
                     </div>
@@ -174,14 +202,14 @@ export function TechIconCloud({ compact = false }: TechIconCloudProps) {
               })}
             </RevealGroup>
 
-            {canExpand && (
-              <div className="relative mt-6 text-center">
+            {hasMore && (
+              <div className="relative mt-5 text-center sm:mt-6">
                 <button
                   type="button"
-                  onClick={() => setShowAll(true)}
+                  onClick={() => setShowAll((current) => !current)}
                   className="inline-flex min-h-11 items-center justify-center rounded-full bg-terracotta px-6 py-3 text-sm font-bold text-white transition hover:bg-terracotta-600"
                 >
-                  View All Technologies
+                  {showAll ? "Show Less" : "View All Technologies"}
                 </button>
               </div>
             )}

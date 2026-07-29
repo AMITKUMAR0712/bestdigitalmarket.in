@@ -89,8 +89,16 @@ export function SiteFooter() {
           <div className="mt-3 space-y-2 text-[13px] text-charcoal-light">
             <p>Call: +91 {siteConfig.callNumber}</p>
             <p>WhatsApp: +91 {siteConfig.whatsappNumber}</p>
-            <p>Email: {siteConfig.email}</p>
-            <p>Email: {siteConfig.emailSecondary}</p>
+            <p className="break-words">
+              Email:{" "}
+              <a href={`mailto:${siteConfig.email}`} className="transition hover:text-terracotta">
+                {siteConfig.email}
+              </a>
+              {" , "}
+              <a href={`mailto:${siteConfig.emailSecondary}`} className="transition hover:text-terracotta">
+                {siteConfig.emailSecondary}
+              </a>
+            </p>
             <p>{siteConfig.address}</p>
           </div>
           <div className="mt-5 flex flex-wrap gap-2">

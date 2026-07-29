@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { serviceCategories, companyTrust } from "@/lib/data";
+import { companyTrust } from "@/lib/data";
 import { siteConfig } from "@/lib/site";
 
 type FormState = {
@@ -45,9 +45,34 @@ export function ContactForm() {
   const [error, setError] = useState("");
   const [whatsappLeadLink, setWhatsappLeadLink] = useState("");
 
-  const services = useMemo(
-    () => Array.from(new Set(serviceCategories.flatMap((category) => category.services))),
-    []
+  const serviceGroups = useMemo(
+    () => [
+      {
+        label: "Websites & Apps",
+        options: ["Website Development", "Mobile App Development", "UI / UX Design", "E-commerce Website"],
+      },
+      {
+        label: "Software & CRM",
+        options: ["Custom Software", "CRM Solutions", "Business Automation", "Admin Dashboard / Portal"],
+      },
+      {
+        label: "AI & Smart Systems",
+        options: ["AI / ML Solutions", "Agentic AI", "LLM Models / Chatbots", "AI Automation"],
+      },
+      {
+        label: "SEO & Google Visibility",
+        options: ["SEO Services", "Local SEO", "Google Business Profile", "Technical SEO Audit"],
+      },
+      {
+        label: "Ads & Digital Marketing",
+        options: ["Google Ads", "Meta / Instagram Ads", "Lead Generation", "Full Digital Marketing"],
+      },
+      {
+        label: "Hosting & Support",
+        options: ["DevOps & Hosting", "Website Maintenance", "Not sure — need consultation"],
+      },
+    ],
+    [],
   );
 
   function updateField(field: keyof FormState, value: string) {
@@ -118,12 +143,16 @@ export function ContactForm() {
         <input className={inputClass} value={form.business} onChange={(event) => updateField("business", event.target.value)} placeholder="Business Name" aria-label="Business Name" />
         <select className={`${inputClass} sm:col-span-2`} value={form.service} onChange={(event) => updateField("service", event.target.value)} aria-label="Service Interested In">
           <option value="" className="bg-white">
-            Service Interested In
+            What do you need help with?
           </option>
-          {services.map((service) => (
-            <option key={service} value={service} className="bg-white">
-              {service}
-            </option>
+          {serviceGroups.map((group) => (
+            <optgroup key={group.label} label={group.label} className="bg-white font-semibold text-charcoal">
+              {group.options.map((service) => (
+                <option key={service} value={service} className="bg-white font-normal">
+                  {service}
+                </option>
+              ))}
+            </optgroup>
           ))}
         </select>
         <textarea

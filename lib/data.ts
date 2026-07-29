@@ -17,34 +17,34 @@ import {
 } from "react-icons/fi";
 
 export const companyTrust = {
-  yearsExperience: "7+",
-  happyClients: "150+",
-  projectsDelivered: "650+",
+  yearsExperience: "4+",
+  happyClients: "70+",
+  projectsDelivered: "150+",
   clientRetention: "98%",
-  googleRating: "4.9",
+  googleRating: "5",
   reviewCount: "65+",
-  campaignsManaged: "650+",
+  campaignsManaged: "150+",
   teamExperts: "12+",
   citiesServed: "25+",
   onTimeDelivery: "96%",
 };
 
 export const stats = [
-  { value: 650, suffix: "+", label: "Projects Delivered" },
-  { value: 150, suffix: "+", label: "Happy Clients" },
-  { value: 7, suffix: "+", label: "Years Experience" },
+  { value: 150, suffix: "+", label: "Projects Delivered" },
+  { value: 70, suffix: "+", label: "Happy Clients" },
+  { value: 4, suffix: "+", label: "Years Experience" },
   { value: 98, suffix: "%", label: "Client Retention" },
 ];
 
 export const trustHighlights = [
-  { value: companyTrust.yearsExperience, label: "Years Experience" },
-  { value: companyTrust.happyClients, label: "Happy Clients" },
-  { value: companyTrust.projectsDelivered, label: "Projects Delivered" },
-  { value: `${companyTrust.googleRating}★`, label: "Google Rating" },
+  { value: companyTrust.yearsExperience, count: 4, suffix: "+", label: "Years Experience" },
+  { value: companyTrust.happyClients, count: 70, suffix: "+", label: "Happy Clients" },
+  { value: companyTrust.projectsDelivered, count: 150, suffix: "+", label: "Projects Delivered" },
+  { value: `${companyTrust.googleRating}★`, count: 5, suffix: "★", label: "Google Rating" },
 ];
 
 export const trustBadges = [
-  "Trusted Since 2018",
+  "Trusted Since 2022",
   "NDA Protected Projects",
   "On-Time Delivery",
   "Direct Founder Support",
@@ -86,8 +86,8 @@ export const brands = [
 ];
 
 export const aboutPoints = [
-  "7+ Years Industry Experience",
-  "150+ Satisfied Clients",
+  "4+ Years Industry Experience",
+  "70+ Satisfied Clients",
   "Trusted Delivery Process",
   "Dedicated Project Support",
   "Transparent Reporting",
@@ -259,8 +259,8 @@ export const serviceCategories = [
 ];
 
 export const whyChooseUs = [
-  { title: "7+ Years Trusted", icon: FiTrendingUp, text: "Proven experience across websites, software, SEO and digital marketing for Indian businesses." },
-  { title: "150+ Happy Clients", icon: FiUsers, text: "Long-term relationships built on clear communication, quality delivery and measurable results." },
+  { title: "4+ Years Trusted", icon: FiTrendingUp, text: "Proven experience across websites, software, SEO and digital marketing for Indian businesses." },
+  { title: "70+ Happy Clients", icon: FiUsers, text: "Long-term relationships built on clear communication, quality delivery and measurable results." },
   { title: "Secure & Transparent", icon: FiShield, text: "NDA protection, honest reporting and no hidden costs — you always know project status." },
   { title: "Affordable Pricing", icon: FiPieChart, text: "Premium execution with plans shaped around your business stage and growth goals." },
   { title: "Dedicated Support", icon: FiActivity, text: "Direct founder access, fast replies and reliable post-launch support when you need help." },
