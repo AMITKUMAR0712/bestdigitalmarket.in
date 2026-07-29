@@ -3,19 +3,34 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { FiHome, FiLayers, FiMenu, FiPhoneCall, FiX } from "react-icons/fi";
+import {
+  FiBriefcase,
+  FiGrid,
+  FiHelpCircle,
+  FiHome,
+  FiInfo,
+  FiLayers,
+  FiMail,
+  FiMenu,
+  FiMessageCircle,
+  FiPhoneCall,
+  FiSettings,
+  FiX,
+} from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 import { BrandLogo } from "@/components/BrandLogo";
 import { TopHeader } from "@/components/TopHeader";
-import { callLink } from "@/lib/site";
+import { callLink, whatsappLink } from "@/lib/site";
 
 const links = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Case Studies", href: "/case-studies" },
-  { label: "Process", href: "/process" },
-  { label: "Contact", href: "/contact" },
+  { label: "Home", href: "/", icon: FiHome },
+  { label: "About", href: "/about", icon: FiInfo },
+  { label: "Services", href: "/services", icon: FiLayers },
+  { label: "Portfolio", href: "/portfolio", icon: FiGrid },
+  { label: "Case Studies", href: "/case-studies", icon: FiBriefcase },
+  { label: "Process", href: "/process", icon: FiSettings },
+  { label: "FAQ", href: "/faq", icon: FiHelpCircle },
+  { label: "Contact", href: "/contact", icon: FiMail },
 ];
 
 export function SiteNav() {
@@ -80,7 +95,7 @@ export function SiteNav() {
           <BrandLogo compact />
 
           <nav
-            className="absolute left-1/2 hidden max-w-[52vw] -translate-x-1/2 items-center xl:flex"
+            className="absolute left-1/2 hidden max-w-[58vw] -translate-x-1/2 items-center xl:flex"
             aria-label="Main navigation"
           >
             {links.map((link) => {
@@ -89,7 +104,7 @@ export function SiteNav() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`nav-link-item rounded-lg px-2.5 py-2 text-[12px] font-medium transition-all duration-200 2xl:px-3 2xl:text-[13px] ${
+                  className={`nav-link-item rounded-lg px-2 py-2 text-[11.5px] font-medium transition-all duration-200 2xl:px-2.5 2xl:text-[13px] ${
                     active ? "nav-link-active bg-terracotta/10 text-terracotta" : "text-charcoal-muted hover:bg-cream-100 hover:text-terracotta"
                   }`}
                 >
@@ -135,7 +150,7 @@ export function SiteNav() {
       >
         <button
           type="button"
-          className={`mobile-nav-backdrop absolute inset-0 bg-charcoal/35 backdrop-blur-[2px] transition-opacity duration-300 ${
+          className={`mobile-nav-backdrop absolute inset-0 bg-charcoal/40 backdrop-blur-[3px] transition-opacity duration-300 ${
             isOpen ? "opacity-100" : "opacity-0"
           }`}
           aria-label="Close menu"
@@ -143,43 +158,104 @@ export function SiteNav() {
           tabIndex={isOpen ? 0 : -1}
         />
         <div
-          className={`mobile-nav-panel absolute inset-y-0 right-0 flex w-[min(100%,20rem)] flex-col border-l border-[var(--border-warm)] bg-[var(--card-white)] shadow-2xl transition-transform duration-300 ease-out ${
+          className={`mobile-nav-panel absolute inset-y-0 right-0 flex w-[min(100%,21.5rem)] flex-col overflow-hidden shadow-2xl transition-transform duration-300 ease-out ${
             isOpen ? "translate-x-0" : "translate-x-full"
           }`}
           style={{ top: spacerHeight }}
         >
-          <div className="border-b border-[var(--border-warm)] px-4 py-4">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-terracotta">Menu</p>
-            <p className="mt-1 text-[13px] font-medium text-charcoal">Website, SEO, software &amp; marketing</p>
+          <div className="mobile-nav-panel-glow" aria-hidden="true" />
+
+          <div className="relative border-b border-[var(--border-warm)]/80 px-4 pb-4 pt-4">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-terracotta">Explore</p>
+                <p className="mt-1.5 text-[15px] font-bold leading-snug text-charcoal">TradeOrbit Global</p>
+                <p className="mt-1 text-[12px] leading-relaxed text-charcoal-light">
+                  Websites, software, AI &amp; growth marketing
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[var(--border-warm)] bg-white/80 text-charcoal transition hover:border-terracotta/40 hover:text-terracotta"
+                aria-label="Close menu"
+              >
+                <FiX className="text-lg" />
+              </button>
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-2">
+              <a
+                href={callLink}
+                className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-terracotta px-3 py-2.5 text-[12px] font-bold text-white shadow-soft transition hover:bg-terracotta-600"
+              >
+                <FiPhoneCall className="text-sm" />
+                Call Now
+              </a>
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-[#25d366]/35 bg-[#25d366]/10 px-3 py-2.5 text-[12px] font-bold text-[#128c7e] transition hover:bg-[#25d366]/18"
+              >
+                <FaWhatsapp className="text-sm" />
+                WhatsApp
+              </a>
+            </div>
           </div>
-          <div className="flex-1 overflow-y-auto px-3 py-3">
-            <div className="grid gap-1">
+
+          <div className="relative flex-1 overflow-y-auto px-3 py-3">
+            <p className="mb-2 px-2 text-[10px] font-bold uppercase tracking-[0.16em] text-charcoal-muted">Pages</p>
+            <div className="grid gap-1.5">
               {links.map((link, index) => {
+                const Icon = link.icon;
                 const active = pathname === link.href;
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className={`mobile-nav-link rounded-xl px-4 py-3 text-[14px] font-semibold transition ${
-                      active ? "bg-terracotta/10 text-terracotta" : "text-charcoal hover:bg-cream-100"
+                    className={`mobile-nav-link group flex items-center gap-3 rounded-2xl px-3 py-3 text-[14px] font-semibold transition ${
+                      active
+                        ? "bg-terracotta text-white shadow-soft"
+                        : "bg-white/55 text-charcoal hover:bg-white hover:text-terracotta"
                     }`}
-                    style={{ animationDelay: `${index * 40}ms` }}
+                    style={{ animationDelay: `${index * 35}ms` }}
                   >
-                    {link.label}
+                    <span
+                      className={`grid h-9 w-9 place-items-center rounded-xl transition ${
+                        active
+                          ? "bg-white/20 text-white"
+                          : "bg-cream-100 text-terracotta group-hover:bg-terracotta/10"
+                      }`}
+                    >
+                      <Icon className="text-[16px]" />
+                    </span>
+                    <span className="flex-1">{link.label}</span>
+                    <span
+                      className={`text-[16px] transition ${
+                        active ? "text-white/80" : "text-charcoal-muted opacity-0 group-hover:opacity-100"
+                      }`}
+                      aria-hidden="true"
+                    >
+                      →
+                    </span>
                   </Link>
                 );
               })}
             </div>
           </div>
-          <div className="border-t border-[var(--border-warm)] p-4">
+
+          <div className="relative border-t border-[var(--border-warm)]/80 bg-white/40 p-4 backdrop-blur-sm">
             <Link
               href="/contact"
               onClick={() => setIsOpen(false)}
-              className="flex w-full items-center justify-center rounded-full bg-terracotta py-3 text-[14px] font-semibold text-white transition hover:bg-terracotta-600"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-charcoal py-3.5 text-[14px] font-bold text-cream-50 transition hover:bg-terracotta"
             >
+              <FiMessageCircle className="text-base" />
               Book Free Consultation
             </Link>
+            <p className="mt-3 text-center text-[11px] text-charcoal-light">All India · Noida · Greater Noida</p>
           </div>
         </div>
       </div>
