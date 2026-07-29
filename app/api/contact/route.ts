@@ -7,6 +7,7 @@ type ContactPayload = {
   email?: string;
   business?: string;
   service?: string;
+  budget?: string;
   message?: string;
 };
 
@@ -33,15 +34,20 @@ function validate(payload: ContactPayload) {
     email: clean(payload.email),
     business: clean(payload.business),
     service: clean(payload.service),
+    budget: clean(payload.budget),
     message: clean(payload.message),
   };
 
   if (!data.name) return { error: "Please enter your name." };
   if (!phonePattern.test(data.phone)) return { error: "Please enter a valid phone number." };
-  if (!emailPattern.test(data.email)) return { error: "Please enter a valid email address." };
-  if (!data.business) return { error: "Please enter your business name." };
   if (!data.service) return { error: "Please select a service." };
-  if (data.message.length < 10) return { error: "Please share a short message about your requirement." };
+  if (!data.budget) return { error: "Please select a rough budget." };
+  if (data.email && data.email !== "not-provided@tradeorbit.local" && !emailPattern.test(data.email)) {
+    return { error: "Please enter a valid email address." };
+  }
+  if (!data.message) {
+    data.message = `Need: ${data.service}. Rough budget: ${data.budget}.`;
+  }
 
   return { data };
 }
@@ -78,8 +84,9 @@ export async function POST(request: Request) {
     `Name: ${data.name}`,
     `Phone: ${data.phone}`,
     `Email: ${data.email}`,
-    `Business: ${data.business}`,
+    `City / business note: ${data.business}`,
     `Service: ${data.service}`,
+    `Budget: ${data.budget}`,
     `Message: ${data.message}`,
     `Submitted at: ${submittedAt}`,
   ].join("\n");
@@ -90,8 +97,9 @@ export async function POST(request: Request) {
       <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
       <p><strong>Phone:</strong> ${escapeHtml(data.phone)}</p>
       <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
-      <p><strong>Business:</strong> ${escapeHtml(data.business)}</p>
+      <p><strong>City / note:</strong> ${escapeHtml(data.business)}</p>
       <p><strong>Service:</strong> ${escapeHtml(data.service)}</p>
+      <p><strong>Budget:</strong> ${escapeHtml(data.budget)}</p>
       <p><strong>Message:</strong><br>${escapeHtml(data.message).replace(/\n/g, "<br>")}</p>
       <p><strong>Submitted at:</strong> ${escapeHtml(submittedAt)}</p>
     </div>
@@ -106,7 +114,7 @@ export async function POST(request: Request) {
     await transporter.sendMail({
       from: `"Website Lead" <${user}>`,
       to,
-      replyTo: data.email,
+      replyTo: data.email.includes("not-provided") ? user : data.email,
       subject,
       text,
       html,

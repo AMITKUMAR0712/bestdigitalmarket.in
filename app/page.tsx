@@ -1,33 +1,31 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { FiArrowRight, FiCheckCircle, FiExternalLink, FiMapPin, FiPhoneCall, FiStar, FiZap } from "react-icons/fi";
-import { ContactForm } from "@/components/ContactForm";
+import { ContactFormSection } from "@/components/ContactFormSection";
 import { EndToEndSteps } from "@/components/EndToEndSteps";
 import { HeroServicesOrbit } from "@/components/HeroServicesOrbit";
+import { PricingBands } from "@/components/PricingBands";
 import { Reveal } from "@/components/Reveal";
 import { RevealGroup, RevealItem } from "@/components/RevealGroup";
 import { ReviewCarousel } from "@/components/ReviewCarousel";
 import { SectionHeader } from "@/components/SectionHeader";
+import { ServicePaths } from "@/components/ServicePaths";
 import { SiteFooter } from "@/components/SiteFooter";
+import { TeamCarousel } from "@/components/TeamCarousel";
+import { TechIconCloud } from "@/components/TechIconCloud";
 import { TrustBar } from "@/components/TrustBar";
-import { companyTrust, serviceCategories, testimonials } from "@/lib/data";
+import { companyTrust, testimonials } from "@/lib/data";
 import { portfolioProjects } from "@/lib/portfolio";
 import { callLink, siteConfig } from "@/lib/site";
+import { createPageMetadata } from "@/lib/seo";
 
-const TechIconCloud = dynamic(() => import("@/components/TechIconCloud").then((module) => module.TechIconCloud), {
-  loading: () => <div className="app-section min-h-[12rem]" aria-hidden />,
-});
-
-const TeamCarousel = dynamic(() => import("@/components/TeamCarousel").then((module) => module.TeamCarousel), {
-  loading: () => <div className="min-h-[16rem]" aria-hidden />,
-});
-
-export const metadata: Metadata = {
-  title: "Best AI Software Company in Noida & Greater Noida | Agentic AI & Custom Software",
+export const metadata: Metadata = createPageMetadata({
+  title: "Best AI Software Company in Noida & Greater Noida | Agentic AI & Custom Software | TradeOrbit Global",
   description:
     "TradeOrbit Global — best AI software company in Noida and Greater Noida for agentic AI, AI/ML, LLM models, custom software, SEO websites, CRM and digital marketing across India.",
+  path: "/",
+  absoluteTitle: true,
   keywords: [
     "best AI software company in Noida",
     "best AI software company in Greater Noida",
@@ -41,10 +39,8 @@ export const metadata: Metadata = {
     "digital marketing agency in Noida",
     "TradeOrbit Global",
   ],
-  alternates: {
-    canonical: "/",
-  },
-};
+  ogImageAlt: "TradeOrbit Global — best AI software and web design company in Noida and Greater Noida",
+});
 
 function EndToEndSection() {
   return (
@@ -71,15 +67,35 @@ function EndToEndSection() {
   );
 }
 
+function TeamSection() {
+  return (
+    <section className="app-section relative">
+      <div className="app-container">
+        <SectionHeader
+          eyebrow="Our Team"
+          title="The professionals behind every successful delivery."
+          description="Meet the specialists who design, develop, market and launch your digital products — a hands-on team focused on quality, clarity and long-term results."
+        />
+        <Reveal>
+          <div className="mt-6 sm:mt-8">
+            <TeamCarousel />
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <main className="relative z-10 overflow-hidden bg-cream text-charcoal">
       <HeroSection />
       <TrustBar />
+      <ServicePaths />
+      <PricingBands />
+      <ProjectsSection featuredOnly />
       <EndToEndSection />
-      <TechIconCloud compact />
-      <ServicesSection />
-      <ProjectsSection />
+      <TechIconCloud />
       <TeamSection />
       <TestimonialsSection />
       <ContactSection />
@@ -92,56 +108,8 @@ function HeroSection() {
   return <HeroServicesOrbit />;
 }
 
-function ServicesSection() {
-  const homeServices = serviceCategories.filter((category) =>
-    ["Websites & CRO", "Software & Full-Stack Development", "AI, ML & Agentic Systems", "Mobile Apps & Business Systems"].includes(category.title)
-  );
-
-  return (
-    <section id="services" className="app-section relative">
-      <div className="app-container">
-        <SectionHeader eyebrow="Why Choose Us" title="Everything you need for digital growth." description="One professional team for website design, software development, digital marketing, automation, CRM, testing, hosting, deployment and ongoing support." />
-        <RevealGroup className="mt-8 grid gap-5 sm:mt-10 lg:grid-cols-2">
-          {homeServices.map((category) => {
-            const Icon = category.icon;
-            return (
-              <RevealItem key={category.title} hoverLift>
-                <article className="premium-card magnetic-glow motion-card group h-full rounded-2xl border border-[var(--border-warm)] p-4 sm:p-5">
-                  <div className="flex items-start gap-3">
-                    <div className="rounded-xl bg-terracotta/10 p-3 text-terracotta">
-                      <Icon className="text-xl" />
-                    </div>
-                    <div>
-                      <h3 className="text-base font-bold text-charcoal sm:text-lg">{category.title}</h3>
-                      <p className="mt-2 text-[13px] leading-6 text-charcoal-light">{category.description}</p>
-                    </div>
-                  </div>
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {category.services.slice(0, 7).map((service) => (
-                      <span key={service} className="rounded-full border border-[var(--border-warm)] bg-cream-50 px-2.5 py-1.5 text-[12px] text-charcoal-light transition group-hover:border-terracotta/20 group-hover:text-terracotta sm:text-[13px]">
-                        {service}
-                      </span>
-                    ))}
-                  </div>
-                </article>
-              </RevealItem>
-            );
-          })}
-        </RevealGroup>
-        <Reveal>
-          <div className="mt-10 text-center">
-            <Link href="/services" className="inline-flex items-center justify-center gap-2 rounded-full bg-terracotta px-5 py-2.5 text-[13px] font-semibold text-white transition hover:bg-terracotta-600">
-              Explore All Services <FiArrowRight />
-            </Link>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-function ProjectsSection() {
-  const featuredProjects = portfolioProjects.filter((project) => project.featured).slice(0, 6);
+function ProjectsSection({ featuredOnly = false }: { featuredOnly?: boolean }) {
+  const featuredProjects = portfolioProjects.filter((project) => project.featured).slice(0, featuredOnly ? 3 : 6);
   const projectTrustPoints = [
     `${companyTrust.projectsDelivered} projects delivered`,
     `${companyTrust.happyClients} happy clients`,
@@ -219,25 +187,6 @@ function ProjectsSection() {
   );
 }
 
-function TeamSection() {
-  return (
-    <section id="team" className="app-section relative overflow-hidden">
-      <div className="app-container">
-        <SectionHeader
-          eyebrow="Our Team"
-          title="The professionals behind every successful delivery."
-          description="Meet the specialists who design, develop, market and launch your digital products — a hands-on team focused on quality, clarity and long-term results."
-        />
-      </div>
-      <Reveal>
-        <div className="mt-8 sm:mt-10">
-          <TeamCarousel />
-        </div>
-      </Reveal>
-    </section>
-  );
-}
-
 function TestimonialsSection() {
   const googleReviews = testimonials;
 
@@ -309,7 +258,7 @@ function ContactSection() {
           </div>
         </Reveal>
         <Reveal delay={0.1}>
-          <ContactForm />
+          <ContactFormSection compact />
         </Reveal>
       </div>
     </section>

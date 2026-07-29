@@ -4,11 +4,14 @@ import { Reveal } from "@/components/Reveal";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TrustBar } from "@/components/TrustBar";
 import { faqs } from "@/lib/data";
+import { createPageMetadata } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "SEO, Website Design & Digital Marketing FAQs for Noida Businesses",
   description:
     "Answers about SEO-friendly website development, local SEO, Google Business Profile, AEO/GEO, Google Ads, Meta Ads, software and lead generation for Noida, Greater Noida and India.",
+  path: "/faq",
   keywords: [
     "SEO FAQ Noida",
     "website development FAQ Greater Noida",
@@ -16,14 +19,29 @@ export const metadata: Metadata = {
     "AEO GEO SEO services India",
     "Google Business Profile optimization Noida",
   ],
-  alternates: {
-    canonical: "/faq",
-  },
+});
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": `${siteConfig.url}/faq#faq`,
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
 };
 
 export default function FaqPage() {
   return (
     <main className="relative z-10 overflow-hidden bg-cream text-charcoal">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }}
+      />
       <PageHero
         eyebrow="FAQ"
         title="Everything you need to know before starting your digital project."

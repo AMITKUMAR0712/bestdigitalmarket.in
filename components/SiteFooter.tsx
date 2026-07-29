@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { FiFacebook, FiGithub, FiInstagram, FiLinkedin } from "react-icons/fi";
+import { FaYoutube } from "react-icons/fa";
+import { FiFacebook, FiGithub, FiInstagram, FiLinkedin, FiMapPin } from "react-icons/fi";
 import { BrandLogo } from "@/components/BrandLogo";
 import { companyTrust, trustBadges } from "@/lib/data";
 import { siteConfig } from "@/lib/site";
@@ -31,7 +32,7 @@ const footerServices = [
 
 const legalLinks = [
   { label: "Terms", href: "/terms" },
-  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Privacy", href: "/privacy-policy" },
 ];
 
 const socialLinks = [
@@ -39,22 +40,32 @@ const socialLinks = [
   { label: "GitHub", href: siteConfig.social.github, icon: FiGithub },
   { label: "Instagram", href: siteConfig.social.instagram, icon: FiInstagram },
   { label: "Facebook", href: siteConfig.social.facebook, icon: FiFacebook },
+  { label: "YouTube", href: siteConfig.social.youtube, icon: FaYoutube },
 ];
 
 export function SiteFooter() {
   return (
-    <footer className="relative isolate overflow-hidden border-t border-[var(--border-warm)] bg-cream-200/50 px-4 pb-[calc(5.5rem+env(safe-area-inset-bottom))] pt-8 sm:px-6 xl:px-8 xl:pb-10">
-      <div className="absolute inset-x-0 top-0 h-32 bg-terracotta/5 blur-3xl" />
-      <div className="relative z-10 mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1.15fr_0.75fr_0.8fr_1fr]">
-        <div className="rounded-[1.7rem] border border-[var(--border-warm)] bg-white p-5 shadow-soft">
-          <BrandLogo />
-          <p className="mt-3 max-w-sm text-[13px] leading-6 text-charcoal-light sm:text-sm sm:leading-relaxed">
-            A trusted IT company with {companyTrust.yearsExperience} years experience, {companyTrust.happyClients} happy clients and {companyTrust.projectsDelivered} projects delivered — websites, software, CRM, SEO, ads, hosting and full support.
+    <footer className="site-footer relative isolate overflow-hidden border-t border-[var(--border-warm)] bg-cream-200/50 px-4 pb-[calc(5.75rem+env(safe-area-inset-bottom))] pt-5 sm:px-6 sm:pb-6 sm:pt-6 xl:px-8 xl:pb-5 xl:pt-5">
+      <div className="absolute inset-x-0 top-0 h-20 bg-terracotta/5 blur-3xl" aria-hidden="true" />
+
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-4 sm:gap-5 lg:grid-cols-[1.2fr_0.7fr_0.95fr_0.95fr] lg:gap-5 xl:gap-6">
+        {/* Brand */}
+        <div className="min-w-0">
+          <BrandLogo compact />
+          <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-terracotta">
+            Website of {siteConfig.legalName}
           </p>
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {trustBadges.slice(0, 4).map((badge) => (
-              <span key={badge} className="rounded-full border border-terracotta/15 bg-terracotta/5 px-2.5 py-1 text-[10px] font-semibold text-terracotta">
-                ✓ {badge}
+          <p className="mt-1.5 max-w-md text-[12px] leading-snug text-charcoal-light sm:text-[13px] sm:leading-5">
+            {companyTrust.yearsExperience} yrs · {companyTrust.happyClients} clients · {companyTrust.projectsDelivered}{" "}
+            projects — websites, software, CRM, SEO & ads in Greater Noida.
+          </p>
+          <div className="mt-2 flex flex-wrap gap-1">
+            {trustBadges.slice(0, 3).map((badge) => (
+              <span
+                key={badge}
+                className="rounded-full border border-terracotta/15 bg-terracotta/5 px-2 py-0.5 text-[9px] font-semibold text-terracotta"
+              >
+                {badge}
               </span>
             ))}
           </div>
@@ -62,19 +73,31 @@ export function SiteFooter() {
             href={siteConfig.mapUrl}
             target="_blank"
             rel="noreferrer"
-            className="group mt-4 block rounded-[1.5rem] border border-[var(--border-warm)] bg-cream-50 p-4 text-sm text-charcoal-light transition hover:-translate-y-0.5 hover:border-terracotta/30"
+            className="mt-2.5 inline-flex max-w-full items-start gap-1.5 text-[12px] leading-snug text-charcoal-light transition hover:text-terracotta"
           >
-            <span className="block font-black text-charcoal">Open Google Maps</span>
-            <span className="mt-2 block">{siteConfig.address}</span>
-            <span className="mt-3 inline-flex rounded-full border border-terracotta/20 bg-terracotta/5 px-3 py-1 text-xs font-bold text-terracotta transition group-hover:bg-terracotta/10">
-              Get Directions
-            </span>
+            <FiMapPin className="mt-0.5 shrink-0 text-terracotta" aria-hidden="true" />
+            <span className="line-clamp-2">{siteConfig.address}</span>
           </a>
         </div>
-        <FooterColumn title="Quick Links" items={quickLinks} />
+
+        {/* Quick links */}
         <div>
-          <h3 className="text-sm font-bold text-charcoal sm:text-base">Our Services</h3>
-          <ul className="mt-3 space-y-2 text-[13px] text-charcoal-light">
+          <h3 className="text-[11px] font-bold uppercase tracking-[0.08em] text-charcoal">Quick Links</h3>
+          <ul className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1 text-[12px] text-charcoal-light sm:grid-cols-1 lg:grid-cols-1">
+            {quickLinks.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="transition hover:text-terracotta">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Services — 2-col dense */}
+        <div>
+          <h3 className="text-[11px] font-bold uppercase tracking-[0.08em] text-charcoal">Services</h3>
+          <ul className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1 text-[12px] text-charcoal-light">
             {footerServices.map((item) => (
               <li key={item}>
                 <Link href="/services" className="transition hover:text-terracotta">
@@ -84,24 +107,30 @@ export function SiteFooter() {
             ))}
           </ul>
         </div>
+
+        {/* Contact */}
         <div>
-          <h3 className="text-sm font-bold text-charcoal sm:text-base">Contact Us</h3>
-          <div className="mt-3 space-y-2 text-[13px] text-charcoal-light">
-            <p>Call: +91 {siteConfig.callNumber}</p>
-            <p>WhatsApp: +91 {siteConfig.whatsappNumber}</p>
+          <h3 className="text-[11px] font-bold uppercase tracking-[0.08em] text-charcoal">Contact</h3>
+          <div className="mt-2 space-y-1 text-[12px] leading-snug text-charcoal-light">
+            <p>
+              Call:{" "}
+              <a href={`tel:+91${siteConfig.callNumber}`} className="transition hover:text-terracotta">
+                +91 {siteConfig.callNumber}
+              </a>
+            </p>
+            <p>
+              WhatsApp:{" "}
+              <a href={`https://wa.me/91${siteConfig.whatsappNumber}`} className="transition hover:text-terracotta">
+                +91 {siteConfig.whatsappNumber}
+              </a>
+            </p>
             <p className="break-words">
-              Email:{" "}
               <a href={`mailto:${siteConfig.email}`} className="transition hover:text-terracotta">
                 {siteConfig.email}
               </a>
-              {" , "}
-              <a href={`mailto:${siteConfig.emailSecondary}`} className="transition hover:text-terracotta">
-                {siteConfig.emailSecondary}
-              </a>
             </p>
-            <p>{siteConfig.address}</p>
           </div>
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="mt-2.5 flex flex-wrap gap-1.5">
             {socialLinks.map((social) => {
               const Icon = social.icon;
               return (
@@ -110,48 +139,40 @@ export function SiteFooter() {
                   href={social.href}
                   target={social.href === "#" ? undefined : "_blank"}
                   rel={social.href === "#" ? undefined : "noreferrer"}
-                  className="inline-flex items-center gap-2 rounded-full border border-[var(--border-warm)] bg-white px-3 py-2 text-sm text-charcoal-light transition hover:border-terracotta/30 hover:text-terracotta"
+                  aria-label={social.label}
+                  title={social.label}
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[var(--border-warm)] bg-white text-charcoal-light transition hover:border-terracotta/30 hover:text-terracotta"
                 >
-                  <Icon />
-                  {social.label}
+                  <Icon className="h-3.5 w-3.5" />
                 </a>
               );
             })}
           </div>
         </div>
       </div>
-      <div className="relative z-10 mx-auto mt-8 flex max-w-7xl flex-col gap-4 border-t border-[var(--border-warm)] pt-5 text-sm text-charcoal-light md:flex-row md:items-center md:justify-between">
-        <p>
-          © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+
+      {/* Brand note + legal — one compact bar */}
+      <div className="relative z-10 mx-auto mt-4 max-w-7xl border-t border-[var(--border-warm)] pt-3 sm:mt-5 sm:pt-3.5">
+        <p className="line-clamp-2 text-[10px] leading-snug text-charcoal-muted sm:line-clamp-none sm:text-[11px] sm:leading-4">
+          <span className="font-semibold text-charcoal">Brand note: </span>
+          {siteConfig.disambiguation}
         </p>
-        <div className="flex flex-wrap items-center gap-4">
-          <span>
-            Developed by <span className="font-bold text-terracotta">Amit Kumar Talan</span>
-          </span>
-          {legalLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="transition hover:text-terracotta">
-              {link.label}
-            </Link>
-          ))}
+        <div className="mt-2.5 flex flex-col gap-1.5 text-[11px] text-charcoal-light sm:mt-3 sm:flex-row sm:items-center sm:justify-between sm:text-[12px]">
+          <p>
+            © {new Date().getFullYear()} {siteConfig.legalName}. All rights reserved.
+          </p>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <span>
+              Developed by <span className="font-semibold text-terracotta">Amit Kumar Talan</span>
+            </span>
+            {legalLinks.map((link) => (
+              <Link key={link.href} href={link.href} className="transition hover:text-terracotta">
+                {link.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
-  );
-}
-
-function FooterColumn({ title, items }: { title: string; items: { label: string; href: string }[] }) {
-  return (
-    <div>
-      <h3 className="text-sm font-bold text-charcoal sm:text-base">{title}</h3>
-      <ul className="mt-3 space-y-2 text-[13px] text-charcoal-light">
-        {items.map((item) => (
-          <li key={item.href}>
-            <Link href={item.href} className="transition hover:text-terracotta">
-              {item.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }

@@ -5,8 +5,9 @@ import type { ReactNode } from "react";
 import "./globals.css";
 import { FloatingActions } from "@/components/FloatingActions";
 import { SiteNav, MobileBottomNav } from "@/components/SiteNav";
-import { faqs, serviceCategories } from "@/lib/data";
-import { siteConfig } from "@/lib/site";
+import { StickyConversionBar } from "@/components/StickyConversionBar";
+import { serviceCategories } from "@/lib/data";
+import { getOrganizationSameAs, siteConfig } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,14 +39,8 @@ export const metadata: Metadata = {
   creator: "Amit Kumar Talan",
   publisher: siteConfig.domainName,
   applicationName: siteConfig.domainName,
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
-    url: siteConfig.url,
-    title: siteConfig.title,
-    description: siteConfig.description,
     siteName: siteConfig.domainName,
     locale: "en_IN",
     images: [
@@ -59,8 +54,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.title,
-    description: siteConfig.description,
     images: ["/opengraph-image"],
   },
   robots: {
@@ -78,40 +71,47 @@ export const metadata: Metadata = {
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
-  "@type": ["LocalBusiness", "ProfessionalService"],
-  "@id": `${siteConfig.url}/#localbusiness`,
-  name: siteConfig.domainName,
-  alternateName: `${siteConfig.name} AI`,
+  "@type": ["LocalBusiness", "ProfessionalService", "Organization"],
+  "@id": `${siteConfig.url}/#organization`,
+  name: siteConfig.legalName,
+  legalName: siteConfig.legalName,
+  alternateName: [...siteConfig.alternateNames, `${siteConfig.name} AI`],
   url: siteConfig.url,
   telephone: `+91${siteConfig.callNumber}`,
   email: siteConfig.email,
   description: siteConfig.description,
+  slogan: siteConfig.entityTagline,
+  logo: `${siteConfig.url}/icon`,
+  image: `${siteConfig.url}/opengraph-image`,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Best Digital Market, C Block, Block C, Sector MU 1",
-    addressLocality: "Greater Noida",
-    addressRegion: "Uttar Pradesh",
-    postalCode: "201310",
-    addressCountry: "IN",
+    streetAddress: siteConfig.streetAddress,
+    addressLocality: siteConfig.addressLocality,
+    addressRegion: siteConfig.addressRegion,
+    postalCode: siteConfig.postalCode,
+    addressCountry: siteConfig.addressCountry,
   },
   areaServed: siteConfig.areas.map((area) => ({ "@type": "City", name: area })),
   knowsAbout: siteConfig.keywords,
   priceRange: "₹₹",
-  sameAs: [siteConfig.social.linkedin, siteConfig.social.github, siteConfig.social.instagram, siteConfig.social.facebook].filter(
-    (url) => url !== "#"
-  ),
+  foundingLocation: {
+    "@type": "Place",
+    name: "Greater Noida, Uttar Pradesh, India",
+  },
+  sameAs: getOrganizationSameAs(),
+  disambiguatingDescription: siteConfig.disambiguation,
 };
 
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": `${siteConfig.url}/#website`,
-  name: siteConfig.domainName,
-  alternateName: siteConfig.name,
+  name: siteConfig.legalName,
+  alternateName: [...siteConfig.alternateNames, "bestdigitalmarket.in"],
   url: siteConfig.url,
   inLanguage: "en-IN",
   publisher: {
-    "@id": `${siteConfig.url}/#localbusiness`,
+    "@id": `${siteConfig.url}/#organization`,
   },
 };
 
@@ -119,10 +119,13 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "@id": `${siteConfig.url}/#services`,
-  name: `${siteConfig.domainName} AI Software, Custom Software, Website Design and Digital Marketing Services`,
+  name: `${siteConfig.legalName} AI Software, Custom Software, Website Design and Digital Marketing Services`,
   url: siteConfig.url,
   telephone: `+91${siteConfig.callNumber}`,
   areaServed: siteConfig.areas,
+  provider: {
+    "@id": `${siteConfig.url}/#organization`,
+  },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Website Development, Software and Digital Marketing Services",
@@ -139,17 +142,16 @@ const serviceSchema = {
   },
 };
 
-const faqSchema = {
+const personSchema = {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: faq.answer,
-    },
-  })),
+  "@type": "Person",
+  "@id": `${siteConfig.url}/#founder`,
+  name: "Amit Kumar Talan",
+  jobTitle: "Founder",
+  worksFor: {
+    "@id": `${siteConfig.url}/#organization`,
+  },
+  url: `${siteConfig.url}/about`,
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -186,8 +188,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <SiteNav />
         {children}
         <FloatingActions />
+        <StickyConversionBar />
         <MobileBottomNav />
-        {[websiteSchema, localBusinessSchema, serviceSchema, faqSchema].map((schema, index) => (
+        {[websiteSchema, localBusinessSchema, serviceSchema, personSchema].map((schema, index) => (
           <script
             key={index}
             type="application/ld+json"

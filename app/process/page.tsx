@@ -4,11 +4,13 @@ import { Reveal } from "@/components/Reveal";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TrustBar } from "@/components/TrustBar";
 import { processSteps } from "@/lib/data";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "SEO Website Design & Digital Marketing Process",
   description:
     "Discover our process for keyword research, SEO-friendly website planning, software development, local SEO, campaign launch, testing, deployment and growth optimization.",
+  path: "/process",
   keywords: [
     "SEO website design process",
     "digital marketing process Noida",
@@ -16,10 +18,7 @@ export const metadata: Metadata = {
     "technical SEO audit process",
     "lead generation funnel process",
   ],
-  alternates: {
-    canonical: "/process",
-  },
-};
+});
 
 export default function ProcessPage() {
   return (

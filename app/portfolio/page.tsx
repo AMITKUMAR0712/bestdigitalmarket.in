@@ -8,11 +8,14 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { TrustBar } from "@/components/TrustBar";
 import { portfolioProjects } from "@/lib/portfolio";
 import { caseStudies } from "@/lib/data";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Portfolio | Website, Software & Digital Marketing Projects",
   description:
     "Explore our portfolio of website development, custom software, mobile apps, CRM, SEO and digital marketing projects for businesses across Noida, Greater Noida and India.",
+  path: "/portfolio",
+  absoluteTitle: true,
   keywords: [
     "website development portfolio Noida",
     "software development portfolio India",
@@ -20,10 +23,7 @@ export const metadata: Metadata = {
     "web design portfolio Greater Noida",
     "TradeOrbit Global portfolio",
   ],
-  alternates: {
-    canonical: "/portfolio",
-  },
-};
+});
 
 export default function PortfolioPage() {
   const featured = portfolioProjects.filter((project) => project.featured).slice(0, 6);

@@ -5,21 +5,20 @@ import { Reveal } from "@/components/Reveal";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TrustBar } from "@/components/TrustBar";
 import { companyTrust, testimonials } from "@/lib/data";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Client Reviews for Website Design, SEO & Digital Marketing",
   description:
     "Read client testimonials for SEO-friendly website development, custom software, CRM systems, local SEO, Google Ads, Meta Ads and lead generation projects.",
+  path: "/testimonials",
   keywords: [
     "website design reviews Noida",
     "SEO agency reviews India",
     "digital marketing client testimonials",
     "TradeOrbit Global reviews",
   ],
-  alternates: {
-    canonical: "/testimonials",
-  },
-};
+});
 
 export default function TestimonialsPage() {
   return (

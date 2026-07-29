@@ -4,11 +4,13 @@ import { Reveal } from "@/components/Reveal";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TrustBar } from "@/components/TrustBar";
 import { caseStudies } from "@/lib/data";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "SEO Website, Software & Digital Marketing Case Studies",
   description:
     "Explore SEO-friendly website development, CRM software, hotel SEO, fleet platform, mobile app, DevOps, testing and digital marketing project case studies for Indian businesses.",
+  path: "/case-studies",
   keywords: [
     "website development case studies India",
     "SEO case studies Noida",
@@ -16,10 +18,7 @@ export const metadata: Metadata = {
     "CRM software project India",
     "lead generation case studies",
   ],
-  alternates: {
-    canonical: "/case-studies",
-  },
-};
+});
 
 export default function CaseStudiesPage() {
   return (

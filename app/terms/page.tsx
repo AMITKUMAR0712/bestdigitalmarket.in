@@ -2,14 +2,13 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/PageHero";
 import { SiteFooter } from "@/components/SiteFooter";
 import { siteConfig } from "@/lib/site";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Terms and Conditions",
   description: `Terms and conditions for using ${siteConfig.name} services and website.`,
-  alternates: {
-    canonical: "/terms",
-  },
-};
+  path: "/terms",
+});
 
 const terms = [
   {

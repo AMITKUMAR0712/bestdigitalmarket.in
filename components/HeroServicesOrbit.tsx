@@ -5,9 +5,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowUpRight, FiPhoneCall } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 import { heroServiceCards } from "@/lib/hero-service-cards";
 import { companyTrust } from "@/lib/data";
+import { callLink, whatsappLink } from "@/lib/site";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -256,26 +258,27 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
           <span className="hero-orbit-badge-label">Trusted IT &amp; AI Software Company · All Over India</span>
         </div>
 
-        <h1 className="hero-orbit-small" aria-label="Websites, Software & AI, Built To Grow Your Business.">
-          {SMALL_WORDS.map((word, index) => (
-            <span key={word}>
-              {index > 0 ? "\u00A0" : null}
-              <span className="hero-orbit-word">
-                <span>{word}</span>
-              </span>
-            </span>
-          ))}
-        </h1>
-
-        <div className="hero-orbit-big-wrap">
-          <div className="hero-orbit-big" aria-hidden="true">
-            {BIG_LINE.split("").map((char, i) => (
-              <span key={`${char}-${i}`} className="hero-orbit-letter">
-                {char === " " ? "\u00A0" : char}
+        <h1 className="hero-orbit-heading">
+          <span className="hero-orbit-small">
+            {SMALL_WORDS.map((word, index) => (
+              <span key={word}>
+                {index > 0 ? "\u00A0" : null}
+                <span className="hero-orbit-word">
+                  <span>{word}</span>
+                </span>
               </span>
             ))}
-          </div>
-        </div>
+          </span>
+          <span className="hero-orbit-big-wrap">
+            <span className="hero-orbit-big">
+              {BIG_LINE.split("").map((char, i) => (
+                <span key={`${char}-${i}`} className="hero-orbit-letter">
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+            </span>
+          </span>
+        </h1>
 
         <div className="hero-orbit-cards" aria-label="Our services">
           {heroServiceCards.map((card, index) => (
@@ -309,6 +312,19 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
         </div>
 
         <div className="hero-orbit-subline">
+          <div className="hero-orbit-cta-row">
+            <a href={callLink} className="hero-orbit-cta hero-orbit-cta-primary">
+              <FiPhoneCall />
+              Call now
+            </a>
+            <a href={whatsappLink} target="_blank" rel="noreferrer" className="hero-orbit-cta hero-orbit-cta-wa">
+              <FaWhatsapp />
+              WhatsApp
+            </a>
+            <Link href="/contact#enquiry-form" className="hero-orbit-cta hero-orbit-cta-secondary">
+              Get free quote
+            </Link>
+          </div>
           <Link href="/services" className="hero-orbit-pill">
             <span className="hero-orbit-pill-border" aria-hidden="true" />
             <span className="hero-orbit-pill-label">View all services</span>
@@ -317,7 +333,7 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
             </span>
           </Link>
           <p className="hero-orbit-subline-text">
-            {companyTrust.teamExperts} experts · {companyTrust.projectsDelivered} projects · Zero filler.
+            {companyTrust.teamExperts} experts · {companyTrust.projectsDelivered} projects · Free consultation
           </p>
         </div>
       </div>

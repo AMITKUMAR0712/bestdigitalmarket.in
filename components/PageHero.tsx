@@ -13,16 +13,16 @@ export function PageHero({ eyebrow, title, description, category = "default" }: 
 
   return (
     <section className="page-hero app-section relative overflow-hidden pb-10 pt-6 sm:pb-12 sm:pt-8">
-      <div className="page-hero-media absolute inset-0" aria-hidden="true">
+      <div className="page-hero-media absolute inset-0">
         <Image
           src={image.src}
-          alt=""
+          alt={image.alt}
           fill
           priority
           sizes="100vw"
           className="page-hero-image object-cover object-center"
         />
-        <div className="page-hero-overlay absolute inset-0" />
+        <div className="page-hero-overlay absolute inset-0" aria-hidden="true" />
       </div>
 
       <div className="app-container relative z-10 pt-2 text-center sm:pt-4">
