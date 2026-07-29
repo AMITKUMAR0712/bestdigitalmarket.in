@@ -3512,23 +3512,6 @@ details summary::-webkit-details-marker {
   border: 1px solid rgba(155, 85, 64, 0.25);
 }
 
-.sticky-conversion-bar {
-  bottom: calc(3.65rem + env(safe-area-inset-bottom));
-  pointer-events: none;
-}
-
-.sticky-conversion-bar > div {
-  pointer-events: auto;
-  padding-bottom: 0.35rem;
-}
-
-@media (max-width: 1279px) {
-  .fab-consult,
-  .fab-whatsapp {
-    display: none !important;
-  }
-}
-
 @property --pill-angle {
   syntax: "<angle>";
   inherits: false;

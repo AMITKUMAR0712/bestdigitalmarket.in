@@ -5,7 +5,6 @@ import type { ReactNode } from "react";
 import "./globals.css";
 import { FloatingActions } from "@/components/FloatingActions";
 import { SiteNav, MobileBottomNav } from "@/components/SiteNav";
-import { StickyConversionBar } from "@/components/StickyConversionBar";
 import { serviceCategories } from "@/lib/data";
 import { getOrganizationSameAs, siteConfig } from "@/lib/site";
 
@@ -188,7 +187,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <SiteNav />
         {children}
         <FloatingActions />
-        <StickyConversionBar />
         <MobileBottomNav />
         {[websiteSchema, localBusinessSchema, serviceSchema, personSchema].map((schema, index) => (
           <script

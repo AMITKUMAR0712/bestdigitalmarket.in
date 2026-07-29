@@ -2,15 +2,15 @@
 
 import { FaWhatsapp } from "react-icons/fa";
 import { FiPhoneCall } from "react-icons/fi";
-import { whatsappLink } from "@/lib/site";
+import { callLink, whatsappLink } from "@/lib/site";
 
 export function FloatingActions() {
   return (
     <>
       <a
-        href="#contact"
+        href={callLink}
         className="fab-consult"
-        aria-label="Get free consultation — strategy, services and quote"
+        aria-label="Call for free consultation"
         title="Free Consultation"
       >
         <span className="fab-consult-pulse" aria-hidden />
