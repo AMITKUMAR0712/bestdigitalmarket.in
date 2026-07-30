@@ -2,14 +2,32 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FiArrowUpRight, FiPhoneCall } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { heroServiceCards } from "@/lib/hero-service-cards";
 import { companyTrust } from "@/lib/data";
+import { heroScrollState } from "@/lib/hero-scroll-state";
+import { heroScrollStory } from "@/lib/hero-scroll-story";
 import { callLink, whatsappLink } from "@/lib/site";
+
+const MobileHeroQuantum = dynamic(
+  () => import("@/components/MobileHeroQuantum").then((m) => m.MobileHeroQuantum),
+  { ssr: false, loading: () => null },
+);
+
+const MobileHeroTypewriter = dynamic(
+  () => import("@/components/MobileHeroTypewriter").then((m) => m.MobileHeroTypewriter),
+  { ssr: false, loading: () => (
+    <span className="hero-mobile-type">
+      <span className="hero-mobile-type-line1">Websites, Software &amp; AI,</span>
+      <span className="hero-mobile-type-line2">Built to grow your business</span>
+    </span>
+  ) },
+);
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,12 +53,22 @@ type HeroServicesOrbitProps = {
 
 export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
   const rootRef = useRef<HTMLElement>(null);
+  const [showOrbitCards, setShowOrbitCards] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 750px)");
+    const sync = () => setShowOrbitCards(!mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobileHero = window.matchMedia("(max-width: 750px)").matches;
     let raf = 0;
     const cleanups: Array<() => void> = [];
 
@@ -52,6 +80,149 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
       const subline = root.querySelector<HTMLElement>(".hero-orbit-subline");
       const smallTeam = root.querySelector<HTMLElement>(".hero-orbit-small");
       const bigResults = root.querySelector<HTMLElement>(".hero-orbit-big");
+
+      if (isMobileHero) {
+        gsap.set([navBits, words, letters, subline].flat().filter(Boolean), {
+          clearProps: "all",
+          opacity: 1,
+          y: 0,
+          x: 0,
+        });
+        gsap.set(words, { y: "0%" });
+
+        if (reduceMotion) return;
+
+        const mobileHeading = root.querySelector<HTMLElement>(".hero-mobile-type");
+        const mobileBits = [navBits, mobileHeading, subline].flat().filter(Boolean);
+        gsap.fromTo(
+          mobileBits,
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.85, stagger: 0.12, ease: "power3.out", delay: 0.15 },
+        );
+
+        const badge = root.querySelector<HTMLElement>(".hero-orbit-badge");
+        const heading = root.querySelector<HTMLElement>(".hero-mobile-type");
+        const bg = root.querySelector<HTMLElement>(".hero-orbit-bg");
+        const story = root.querySelector<HTMLElement>(".hero-scroll-story");
+        const storyCards = gsap.utils.toArray<HTMLElement>(".hero-scroll-story-card", root);
+        const warm = root.querySelector<HTMLElement>(".hero-orbit-warm");
+
+        gsap.set(story, { opacity: 0, pointerEvents: "none" });
+        gsap.set(storyCards, { opacity: 0, y: 28, scale: 0.96 });
+        gsap.set(warm, { opacity: 0 });
+
+        const buildScroll = (quantum: HTMLElement | null) => {
+          const scrollTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: root,
+              start: "top top",
+              end: "+=240%",
+              pin: true,
+              scrub: 1,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+              onUpdate: (self) => {
+                heroScrollState.progress = self.progress;
+                root.style.setProperty("--hero-scroll", String(self.progress));
+              },
+              onRefresh: (self) => {
+                heroScrollState.progress = self.progress;
+              },
+            },
+          });
+
+          scrollTl
+            .to(badge, { y: -48, opacity: 0, filter: "blur(8px)", ease: "none", duration: 0.28 }, 0)
+            .to(
+              heading,
+              { y: -70, scale: 0.9, opacity: 0, filter: "blur(10px)", ease: "none", duration: 0.35 },
+              0.02,
+            )
+            .to(
+              subline,
+              { y: 50, opacity: 0, filter: "blur(8px)", ease: "none", duration: 0.32 },
+              0.04,
+            )
+            .to(warm, { opacity: 1, ease: "none", duration: 0.45 }, 0.06)
+            .to(bg, { opacity: 0.25, ease: "none", duration: 0.45 }, 0.06)
+            .to(story, { opacity: 1, ease: "none", duration: 0.2 }, 0.14);
+
+          if (quantum) {
+            scrollTl.to(
+              quantum,
+              { scale: 1.45, opacity: 0.1, filter: "blur(4px)", ease: "none", duration: 0.85 },
+              0,
+            );
+          }
+
+          const last = storyCards.length - 1;
+          // Strict one-at-a-time: next card starts only after previous fully hides
+          let cursor = 0.16;
+
+          storyCards.forEach((card, i) => {
+            const isFirst = i === 0;
+            const isLast = i === last;
+            const fadeIn = 0.07;
+            const hold = isFirst ? 0.28 : isLast ? 0.45 : 0.15;
+            const fadeOut = isLast ? 0 : 0.07;
+            const start = cursor;
+
+            gsap.set(card, { opacity: 0, y: 28, scale: 0.96, visibility: "hidden" });
+
+            scrollTl
+              .set(card, { visibility: "visible" }, start)
+              .fromTo(
+                card,
+                { opacity: 0, y: 28, scale: 0.96 },
+                {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  ease: "none",
+                  duration: fadeIn,
+                  immediateRender: false,
+                },
+                start,
+              );
+
+            if (!isLast) {
+              scrollTl
+                .to(
+                  card,
+                  { opacity: 0, y: -22, scale: 1.02, ease: "none", duration: fadeOut },
+                  start + fadeIn + hold,
+                )
+                .set(card, { visibility: "hidden" }, start + fadeIn + hold + fadeOut);
+              cursor = start + fadeIn + hold + fadeOut + 0.02;
+            } else {
+              // Stay visible until pin ends (no exit animation)
+              scrollTl.to(
+                card,
+                { opacity: 1, y: 0, scale: 1, ease: "none", duration: Math.max(hold, 0.4) },
+                start + fadeIn,
+              );
+            }
+          });
+        };
+
+        const existingQuantum = root.querySelector<HTMLElement>(".hero-quantum");
+        if (existingQuantum) {
+          buildScroll(existingQuantum);
+        } else {
+          let tries = 0;
+          const wait = window.setInterval(() => {
+            const q = root.querySelector<HTMLElement>(".hero-quantum");
+            tries += 1;
+            if (q || tries > 40) {
+              window.clearInterval(wait);
+              buildScroll(q);
+            }
+          }, 50);
+          cleanups.push(() => window.clearInterval(wait));
+        }
+
+        return;
+      }
 
       if (reduceMotion) {
         gsap.set([navBits, words, letters, cards, subline], {
@@ -238,6 +409,7 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
 
     return () => {
       cleanups.forEach((fn) => fn());
+      heroScrollState.progress = 0;
       ctx.revert();
     };
   }, []);
@@ -249,7 +421,10 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
       className={`hero-section hero-orbit relative overflow-x-hidden ${className}`.trim()}
     >
       <div className="hero-orbit-bg" aria-hidden="true" />
+      <div className="hero-orbit-warm" aria-hidden="true" />
       <div className="hero-orbit-grain" aria-hidden="true" />
+      <MobileHeroQuantum />
+      <p className="hero-shake-hint">Shake your phone</p>
 
       <div className="hero-orbit-inner">
         <div className="hero-orbit-reveal hero-orbit-badge mx-auto mb-4 sm:mb-5">
@@ -259,56 +434,73 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
         </div>
 
         <h1 className="hero-orbit-heading">
-          <span className="hero-orbit-small">
-            {SMALL_WORDS.map((word, index) => (
-              <span key={word}>
-                {index > 0 ? "\u00A0" : null}
-                <span className="hero-orbit-word">
-                  <span>{word}</span>
-                </span>
-              </span>
-            ))}
-          </span>
-          <span className="hero-orbit-big-wrap">
-            <span className="hero-orbit-big">
-              {BIG_LINE.split("").map((char, i) => (
-                <span key={`${char}-${i}`} className="hero-orbit-letter">
-                  {char === " " ? "\u00A0" : char}
+          <span className="hero-orbit-heading-desktop">
+            <span className="hero-orbit-small">
+              {SMALL_WORDS.map((word, index) => (
+                <span key={word}>
+                  {index > 0 ? "\u00A0" : null}
+                  <span className="hero-orbit-word">
+                    <span>{word}</span>
+                  </span>
                 </span>
               ))}
             </span>
+            <span className="hero-orbit-big-wrap">
+              <span className="hero-orbit-big">
+                {BIG_LINE.split("").map((char, i) => (
+                  <span key={`${char}-${i}`} className="hero-orbit-letter">
+                    {char === " " ? "\u00A0" : char}
+                  </span>
+                ))}
+              </span>
+            </span>
+          </span>
+          <span className="hero-orbit-heading-mobile">
+            <MobileHeroTypewriter />
           </span>
         </h1>
 
-        <div className="hero-orbit-cards" aria-label="Our services">
-          {heroServiceCards.map((card, index) => (
-            <Link
-              key={card.id}
-              href="/services"
-              className={`hero-orbit-card hero-orbit-card-${index + 1}`}
-              data-rot={card.rot}
-              data-depth={card.depth}
-              data-z={index + 1}
-              style={{ zIndex: index + 1 }}
-              aria-label={`${card.label} — open services`}
-            >
-              <div className="hero-orbit-card-media">
-                <Image
-                  src={card.image}
-                  alt={card.label}
-                  fill
-                  sizes="(max-width: 750px) 140px, 220px"
-                  className="hero-orbit-card-img object-cover object-center"
-                  priority={index < 4}
-                />
-              </div>
-              <div className="hero-orbit-card-shade" aria-hidden="true" />
-              <div className="hero-orbit-card-content">
-                <h3 className="hero-orbit-card-title">{card.label}</h3>
-                <p className="hero-orbit-card-copy">{card.copy}</p>
-              </div>
-            </Link>
+        <div className="hero-scroll-story" aria-hidden="true">
+          {heroScrollStory.map((item) => (
+            <div key={item.title} className="hero-scroll-story-card">
+              <p className="hero-scroll-story-kicker">{item.kicker}</p>
+              <p className="hero-scroll-story-title">{item.title}</p>
+              <p className="hero-scroll-story-copy">{item.copy}</p>
+            </div>
           ))}
+        </div>
+
+        <div className="hero-orbit-cards" aria-label="Our services">
+          {showOrbitCards
+            ? heroServiceCards.map((card, index) => (
+                <Link
+                  key={card.id}
+                  href="/services"
+                  className={`hero-orbit-card hero-orbit-card-${index + 1}`}
+                  data-rot={card.rot}
+                  data-depth={card.depth}
+                  data-z={index + 1}
+                  style={{ zIndex: index + 1 }}
+                  aria-label={`${card.label} — open services`}
+                >
+                  <div className="hero-orbit-card-media">
+                    <Image
+                      src={card.image}
+                      alt={card.label}
+                      fill
+                      sizes="(max-width: 750px) 140px, 220px"
+                      className="hero-orbit-card-img object-cover object-center"
+                      priority={index < 3}
+                    />
+                  </div>
+                  <div className="hero-orbit-card-shade" aria-hidden="true" />
+                  <div className="hero-orbit-card-content">
+                    <h3 className="hero-orbit-card-title">{card.label}</h3>
+                    <p className="hero-orbit-card-copy">{card.copy}</p>
+                  </div>
+                </Link>
+              ))
+            : null}
         </div>
 
         <div className="hero-orbit-subline">
