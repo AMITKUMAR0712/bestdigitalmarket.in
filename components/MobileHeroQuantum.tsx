@@ -157,10 +157,25 @@ function QuantumCore({
 
 function scheduleIdle(cb: () => void) {
   if (typeof window === "undefined") return () => undefined;
-  if ("requestIdleCallback" in window) {
-    const id = window.requestIdleCallback(cb, { timeout: 900 });
-    return () => window.cancelIdleCallback(id);
+
+  const ric = (
+    window as Window & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    }
+  ).requestIdleCallback;
+
+  if (typeof ric === "function") {
+    const id = ric(cb, { timeout: 900 });
+    return () => {
+      (
+        window as Window & {
+          cancelIdleCallback?: (handle: number) => void;
+        }
+      ).cancelIdleCallback?.(id);
+    };
   }
+
   const id = window.setTimeout(cb, 180);
   return () => window.clearTimeout(id);
 }
