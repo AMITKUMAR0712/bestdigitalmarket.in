@@ -101,14 +101,17 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
         );
 
         const badge = root.querySelector<HTMLElement>(".hero-orbit-badge");
+        const headingWrap = root.querySelector<HTMLElement>(".hero-orbit-heading");
         const heading = root.querySelector<HTMLElement>(".hero-mobile-type");
+        const shakeHint = root.querySelector<HTMLElement>(".hero-shake-hint");
         const bg = root.querySelector<HTMLElement>(".hero-orbit-bg");
         const story = root.querySelector<HTMLElement>(".hero-scroll-story");
         const storyCards = gsap.utils.toArray<HTMLElement>(".hero-scroll-story-card", root);
         const warm = root.querySelector<HTMLElement>(".hero-orbit-warm");
+        const hideOnStory = [badge, headingWrap, heading, shakeHint, subline].filter(Boolean);
 
-        gsap.set(story, { opacity: 0, pointerEvents: "none" });
-        gsap.set(storyCards, { opacity: 0, y: 28, scale: 0.96 });
+        gsap.set(story, { opacity: 0, visibility: "hidden", pointerEvents: "none" });
+        gsap.set(storyCards, { opacity: 0, y: 28, scale: 0.96, visibility: "hidden" });
         gsap.set(warm, { opacity: 0 });
 
         const buildScroll = (quantum: HTMLElement | null) => {
@@ -124,28 +127,27 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
               onUpdate: (self) => {
                 heroScrollState.progress = self.progress;
                 root.style.setProperty("--hero-scroll", String(self.progress));
+                root.classList.toggle("hero-orbit--story", self.progress > 0.12);
               },
               onRefresh: (self) => {
                 heroScrollState.progress = self.progress;
+                root.classList.toggle("hero-orbit--story", self.progress > 0.12);
               },
             },
           });
 
+          // Hide typewriter/CTAs fully BEFORE story shows (no overlap)
           scrollTl
-            .to(badge, { y: -48, opacity: 0, filter: "blur(8px)", ease: "none", duration: 0.28 }, 0)
             .to(
-              heading,
-              { y: -70, scale: 0.9, opacity: 0, filter: "blur(10px)", ease: "none", duration: 0.35 },
-              0.02,
+              hideOnStory,
+              { opacity: 0, y: -28, filter: "blur(8px)", ease: "none", duration: 0.16 },
+              0,
             )
-            .to(
-              subline,
-              { y: 50, opacity: 0, filter: "blur(8px)", ease: "none", duration: 0.32 },
-              0.04,
-            )
-            .to(warm, { opacity: 1, ease: "none", duration: 0.45 }, 0.06)
-            .to(bg, { opacity: 0.25, ease: "none", duration: 0.45 }, 0.06)
-            .to(story, { opacity: 1, ease: "none", duration: 0.2 }, 0.14);
+            .set(hideOnStory, { visibility: "hidden", pointerEvents: "none" }, 0.16)
+            .to(warm, { opacity: 1, ease: "none", duration: 0.28 }, 0.08)
+            .to(bg, { opacity: 0.22, ease: "none", duration: 0.28 }, 0.08)
+            .set(story, { visibility: "visible" }, 0.18)
+            .to(story, { opacity: 1, ease: "none", duration: 0.12 }, 0.18);
 
           if (quantum) {
             scrollTl.to(
@@ -156,18 +158,15 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
           }
 
           const last = storyCards.length - 1;
-          // Strict one-at-a-time: next card starts only after previous fully hides
-          let cursor = 0.16;
+          let cursor = 0.22;
 
           storyCards.forEach((card, i) => {
             const isFirst = i === 0;
             const isLast = i === last;
             const fadeIn = 0.07;
-            const hold = isFirst ? 0.28 : isLast ? 0.45 : 0.15;
+            const hold = isFirst ? 0.26 : isLast ? 0.42 : 0.14;
             const fadeOut = isLast ? 0 : 0.07;
             const start = cursor;
-
-            gsap.set(card, { opacity: 0, y: 28, scale: 0.96, visibility: "hidden" });
 
             scrollTl
               .set(card, { visibility: "visible" }, start)
@@ -195,7 +194,6 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
                 .set(card, { visibility: "hidden" }, start + fadeIn + hold + fadeOut);
               cursor = start + fadeIn + hold + fadeOut + 0.02;
             } else {
-              // Stay visible until pin ends (no exit animation)
               scrollTl.to(
                 card,
                 { opacity: 1, y: 0, scale: 1, ease: "none", duration: Math.max(hold, 0.4) },

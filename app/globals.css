@@ -4247,6 +4247,18 @@ details summary::-webkit-details-marker {
     display: none;
   }
 
+  /* Hard-hide typewriter/CTAs while scroll story is active — prevents overlap */
+  .hero-orbit--story .hero-orbit-heading,
+  .hero-orbit--story .hero-orbit-heading-mobile,
+  .hero-orbit--story .hero-mobile-type,
+  .hero-orbit--story .hero-orbit-badge,
+  .hero-orbit--story .hero-orbit-subline,
+  .hero-orbit--story .hero-shake-hint {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
   .hero-orbit-subline {
     position: relative;
     left: auto;
