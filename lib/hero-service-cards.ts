@@ -34,20 +34,20 @@ export const heroServiceCards: HeroServiceCard[] = [
     depth: 8,
   },
   {
-    id: "agentic",
-    label: "Agentic AI",
-    copy: "Autonomous agents that ship.",
-    image: "/herosection/agenticai.jpg",
-    rot: 3,
-    depth: 12,
-  },
-  {
     id: "llm",
     label: "LLM Models",
     copy: "Custom language systems.",
     image: "/herosection/LLM.jpeg",
     rot: 0,
     depth: 6,
+  },
+  {
+    id: "agentic",
+    label: "Agentic AI",
+    copy: "Autonomous agents that ship.",
+    image: "/herosection/agenticai.jpg",
+    rot: 3,
+    depth: 12,
   },
   {
     id: "seo",
