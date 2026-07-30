@@ -54,16 +54,24 @@ type HeroServicesOrbitProps = {
 export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
   const rootRef = useRef<HTMLElement>(null);
   const [showOrbitCards, setShowOrbitCards] = useState(false);
+  const [viewportReady, setViewportReady] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 750px)");
-    const sync = () => setShowOrbitCards(!mq.matches);
+    const sync = () => {
+      setShowOrbitCards(!mq.matches);
+      setViewportReady(true);
+    };
     sync();
     mq.addEventListener("change", sync);
     return () => mq.removeEventListener("change", sync);
   }, []);
 
   useEffect(() => {
+    if (!viewportReady) return;
+    // Desktop needs cards in the DOM before GSAP orbit/scroll runs
+    if (showOrbitCards === false && !window.matchMedia("(max-width: 750px)").matches) return;
+
     const root = rootRef.current;
     if (!root) return;
 
@@ -408,9 +416,10 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
     return () => {
       cleanups.forEach((fn) => fn());
       heroScrollState.progress = 0;
+      root.classList.remove("hero-orbit--story");
       ctx.revert();
     };
-  }, []);
+  }, [viewportReady, showOrbitCards]);
 
   return (
     <section
