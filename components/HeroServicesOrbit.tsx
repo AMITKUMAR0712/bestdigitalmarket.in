@@ -253,26 +253,51 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
       ScrollTrigger.create({
         trigger: root,
         start: "top top",
-        end: "bottom+=20% top",
-        scrub: 0.9,
+        end: () => `+=${Math.round(window.innerHeight * (window.matchMedia("(max-width: 749px)").matches ? 0.95 : 1.35))}`,
+        scrub: 0.35,
+        invalidateOnRefresh: true,
         onUpdate: (self) => {
           const p = self.progress;
-          const ease = p * p * (3 - 2 * p); // smoothstep — stronger mid/late spread
-          if (bigResults) gsap.set(bigResults, { scale: 1 + 0.22 * ease, opacity: 1 - 0.45 * ease });
-          if (smallTeam) gsap.set(smallTeam, { y: -70 * ease, opacity: Math.max(0, 1 - ease * 1.5) });
+          // Softer ease-in, stronger mid — reads better with Lenis smoothing
+          const ease = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+          if (bigResults) {
+            gsap.set(bigResults, {
+              scale: 1 + 0.28 * ease,
+              opacity: 1 - 0.5 * ease,
+              force3D: true,
+            });
+          }
+          if (smallTeam) {
+            gsap.set(smallTeam, {
+              y: -90 * ease,
+              opacity: Math.max(0, 1 - ease * 1.55),
+              force3D: true,
+            });
+          }
           cards.forEach((card, i) => {
             const m = SCROLL_MOVES[i] ?? SCROLL_MOVES[SCROLL_MOVES.length - 1];
             const rest = parseFloat(card.dataset.restRot || "0");
+            const spread = 1.12; // slightly wider fly-out with smooth scroll
             gsap.set(card, {
-              x: m.x * ease,
-              y: m.y * ease,
+              x: m.x * ease * spread,
+              y: m.y * ease * spread,
               rotation: rest + m.rot * ease,
-              scale: 1 - 0.12 * ease,
-              opacity: Math.max(0.15, 1 - 0.55 * ease),
+              scale: 1 - 0.14 * ease,
+              opacity: Math.max(0.12, 1 - 0.62 * ease),
+              force3D: true,
             });
           });
-          if (subline) gsap.set(subline, { opacity: Math.max(0, 1 - ease * 2.2) });
+          if (subline) gsap.set(subline, { opacity: Math.max(0, 1 - ease * 2.4) });
         },
+        onRefresh: () => {
+          window.__smoothScroll?.resize();
+        },
+      });
+
+      // After intro settles, remeasure so Lenis + ScrollTrigger stay locked
+      gsap.delayedCall(2.4, () => {
+        ScrollTrigger.refresh();
+        window.__smoothScroll?.resize();
       });
 
       const bigWrap = root.querySelector(".hero-orbit-big-wrap");

@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import "./globals.css";
 import { FloatingActions } from "@/components/FloatingActions";
 import { SiteNav, MobileBottomNav } from "@/components/SiteNav";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import { serviceCategories } from "@/lib/data";
 import { getOrganizationSameAs, siteConfig } from "@/lib/site";
 
@@ -184,6 +185,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             })(window,document,'script','dataLayer','${googleTagManagerId}');
           `}
         </Script>
+        <SmoothScroll />
         <SiteNav />
         {children}
         <FloatingActions />

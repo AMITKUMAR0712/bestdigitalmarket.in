@@ -4,7 +4,8 @@
 
 :root {
   color-scheme: light;
-  scroll-behavior: smooth;
+  /* Lenis owns smooth scroll — keep native auto to avoid fighting it */
+  scroll-behavior: auto;
   --cream: #ede6dc;
   --cream-warm: #e3d9ce;
   --terracotta: #9b5540;

@@ -1,6 +1,7 @@
 "use client";
 
 import { FiArrowRight } from "react-icons/fi";
+import { scrollToId } from "@/components/SmoothScroll";
 
 type ScrollToContactButtonProps = {
   className?: string;
@@ -8,10 +9,7 @@ type ScrollToContactButtonProps = {
 
 export function ScrollToContactButton({ className = "" }: ScrollToContactButtonProps) {
   const handleClick = () => {
-    document.getElementById("contact")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    scrollToId("contact");
   };
 
   return (

@@ -44,6 +44,7 @@ export function ReviewCarousel({ reviews }: ReviewCarouselProps) {
     <div
       ref={trackRef}
       className="review-track mt-5 flex gap-4 overflow-x-auto pb-2"
+      data-lenis-prevent
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocus={() => setIsPaused(true)}
