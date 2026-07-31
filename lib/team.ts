@@ -30,7 +30,7 @@ export const teamMembers: TeamMember[] = [
     role: "Senior Full Stack Developer",
     description:
       "Builds high-performance web applications with clean architecture, strong API design and production-ready frontends that stay fast, secure and easy to scale.",
-    image: "/team/samarth-sharma.png",
+    image: "/team/samarth-sharma.jpg",
   },
   {
     id: "saurabh-singh",
@@ -86,7 +86,7 @@ export const teamMembers: TeamMember[] = [
     role: "Digital Marketing Analyst",
     description:
       "Plans SEO, paid campaigns and performance reporting so websites attract the right traffic, convert enquiries and deliver measurable marketing ROI.",
-    image: "/team/divyam-sharma.png",
+    image: "/team/divyam-sharma.jpg",
   },
   {
     id: "sumit",

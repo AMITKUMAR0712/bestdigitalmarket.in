@@ -4,10 +4,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { FiArrowUpRight, FiPhoneCall } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
-import { heroServiceCards } from "@/lib/hero-service-cards";
+import { heroServiceCards, type HeroServiceCard } from "@/lib/hero-service-cards";
 import { companyTrust } from "@/lib/data";
 import { callLink, whatsappLink } from "@/lib/site";
 
@@ -29,12 +29,30 @@ const SCROLL_MOVES = [
   { x: 560, y: -70, rot: 40 },
 ];
 
+/** Desktop: Agentic AI 5th. Mobile: Agentic AI 6th (center peak). */
+function orderHeroCards(isMobile: boolean): HeroServiceCard[] {
+  if (!isMobile) return heroServiceCards;
+  const cards = [...heroServiceCards];
+  [cards[4], cards[5]] = [cards[5], cards[4]];
+  return cards;
+}
+
 type HeroServicesOrbitProps = {
   className?: string;
 };
 
 export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
   const rootRef = useRef<HTMLElement>(null);
+  const [isMobileLayout, setIsMobileLayout] = useState(false);
+  const orbitCards = useMemo(() => orderHeroCards(isMobileLayout), [isMobileLayout]);
+
+  useLayoutEffect(() => {
+    const mq = window.matchMedia("(max-width: 749px)");
+    const sync = () => setIsMobileLayout(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -74,8 +92,12 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
       gsap.set(letters, { y: 80, opacity: 0 });
       gsap.set(subline, { opacity: 0, y: 20 });
 
+      const isMobileHero = window.matchMedia("(max-width: 749px)").matches;
+
       cards.forEach((card) => {
-        const rot = parseFloat(card.dataset.rot || "0");
+        const baseRot = parseFloat(card.dataset.rot || "0");
+        // Mobile: gentler tilt so the fan reads as a clean structure
+        const rot = isMobileHero ? baseRot * 0.35 : baseRot;
         card.dataset.restRot = String(rot);
         gsap.set(card, { y: -720, rotation: rot + 25, opacity: 0, scale: 0.7 });
       });
@@ -112,6 +134,17 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
 
       const floatTweens = cards.map((card, i) => {
         const rot = parseFloat(card.dataset.restRot || "0");
+        // Mobile: keep structured fan stable (no uneven bobbing)
+        if (isMobileHero) {
+          return gsap.to(card, {
+            y: "+=3",
+            duration: 3.2 + (i % 3) * 0.25,
+            delay: 1.7,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+          });
+        }
         return gsap.to(card, {
           y: `+=${8 + (i % 3) * 5}`,
           rotation: rot + (i % 2 === 0 ? 1.5 : -1.5),
@@ -137,8 +170,6 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
         mx = 0;
         my = 0;
       };
-
-      const isMobileHero = window.matchMedia("(max-width: 749px)").matches;
 
       const parallax = () => {
         if (isMobileHero) return;
@@ -256,67 +287,82 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
         });
       }
 
-      // Mobile: short runway + instant scrub so a light swipe spreads cards immediately
-      const scrollEnd = isMobileHero
-        ? () => `+=${Math.round(Math.min(window.innerHeight * 0.42, 360))}`
-        : () => `+=${Math.round(window.innerHeight * 1.35)}`;
-      const moveScale = isMobileHero ? 0.62 : 1.12;
+      // Mobile: short runway + instant scrub. Desktop: original hero scroll feel.
       let floatsPaused = false;
 
       ScrollTrigger.create({
         trigger: root,
         start: "top top",
-        end: scrollEnd,
-        scrub: isMobileHero ? true : 0.35,
-        fastScrollEnd: true,
+        end: isMobileHero
+          ? () => `+=${Math.round(Math.min(window.innerHeight * 0.42, 360))}`
+          : "bottom+=20% top",
+        scrub: isMobileHero ? true : 0.9,
+        fastScrollEnd: isMobileHero,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const p = self.progress;
-          const ease = isMobileHero
-            ? Math.min(1, Math.pow(p, 0.52)) // front-loaded — tiny scroll still spreads
-            : p < 0.5
-              ? 2 * p * p
-              : 1 - Math.pow(-2 * p + 2, 2) / 2;
 
-          if (p > 0.015) {
-            if (!floatsPaused) {
-              floatTweens.forEach((t) => t.pause());
-              floatsPaused = true;
+          if (isMobileHero) {
+            const ease = Math.min(1, Math.pow(p, 0.52));
+
+            if (p > 0.015) {
+              if (!floatsPaused) {
+                floatTweens.forEach((t) => t.pause());
+                floatsPaused = true;
+              }
+              stopCycle?.();
+            } else if (floatsPaused) {
+              floatTweens.forEach((t) => t.resume());
+              floatsPaused = false;
+              startCycle?.();
             }
-            stopCycle?.();
-          } else if (floatsPaused) {
-            floatTweens.forEach((t) => t.resume());
-            floatsPaused = false;
-            if (isMobileHero) startCycle?.();
+
+            if (bigResults) {
+              gsap.set(bigResults, {
+                scale: 1 + 0.18 * ease,
+                opacity: 1 - 0.4 * ease,
+                force3D: true,
+              });
+            }
+            if (smallTeam) {
+              gsap.set(smallTeam, {
+                y: -48 * ease,
+                opacity: Math.max(0, 1 - ease * 1.55),
+                force3D: true,
+              });
+            }
+            cards.forEach((card, i) => {
+              const m = SCROLL_MOVES[i] ?? SCROLL_MOVES[SCROLL_MOVES.length - 1];
+              const rest = parseFloat(card.dataset.restRot || "0");
+              gsap.set(card, {
+                x: m.x * ease * 0.62,
+                y: m.y * ease * 0.62,
+                rotation: rest + m.rot * ease,
+                scale: 1 - 0.1 * ease,
+                opacity: Math.max(0.2, 1 - 0.62 * ease),
+                force3D: true,
+              });
+            });
+            if (subline) gsap.set(subline, { opacity: Math.max(0, 1 - ease * 2.4) });
+            return;
           }
 
-          if (bigResults) {
-            gsap.set(bigResults, {
-              scale: 1 + (isMobileHero ? 0.18 : 0.28) * ease,
-              opacity: 1 - (isMobileHero ? 0.4 : 0.5) * ease,
-              force3D: true,
-            });
-          }
-          if (smallTeam) {
-            gsap.set(smallTeam, {
-              y: (isMobileHero ? -48 : -90) * ease,
-              opacity: Math.max(0, 1 - ease * 1.55),
-              force3D: true,
-            });
-          }
+          // Desktop — original orbit scroll (unchanged feel)
+          const ease = p * p * (3 - 2 * p);
+          if (bigResults) gsap.set(bigResults, { scale: 1 + 0.22 * ease, opacity: 1 - 0.45 * ease });
+          if (smallTeam) gsap.set(smallTeam, { y: -70 * ease, opacity: Math.max(0, 1 - ease * 1.5) });
           cards.forEach((card, i) => {
             const m = SCROLL_MOVES[i] ?? SCROLL_MOVES[SCROLL_MOVES.length - 1];
             const rest = parseFloat(card.dataset.restRot || "0");
             gsap.set(card, {
-              x: m.x * ease * moveScale,
-              y: m.y * ease * moveScale,
+              x: m.x * ease,
+              y: m.y * ease,
               rotation: rest + m.rot * ease,
-              scale: 1 - (isMobileHero ? 0.1 : 0.14) * ease,
-              opacity: Math.max(isMobileHero ? 0.2 : 0.12, 1 - 0.62 * ease),
-              force3D: true,
+              scale: 1 - 0.12 * ease,
+              opacity: Math.max(0.15, 1 - 0.55 * ease),
             });
           });
-          if (subline) gsap.set(subline, { opacity: Math.max(0, 1 - ease * 2.4) });
+          if (subline) gsap.set(subline, { opacity: Math.max(0, 1 - ease * 2.2) });
         },
         onRefresh: () => {
           window.__smoothScroll?.resize();
@@ -350,7 +396,7 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
       cleanups.forEach((fn) => fn());
       ctx.revert();
     };
-  }, []);
+  }, [orbitCards]);
 
   return (
     <section
@@ -391,7 +437,7 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
         </h1>
 
         <div className="hero-orbit-cards" aria-label="Our services">
-          {heroServiceCards.map((card, index) => (
+          {orbitCards.map((card, index) => (
             <Link
               key={card.id}
               href="/services"
@@ -409,7 +455,8 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
                   fill
                   sizes="(max-width: 750px) 140px, 220px"
                   className="hero-orbit-card-img object-cover object-center"
-                  priority={index < 4}
+                  priority={index === 0}
+                  quality={70}
                 />
               </div>
               <div className="hero-orbit-card-shade" aria-hidden="true" />

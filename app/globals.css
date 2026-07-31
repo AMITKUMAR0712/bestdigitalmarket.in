@@ -4007,30 +4007,36 @@ details summary::-webkit-details-marker {
   }
 
   .hero-orbit-cards {
-    height: 248px;
-    margin-top: -0.25rem;
-    max-width: none;
-    width: 118%;
-    margin-left: -9%;
+    height: 220px;
+    margin-top: 0.15rem;
+    max-width: 100%;
+    width: 100%;
+    margin-left: 0;
+    padding: 0 0.35rem;
+  }
+
+  .hero-orbit-card {
+    border-radius: 12px;
+    padding: 0.38rem;
   }
 
   .hero-orbit-card-title {
-    font-size: 0.52rem;
-    padding: 0.28rem 0.32rem;
+    font-size: 0.48rem;
+    padding: 0.24rem 0.26rem;
   }
 
-  /* More open spacing between cards on mobile */
-  .hero-orbit-card-1 { width: 64px; height: 90px; left: 0%; top: 48px; }
-  .hero-orbit-card-2 { width: 70px; height: 98px; left: 9%; top: 30px; }
-  .hero-orbit-card-3 { width: 82px; height: 114px; left: 18%; top: 12px; }
-  .hero-orbit-card-4 { width: 72px; height: 100px; left: 28%; top: 42px; }
-  .hero-orbit-card-5 { width: 98px; height: 136px; left: 37.5%; top: 0; }
-  .hero-orbit-card-6 { width: 74px; height: 104px; left: 49%; top: 36px; }
-  .hero-orbit-card-7 { width: 68px; height: 96px; left: 58.5%; top: 18px; }
-  .hero-orbit-card-8 { width: 80px; height: 112px; left: 67.5%; top: 44px; }
-  .hero-orbit-card-9 { width: 66px; height: 92px; left: 77%; top: 16px; }
-  .hero-orbit-card-10 { width: 72px; height: 100px; left: 86%; top: 38px; }
-  .hero-orbit-card-11 { width: 64px; height: 90px; left: 95%; top: 26px; }
+  /* Structured mobile fan — left mirrors right (peak at center card-6) */
+  .hero-orbit-card-1  { width: 60px; height: 86px; left: 2%;    top: 64px; }
+  .hero-orbit-card-2  { width: 60px; height: 86px; left: 11%;   top: 50px; }
+  .hero-orbit-card-3  { width: 60px; height: 86px; left: 20%;   top: 36px; }
+  .hero-orbit-card-4  { width: 60px; height: 86px; left: 29%;   top: 22px; }
+  .hero-orbit-card-5  { width: 60px; height: 86px; left: 38%;   top: 10px; }
+  .hero-orbit-card-6  { width: 70px; height: 100px; left: 46.5%; top: 0; }
+  .hero-orbit-card-7  { width: 60px; height: 86px; left: 56.5%; top: 10px; }
+  .hero-orbit-card-8  { width: 60px; height: 86px; left: 65.5%; top: 22px; }
+  .hero-orbit-card-9  { width: 60px; height: 86px; left: 74.5%; top: 36px; }
+  .hero-orbit-card-10 { width: 60px; height: 86px; left: 83.5%; top: 50px; }
+  .hero-orbit-card-11 { width: 60px; height: 86px; left: 92.5%; top: 64px; }
 
   .hero-orbit-subline {
     margin-top: -0.3rem;
@@ -4073,27 +4079,28 @@ details summary::-webkit-details-marker {
   }
 
   .hero-orbit-cards {
-    height: 228px;
-    margin-top: -0.3rem;
-    width: 122%;
-    margin-left: -11%;
+    height: 200px;
+    margin-top: 0.1rem;
+    width: 100%;
+    margin-left: 0;
+    padding: 0 0.2rem;
   }
 
-  .hero-orbit-card-1 { width: 58px; height: 82px; left: 0%; top: 44px; }
-  .hero-orbit-card-2 { width: 64px; height: 90px; left: 9%; top: 26px; }
-  .hero-orbit-card-3 { width: 74px; height: 104px; left: 18%; top: 10px; }
-  .hero-orbit-card-4 { width: 64px; height: 90px; left: 28%; top: 38px; }
-  .hero-orbit-card-5 { width: 88px; height: 124px; left: 37.5%; top: 0; }
-  .hero-orbit-card-6 { width: 66px; height: 94px; left: 49%; top: 32px; }
-  .hero-orbit-card-7 { width: 60px; height: 86px; left: 58.5%; top: 16px; }
-  .hero-orbit-card-8 { width: 72px; height: 100px; left: 67.5%; top: 40px; }
-  .hero-orbit-card-9 { width: 58px; height: 82px; left: 77%; top: 14px; }
-  .hero-orbit-card-10 { width: 64px; height: 90px; left: 86%; top: 34px; }
-  .hero-orbit-card-11 { width: 58px; height: 82px; left: 95%; top: 22px; }
+  .hero-orbit-card-1  { width: 54px; height: 78px; left: 1.5%;  top: 58px; }
+  .hero-orbit-card-2  { width: 54px; height: 78px; left: 10.5%; top: 46px; }
+  .hero-orbit-card-3  { width: 54px; height: 78px; left: 19.5%; top: 34px; }
+  .hero-orbit-card-4  { width: 54px; height: 78px; left: 28.5%; top: 22px; }
+  .hero-orbit-card-5  { width: 54px; height: 78px; left: 37.5%; top: 10px; }
+  .hero-orbit-card-6  { width: 64px; height: 92px; left: 46%;   top: 0; }
+  .hero-orbit-card-7  { width: 54px; height: 78px; left: 56%;   top: 10px; }
+  .hero-orbit-card-8  { width: 54px; height: 78px; left: 65%;   top: 22px; }
+  .hero-orbit-card-9  { width: 54px; height: 78px; left: 74%;   top: 34px; }
+  .hero-orbit-card-10 { width: 54px; height: 78px; left: 83%;   top: 46px; }
+  .hero-orbit-card-11 { width: 54px; height: 78px; left: 92%;   top: 58px; }
 
   .hero-orbit-card-title {
-    font-size: 0.48rem;
-    padding: 0.25rem 0.28rem;
+    font-size: 0.44rem;
+    padding: 0.22rem 0.24rem;
   }
 
   .hero-orbit-pill {

@@ -146,6 +146,7 @@ function ProjectsSection({ featuredOnly = false }: { featuredOnly?: boolean }) {
                     src={project.image}
                     alt={`${project.title} — ${project.client} project by TradeOrbit Global`}
                     fill
+                    quality={70}
                     className="object-cover transition duration-500 group-hover:scale-[1.04]"
                     sizes="(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw"
                   />

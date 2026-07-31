@@ -23,7 +23,8 @@ export function BrandLogo({ compact = false, className = "" }: BrandLogoProps) {
           alt={siteConfig.name}
           width={LOGO_WIDTH}
           height={LOGO_HEIGHT}
-          priority
+          sizes="(max-width: 640px) 120px, 180px"
+          quality={75}
           className={`brand-logo-image ${compact ? "h-7 w-auto sm:h-9" : "h-11 w-auto sm:h-14"}`}
         />
       </span>

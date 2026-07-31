@@ -14,13 +14,14 @@ declare global {
   }
 }
 
-const HERO_LERP = 0.055;
-const PAGE_LERP = 0.09;
-const HERO_WHEEL = 0.72;
-const PAGE_WHEEL = 0.95;
-/** Mobile: keep Lenis responsive — slow hero lerp was causing card-spread lag */
-const MOBILE_LERP = 0.14;
-const MOBILE_TOUCH = 1.35;
+/** Shared smooth feel — tuned for laptop + mobile */
+function applyDeviceOptions(lenis: Lenis, isMobile: boolean) {
+  lenis.options.lerp = isMobile ? 0.1 : 0.075;
+  lenis.options.wheelMultiplier = isMobile ? 0.9 : 1;
+  lenis.options.touchMultiplier = isMobile ? 1.4 : 1.2;
+  lenis.options.syncTouch = isMobile;
+  lenis.options.syncTouchLerp = isMobile ? 0.12 : 0.1;
+}
 
 export function SmoothScroll() {
   const pathname = usePathname();
@@ -29,45 +30,23 @@ export function SmoothScroll() {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) return;
 
-    const isMobile = window.matchMedia("(max-width: 749px)").matches;
+    const mobileMq = window.matchMedia("(max-width: 749px)");
 
     const lenis = new Lenis({
       autoRaf: false,
-      lerp: isMobile ? MOBILE_LERP : PAGE_LERP,
       smoothWheel: true,
-      wheelMultiplier: PAGE_WHEEL,
-      touchMultiplier: isMobile ? MOBILE_TOUCH : 1.12,
-      // Slight touch smoothing on mobile so ScrollTrigger tracks without laggy double-ease
-      syncTouch: isMobile,
-      syncTouchLerp: isMobile ? 0.16 : 0.075,
+      lerp: mobileMq.matches ? 0.1 : 0.075,
+      wheelMultiplier: mobileMq.matches ? 0.9 : 1,
+      touchMultiplier: mobileMq.matches ? 1.4 : 1.2,
+      syncTouch: mobileMq.matches,
+      syncTouchLerp: mobileMq.matches ? 0.12 : 0.1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
 
     window.__smoothScroll = lenis;
+    document.documentElement.classList.add("lenis", "lenis-smooth");
 
-    let heroMode = false;
-    const syncHeroFeel = () => {
-      // Desktop only — mobile stays snappy for hero card spread
-      if (isMobile) return;
-
-      const hero = document.getElementById("home");
-      const inHero = Boolean(
-        hero &&
-          (() => {
-            const r = hero.getBoundingClientRect();
-            return r.top < window.innerHeight * 0.55 && r.bottom > window.innerHeight * 0.2;
-          })(),
-      );
-
-      if (inHero === heroMode) return;
-      heroMode = inHero;
-      lenis.options.lerp = inHero ? HERO_LERP : PAGE_LERP;
-      lenis.options.wheelMultiplier = inHero ? HERO_WHEEL : PAGE_WHEEL;
-    };
-
-    lenis.on("scroll", () => {
-      ScrollTrigger.update();
-      syncHeroFeel();
-    });
+    lenis.on("scroll", ScrollTrigger.update);
 
     const onTick = (time: number) => {
       lenis.raf(time * 1000);
@@ -75,20 +54,28 @@ export function SmoothScroll() {
     gsap.ticker.add(onTick);
     gsap.ticker.lagSmoothing(0);
 
+    const onMobileChange = () => {
+      applyDeviceOptions(lenis, mobileMq.matches);
+      lenis.resize();
+      ScrollTrigger.refresh();
+    };
+    mobileMq.addEventListener("change", onMobileChange);
+
     const onResize = () => {
       lenis.resize();
       ScrollTrigger.refresh();
-      syncHeroFeel();
     };
     window.addEventListener("resize", onResize);
     requestAnimationFrame(() => {
+      lenis.resize();
       ScrollTrigger.refresh();
-      syncHeroFeel();
     });
 
     return () => {
+      mobileMq.removeEventListener("change", onMobileChange);
       window.removeEventListener("resize", onResize);
       gsap.ticker.remove(onTick);
+      document.documentElement.classList.remove("lenis", "lenis-smooth");
       lenis.destroy();
       if (window.__smoothScroll === lenis) window.__smoothScroll = undefined;
     };
@@ -109,7 +96,7 @@ export function scrollToId(id: string, offset = -88) {
 
   const lenis = window.__smoothScroll;
   if (lenis) {
-    lenis.scrollTo(el, { offset, duration: 1.25, lerp: 0.07 });
+    lenis.scrollTo(el, { offset, duration: 1.2, lerp: 0.08 });
     return;
   }
 

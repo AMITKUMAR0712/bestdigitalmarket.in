@@ -113,6 +113,7 @@ export function TeamCarousel() {
                   alt=""
                   fill
                   sizes="(max-width: 768px) 200px, 280px"
+                  quality={70}
                   className="object-cover object-top"
                   unoptimized={member.image.endsWith(".svg")}
                   priority={offset === 0}

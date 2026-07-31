@@ -182,7 +182,7 @@ export default function AboutPage() {
                     src="/team/amit-kumar-talan.jpg"
                     alt="Amit Kumar Talan, founder of TradeOrbit Global"
                     fill
-                    priority
+                    quality={70}
                     className="object-cover object-[center_18%]"
                     sizes="(min-width: 1024px) 40vw, 100vw"
                   />

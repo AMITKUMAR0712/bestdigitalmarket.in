@@ -152,6 +152,8 @@ export function PortfolioExplorer() {
                 alt={project.title}
                 width={640}
                 height={360}
+                quality={70}
+                sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
                 className="h-52 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-56"
               />
               <div className="portfolio-card-media-overlay absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/10 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />

@@ -19,6 +19,7 @@ export function PageHero({ eyebrow, title, description, category = "default" }: 
           alt={image.alt}
           fill
           priority
+          quality={70}
           sizes="100vw"
           className="page-hero-image object-cover object-center"
         />
