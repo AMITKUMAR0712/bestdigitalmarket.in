@@ -2,32 +2,14 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { FiArrowUpRight, FiPhoneCall } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { heroServiceCards } from "@/lib/hero-service-cards";
 import { companyTrust } from "@/lib/data";
-import { heroScrollState } from "@/lib/hero-scroll-state";
-import { heroScrollStory } from "@/lib/hero-scroll-story";
 import { callLink, whatsappLink } from "@/lib/site";
-
-const MobileHeroQuantum = dynamic(
-  () => import("@/components/MobileHeroQuantum").then((m) => m.MobileHeroQuantum),
-  { ssr: false, loading: () => null },
-);
-
-const MobileHeroTypewriter = dynamic(
-  () => import("@/components/MobileHeroTypewriter").then((m) => m.MobileHeroTypewriter),
-  { ssr: false, loading: () => (
-    <span className="hero-mobile-type">
-      <span className="hero-mobile-type-line1">Websites, Software &amp; AI,</span>
-      <span className="hero-mobile-type-line2">Built to grow your business</span>
-    </span>
-  ) },
-);
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -53,30 +35,12 @@ type HeroServicesOrbitProps = {
 
 export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
   const rootRef = useRef<HTMLElement>(null);
-  const [showOrbitCards, setShowOrbitCards] = useState(false);
-  const [viewportReady, setViewportReady] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 750px)");
-    const sync = () => {
-      setShowOrbitCards(!mq.matches);
-      setViewportReady(true);
-    };
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
-
-  useEffect(() => {
-    if (!viewportReady) return;
-    // Desktop needs cards in the DOM before GSAP orbit/scroll runs
-    if (showOrbitCards === false && !window.matchMedia("(max-width: 750px)").matches) return;
-
     const root = rootRef.current;
     if (!root) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const isMobileHero = window.matchMedia("(max-width: 750px)").matches;
     let raf = 0;
     const cleanups: Array<() => void> = [];
 
@@ -88,147 +52,6 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
       const subline = root.querySelector<HTMLElement>(".hero-orbit-subline");
       const smallTeam = root.querySelector<HTMLElement>(".hero-orbit-small");
       const bigResults = root.querySelector<HTMLElement>(".hero-orbit-big");
-
-      if (isMobileHero) {
-        gsap.set([navBits, words, letters, subline].flat().filter(Boolean), {
-          clearProps: "all",
-          opacity: 1,
-          y: 0,
-          x: 0,
-        });
-        gsap.set(words, { y: "0%" });
-
-        if (reduceMotion) return;
-
-        const mobileHeading = root.querySelector<HTMLElement>(".hero-mobile-type");
-        const mobileBits = [navBits, mobileHeading, subline].flat().filter(Boolean);
-        gsap.fromTo(
-          mobileBits,
-          { opacity: 0, y: 18 },
-          { opacity: 1, y: 0, duration: 0.85, stagger: 0.12, ease: "power3.out", delay: 0.15 },
-        );
-
-        const badge = root.querySelector<HTMLElement>(".hero-orbit-badge");
-        const headingWrap = root.querySelector<HTMLElement>(".hero-orbit-heading");
-        const heading = root.querySelector<HTMLElement>(".hero-mobile-type");
-        const shakeHint = root.querySelector<HTMLElement>(".hero-shake-hint");
-        const bg = root.querySelector<HTMLElement>(".hero-orbit-bg");
-        const story = root.querySelector<HTMLElement>(".hero-scroll-story");
-        const storyCards = gsap.utils.toArray<HTMLElement>(".hero-scroll-story-card", root);
-        const warm = root.querySelector<HTMLElement>(".hero-orbit-warm");
-        const hideOnStory = [badge, headingWrap, heading, shakeHint, subline].filter(Boolean);
-
-        gsap.set(story, { opacity: 0, visibility: "hidden", pointerEvents: "none" });
-        gsap.set(storyCards, { opacity: 0, y: 28, scale: 0.96, visibility: "hidden" });
-        gsap.set(warm, { opacity: 0 });
-
-        const buildScroll = (quantum: HTMLElement | null) => {
-          const scrollTl = gsap.timeline({
-            scrollTrigger: {
-              trigger: root,
-              start: "top top",
-              end: "+=240%",
-              pin: true,
-              scrub: 1,
-              anticipatePin: 1,
-              invalidateOnRefresh: true,
-              onUpdate: (self) => {
-                heroScrollState.progress = self.progress;
-                root.style.setProperty("--hero-scroll", String(self.progress));
-                root.classList.toggle("hero-orbit--story", self.progress > 0.12);
-              },
-              onRefresh: (self) => {
-                heroScrollState.progress = self.progress;
-                root.classList.toggle("hero-orbit--story", self.progress > 0.12);
-              },
-            },
-          });
-
-          // Hide typewriter/CTAs fully BEFORE story shows (no overlap)
-          scrollTl
-            .to(
-              hideOnStory,
-              { opacity: 0, y: -28, filter: "blur(8px)", ease: "none", duration: 0.16 },
-              0,
-            )
-            .set(hideOnStory, { visibility: "hidden", pointerEvents: "none" }, 0.16)
-            .to(warm, { opacity: 1, ease: "none", duration: 0.28 }, 0.08)
-            .to(bg, { opacity: 0.22, ease: "none", duration: 0.28 }, 0.08)
-            .set(story, { visibility: "visible" }, 0.18)
-            .to(story, { opacity: 1, ease: "none", duration: 0.12 }, 0.18);
-
-          if (quantum) {
-            scrollTl.to(
-              quantum,
-              { scale: 1.45, opacity: 0.1, filter: "blur(4px)", ease: "none", duration: 0.85 },
-              0,
-            );
-          }
-
-          const last = storyCards.length - 1;
-          let cursor = 0.22;
-
-          storyCards.forEach((card, i) => {
-            const isFirst = i === 0;
-            const isLast = i === last;
-            const fadeIn = 0.07;
-            const hold = isFirst ? 0.26 : isLast ? 0.42 : 0.14;
-            const fadeOut = isLast ? 0 : 0.07;
-            const start = cursor;
-
-            scrollTl
-              .set(card, { visibility: "visible" }, start)
-              .fromTo(
-                card,
-                { opacity: 0, y: 28, scale: 0.96 },
-                {
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  ease: "none",
-                  duration: fadeIn,
-                  immediateRender: false,
-                },
-                start,
-              );
-
-            if (!isLast) {
-              scrollTl
-                .to(
-                  card,
-                  { opacity: 0, y: -22, scale: 1.02, ease: "none", duration: fadeOut },
-                  start + fadeIn + hold,
-                )
-                .set(card, { visibility: "hidden" }, start + fadeIn + hold + fadeOut);
-              cursor = start + fadeIn + hold + fadeOut + 0.02;
-            } else {
-              scrollTl.to(
-                card,
-                { opacity: 1, y: 0, scale: 1, ease: "none", duration: Math.max(hold, 0.4) },
-                start + fadeIn,
-              );
-            }
-          });
-        };
-
-        const existingQuantum = root.querySelector<HTMLElement>(".hero-quantum");
-        if (existingQuantum) {
-          buildScroll(existingQuantum);
-        } else {
-          let tries = 0;
-          const wait = window.setInterval(() => {
-            const q = root.querySelector<HTMLElement>(".hero-quantum");
-            tries += 1;
-            if (q || tries > 40) {
-              window.clearInterval(wait);
-              buildScroll(q);
-            }
-          }, 50);
-          cleanups.push(() => window.clearInterval(wait));
-        }
-
-        return;
-      }
 
       if (reduceMotion) {
         gsap.set([navBits, words, letters, cards, subline], {
@@ -334,42 +157,98 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
         root.removeEventListener("mouseleave", onLeave);
       });
 
-      cards.forEach((card) => {
-        const restRot = parseFloat(card.dataset.restRot || "0");
-        const onCardMove = (e: MouseEvent) => {
-          const r = card.getBoundingClientRect();
-          const px = (e.clientX - r.left) / r.width - 0.5;
-          const py = (e.clientY - r.top) / r.height - 0.5;
-          gsap.to(card, {
-            rotateX: -py * 14,
-            rotateY: px * 14,
-            scale: 1.1,
-            zIndex: 30,
-            duration: 0.35,
-            ease: "power2.out",
-            transformPerspective: 700,
-            overwrite: "auto",
+      const isMobileHero = window.matchMedia("(max-width: 749px)").matches;
+
+      if (isMobileHero) {
+        let activeIndex = 0;
+        let cycleTimer: ReturnType<typeof setInterval> | null = null;
+        let startDelay: gsap.core.Tween | null = null;
+
+        const clearActive = () => {
+          cards.forEach((card) => card.classList.remove("is-active"));
+        };
+
+        const activate = (index: number) => {
+          cards.forEach((card, i) => {
+            card.classList.toggle("is-active", i === index);
           });
         };
-        const onCardLeave = () => {
-          gsap.to(card, {
-            rotateX: 0,
-            rotateY: 0,
-            scale: 1,
-            rotation: restRot,
-            zIndex: Number(card.dataset.z || 1),
-            duration: 0.75,
-            ease: "elastic.out(1, 0.6)",
-            overwrite: "auto",
-          });
+
+        const stopCycle = () => {
+          if (cycleTimer) {
+            clearInterval(cycleTimer);
+            cycleTimer = null;
+          }
+          startDelay?.kill();
+          startDelay = null;
+          clearActive();
         };
-        card.addEventListener("mousemove", onCardMove);
-        card.addEventListener("mouseleave", onCardLeave);
-        cleanups.push(() => {
-          card.removeEventListener("mousemove", onCardMove);
-          card.removeEventListener("mouseleave", onCardLeave);
+
+        const startCycle = () => {
+          if (cycleTimer) return;
+          activate(activeIndex);
+          cycleTimer = setInterval(() => {
+            activeIndex = (activeIndex + 1) % cards.length;
+            activate(activeIndex);
+          }, 1450);
+        };
+
+        startDelay = gsap.delayedCall(2.15, () => {
+          const io = new IntersectionObserver(
+            ([entry]) => {
+              if (entry?.isIntersecting) startCycle();
+              else stopCycle();
+            },
+            { threshold: 0.25 },
+          );
+          io.observe(root);
+          cleanups.push(() => {
+            io.disconnect();
+            stopCycle();
+          });
         });
-      });
+        cleanups.push(() => {
+          startDelay?.kill();
+          stopCycle();
+        });
+      } else {
+        cards.forEach((card) => {
+          const restRot = parseFloat(card.dataset.restRot || "0");
+          const onCardMove = (e: MouseEvent) => {
+            const r = card.getBoundingClientRect();
+            const px = (e.clientX - r.left) / r.width - 0.5;
+            const py = (e.clientY - r.top) / r.height - 0.5;
+            gsap.to(card, {
+              rotateX: -py * 14,
+              rotateY: px * 14,
+              scale: 1.1,
+              zIndex: 30,
+              duration: 0.35,
+              ease: "power2.out",
+              transformPerspective: 700,
+              overwrite: "auto",
+            });
+          };
+          const onCardLeave = () => {
+            gsap.to(card, {
+              rotateX: 0,
+              rotateY: 0,
+              scale: 1,
+              rotation: restRot,
+              zIndex: Number(card.dataset.z || 1),
+              duration: 0.75,
+              ease: "elastic.out(1, 0.6)",
+              overwrite: "auto",
+            });
+          };
+          card.addEventListener("mousemove", onCardMove);
+          card.addEventListener("mouseleave", onCardLeave);
+          cleanups.push(() => {
+            card.removeEventListener("mousemove", onCardMove);
+            card.removeEventListener("mouseleave", onCardLeave);
+          });
+        });
+      }
 
       ScrollTrigger.create({
         trigger: root,
@@ -415,11 +294,9 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
 
     return () => {
       cleanups.forEach((fn) => fn());
-      heroScrollState.progress = 0;
-      root.classList.remove("hero-orbit--story");
       ctx.revert();
     };
-  }, [viewportReady, showOrbitCards]);
+  }, []);
 
   return (
     <section
@@ -428,10 +305,7 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
       className={`hero-section hero-orbit relative overflow-x-hidden ${className}`.trim()}
     >
       <div className="hero-orbit-bg" aria-hidden="true" />
-      <div className="hero-orbit-warm" aria-hidden="true" />
       <div className="hero-orbit-grain" aria-hidden="true" />
-      <MobileHeroQuantum />
-      <p className="hero-shake-hint">Shake your phone</p>
 
       <div className="hero-orbit-inner">
         <div className="hero-orbit-reveal hero-orbit-badge mx-auto mb-4 sm:mb-5">
@@ -441,73 +315,56 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
         </div>
 
         <h1 className="hero-orbit-heading">
-          <span className="hero-orbit-heading-desktop">
-            <span className="hero-orbit-small">
-              {SMALL_WORDS.map((word, index) => (
-                <span key={word}>
-                  {index > 0 ? "\u00A0" : null}
-                  <span className="hero-orbit-word">
-                    <span>{word}</span>
-                  </span>
+          <span className="hero-orbit-small">
+            {SMALL_WORDS.map((word, index) => (
+              <span key={word}>
+                {index > 0 ? "\u00A0" : null}
+                <span className="hero-orbit-word">
+                  <span>{word}</span>
+                </span>
+              </span>
+            ))}
+          </span>
+          <span className="hero-orbit-big-wrap">
+            <span className="hero-orbit-big">
+              {BIG_LINE.split("").map((char, i) => (
+                <span key={`${char}-${i}`} className="hero-orbit-letter">
+                  {char === " " ? "\u00A0" : char}
                 </span>
               ))}
             </span>
-            <span className="hero-orbit-big-wrap">
-              <span className="hero-orbit-big">
-                {BIG_LINE.split("").map((char, i) => (
-                  <span key={`${char}-${i}`} className="hero-orbit-letter">
-                    {char === " " ? "\u00A0" : char}
-                  </span>
-                ))}
-              </span>
-            </span>
-          </span>
-          <span className="hero-orbit-heading-mobile">
-            <MobileHeroTypewriter />
           </span>
         </h1>
 
-        <div className="hero-scroll-story" aria-hidden="true">
-          {heroScrollStory.map((item) => (
-            <div key={item.title} className="hero-scroll-story-card">
-              <p className="hero-scroll-story-kicker">{item.kicker}</p>
-              <p className="hero-scroll-story-title">{item.title}</p>
-              <p className="hero-scroll-story-copy">{item.copy}</p>
-            </div>
-          ))}
-        </div>
-
         <div className="hero-orbit-cards" aria-label="Our services">
-          {showOrbitCards
-            ? heroServiceCards.map((card, index) => (
-                <Link
-                  key={card.id}
-                  href="/services"
-                  className={`hero-orbit-card hero-orbit-card-${index + 1}`}
-                  data-rot={card.rot}
-                  data-depth={card.depth}
-                  data-z={index + 1}
-                  style={{ zIndex: index + 1 }}
-                  aria-label={`${card.label} — open services`}
-                >
-                  <div className="hero-orbit-card-media">
-                    <Image
-                      src={card.image}
-                      alt={card.label}
-                      fill
-                      sizes="(max-width: 750px) 140px, 220px"
-                      className="hero-orbit-card-img object-cover object-center"
-                      priority={index < 3}
-                    />
-                  </div>
-                  <div className="hero-orbit-card-shade" aria-hidden="true" />
-                  <div className="hero-orbit-card-content">
-                    <h3 className="hero-orbit-card-title">{card.label}</h3>
-                    <p className="hero-orbit-card-copy">{card.copy}</p>
-                  </div>
-                </Link>
-              ))
-            : null}
+          {heroServiceCards.map((card, index) => (
+            <Link
+              key={card.id}
+              href="/services"
+              className={`hero-orbit-card hero-orbit-card-${index + 1}`}
+              data-rot={card.rot}
+              data-depth={card.depth}
+              data-z={index + 1}
+              style={{ zIndex: index + 1 }}
+              aria-label={`${card.label} — open services`}
+            >
+              <div className="hero-orbit-card-media">
+                <Image
+                  src={card.image}
+                  alt={card.label}
+                  fill
+                  sizes="(max-width: 750px) 140px, 220px"
+                  className="hero-orbit-card-img object-cover object-center"
+                  priority={index < 4}
+                />
+              </div>
+              <div className="hero-orbit-card-shade" aria-hidden="true" />
+              <div className="hero-orbit-card-content">
+                <h3 className="hero-orbit-card-title">{card.label}</h3>
+                <p className="hero-orbit-card-copy">{card.copy}</p>
+              </div>
+            </Link>
+          ))}
         </div>
 
         <div className="hero-orbit-subline">
