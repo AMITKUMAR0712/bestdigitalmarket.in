@@ -5,7 +5,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import "lenis/dist/lenis.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
