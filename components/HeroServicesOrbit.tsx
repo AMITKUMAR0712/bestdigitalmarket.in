@@ -110,9 +110,9 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
         )
         .to(subline, { opacity: 1, y: 0, duration: 0.75 }, 1.45);
 
-      cards.forEach((card, i) => {
+      const floatTweens = cards.map((card, i) => {
         const rot = parseFloat(card.dataset.restRot || "0");
-        gsap.to(card, {
+        return gsap.to(card, {
           y: `+=${8 + (i % 3) * 5}`,
           rotation: rot + (i % 2 === 0 ? 1.5 : -1.5),
           duration: 3 + (i % 4) * 0.5,
@@ -138,7 +138,10 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
         my = 0;
       };
 
+      const isMobileHero = window.matchMedia("(max-width: 749px)").matches;
+
       const parallax = () => {
+        if (isMobileHero) return;
         tx += (mx - tx) * 0.05;
         ty += (my - ty) * 0.05;
         cards.forEach((card) => {
@@ -148,16 +151,19 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
         raf = requestAnimationFrame(parallax);
       };
 
-      root.addEventListener("mousemove", onMove);
-      root.addEventListener("mouseleave", onLeave);
-      raf = requestAnimationFrame(parallax);
-      cleanups.push(() => {
-        cancelAnimationFrame(raf);
-        root.removeEventListener("mousemove", onMove);
-        root.removeEventListener("mouseleave", onLeave);
-      });
+      if (!isMobileHero) {
+        root.addEventListener("mousemove", onMove);
+        root.addEventListener("mouseleave", onLeave);
+        raf = requestAnimationFrame(parallax);
+        cleanups.push(() => {
+          cancelAnimationFrame(raf);
+          root.removeEventListener("mousemove", onMove);
+          root.removeEventListener("mouseleave", onLeave);
+        });
+      }
 
-      const isMobileHero = window.matchMedia("(max-width: 749px)").matches;
+      let stopCycle: (() => void) | null = null;
+      let startCycle: (() => void) | null = null;
 
       if (isMobileHero) {
         let activeIndex = 0;
@@ -174,7 +180,7 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
           });
         };
 
-        const stopCycle = () => {
+        stopCycle = () => {
           if (cycleTimer) {
             clearInterval(cycleTimer);
             cycleTimer = null;
@@ -184,7 +190,7 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
           clearActive();
         };
 
-        const startCycle = () => {
+        startCycle = () => {
           if (cycleTimer) return;
           activate(activeIndex);
           cycleTimer = setInterval(() => {
@@ -196,20 +202,20 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
         startDelay = gsap.delayedCall(2.15, () => {
           const io = new IntersectionObserver(
             ([entry]) => {
-              if (entry?.isIntersecting) startCycle();
-              else stopCycle();
+              if (entry?.isIntersecting) startCycle?.();
+              else stopCycle?.();
             },
             { threshold: 0.25 },
           );
           io.observe(root);
           cleanups.push(() => {
             io.disconnect();
-            stopCycle();
+            stopCycle?.();
           });
         });
         cleanups.push(() => {
           startDelay?.kill();
-          stopCycle();
+          stopCycle?.();
         });
       } else {
         cards.forEach((card) => {
@@ -250,26 +256,50 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
         });
       }
 
+      // Mobile: short runway + instant scrub so a light swipe spreads cards immediately
+      const scrollEnd = isMobileHero
+        ? () => `+=${Math.round(Math.min(window.innerHeight * 0.42, 360))}`
+        : () => `+=${Math.round(window.innerHeight * 1.35)}`;
+      const moveScale = isMobileHero ? 0.62 : 1.12;
+      let floatsPaused = false;
+
       ScrollTrigger.create({
         trigger: root,
         start: "top top",
-        end: () => `+=${Math.round(window.innerHeight * (window.matchMedia("(max-width: 749px)").matches ? 0.95 : 1.35))}`,
-        scrub: 0.35,
+        end: scrollEnd,
+        scrub: isMobileHero ? true : 0.35,
+        fastScrollEnd: true,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const p = self.progress;
-          // Softer ease-in, stronger mid — reads better with Lenis smoothing
-          const ease = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+          const ease = isMobileHero
+            ? Math.min(1, Math.pow(p, 0.52)) // front-loaded — tiny scroll still spreads
+            : p < 0.5
+              ? 2 * p * p
+              : 1 - Math.pow(-2 * p + 2, 2) / 2;
+
+          if (p > 0.015) {
+            if (!floatsPaused) {
+              floatTweens.forEach((t) => t.pause());
+              floatsPaused = true;
+            }
+            stopCycle?.();
+          } else if (floatsPaused) {
+            floatTweens.forEach((t) => t.resume());
+            floatsPaused = false;
+            if (isMobileHero) startCycle?.();
+          }
+
           if (bigResults) {
             gsap.set(bigResults, {
-              scale: 1 + 0.28 * ease,
-              opacity: 1 - 0.5 * ease,
+              scale: 1 + (isMobileHero ? 0.18 : 0.28) * ease,
+              opacity: 1 - (isMobileHero ? 0.4 : 0.5) * ease,
               force3D: true,
             });
           }
           if (smallTeam) {
             gsap.set(smallTeam, {
-              y: -90 * ease,
+              y: (isMobileHero ? -48 : -90) * ease,
               opacity: Math.max(0, 1 - ease * 1.55),
               force3D: true,
             });
@@ -277,13 +307,12 @@ export function HeroServicesOrbit({ className = "" }: HeroServicesOrbitProps) {
           cards.forEach((card, i) => {
             const m = SCROLL_MOVES[i] ?? SCROLL_MOVES[SCROLL_MOVES.length - 1];
             const rest = parseFloat(card.dataset.restRot || "0");
-            const spread = 1.12; // slightly wider fly-out with smooth scroll
             gsap.set(card, {
-              x: m.x * ease * spread,
-              y: m.y * ease * spread,
+              x: m.x * ease * moveScale,
+              y: m.y * ease * moveScale,
               rotation: rest + m.rot * ease,
-              scale: 1 - 0.14 * ease,
-              opacity: Math.max(0.12, 1 - 0.62 * ease),
+              scale: 1 - (isMobileHero ? 0.1 : 0.14) * ease,
+              opacity: Math.max(isMobileHero ? 0.2 : 0.12, 1 - 0.62 * ease),
               force3D: true,
             });
           });

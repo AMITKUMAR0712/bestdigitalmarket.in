@@ -18,6 +18,9 @@ const HERO_LERP = 0.055;
 const PAGE_LERP = 0.09;
 const HERO_WHEEL = 0.72;
 const PAGE_WHEEL = 0.95;
+/** Mobile: keep Lenis responsive — slow hero lerp was causing card-spread lag */
+const MOBILE_LERP = 0.14;
+const MOBILE_TOUCH = 1.35;
 
 export function SmoothScroll() {
   const pathname = usePathname();
@@ -26,19 +29,26 @@ export function SmoothScroll() {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) return;
 
+    const isMobile = window.matchMedia("(max-width: 749px)").matches;
+
     const lenis = new Lenis({
       autoRaf: false,
-      lerp: PAGE_LERP,
+      lerp: isMobile ? MOBILE_LERP : PAGE_LERP,
       smoothWheel: true,
       wheelMultiplier: PAGE_WHEEL,
-      touchMultiplier: 1.12,
-      syncTouch: false,
+      touchMultiplier: isMobile ? MOBILE_TOUCH : 1.12,
+      // Slight touch smoothing on mobile so ScrollTrigger tracks without laggy double-ease
+      syncTouch: isMobile,
+      syncTouchLerp: isMobile ? 0.16 : 0.075,
     });
 
     window.__smoothScroll = lenis;
 
     let heroMode = false;
     const syncHeroFeel = () => {
+      // Desktop only — mobile stays snappy for hero card spread
+      if (isMobile) return;
+
       const hero = document.getElementById("home");
       const inHero = Boolean(
         hero &&
@@ -50,7 +60,6 @@ export function SmoothScroll() {
 
       if (inHero === heroMode) return;
       heroMode = inHero;
-      // Silkier + slower through hero so card spread reads clearly
       lenis.options.lerp = inHero ? HERO_LERP : PAGE_LERP;
       lenis.options.wheelMultiplier = inHero ? HERO_WHEEL : PAGE_WHEEL;
     };
