@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FiArrowRight, FiExternalLink, FiSearch } from "react-icons/fi";
 import {
   portfolioCategories,
@@ -18,6 +18,13 @@ export function PortfolioExplorer() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<PortfolioCategory>("All Categories");
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    const requestedCategory = new URLSearchParams(window.location.search).get("category");
+    if (requestedCategory && (portfolioCategories as readonly string[]).includes(requestedCategory)) {
+      setCategory(requestedCategory as PortfolioCategory);
+    }
+  }, []);
 
   const filtered = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -146,15 +153,14 @@ export function PortfolioExplorer() {
             key={project.id}
             className="portfolio-card premium-card group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-[var(--border-warm)] bg-[var(--card-white)]"
           >
-            <div className="portfolio-card-media relative overflow-hidden bg-cream-200">
+            <div className="portfolio-card-media relative aspect-[2.2/1] overflow-hidden bg-cream-200">
               <Image
                 src={project.image}
                 alt={project.title}
-                width={640}
-                height={360}
+                fill
                 quality={70}
                 sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
-                className="h-52 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-56"
+                className="object-cover object-top transition duration-500 group-hover:scale-105"
               />
               <div className="portfolio-card-media-overlay absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/10 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
               <div className="absolute left-4 top-4 flex flex-wrap gap-2">

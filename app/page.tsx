@@ -141,13 +141,13 @@ function ProjectsSection({ featuredOnly = false }: { featuredOnly?: boolean }) {
           {featuredProjects.map((project) => (
             <RevealItem key={project.id} hoverLift>
               <article className="home-project-card premium-card motion-card group overflow-hidden rounded-2xl border border-[var(--border-warm)] bg-white">
-                <div className="home-project-media relative aspect-[16/10] overflow-hidden bg-cream-200">
+                <div className="home-project-media relative aspect-[2.2/1] overflow-hidden bg-cream-200">
                   <Image
                     src={project.image}
                     alt={`${project.title} — ${project.client} project by TradeOrbit Global`}
                     fill
                     quality={70}
-                    className="object-cover transition duration-500 group-hover:scale-[1.04]"
+                    className="object-cover object-top transition duration-500 group-hover:scale-[1.04]"
                     sizes="(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw"
                   />
                   <div className="home-project-media-overlay" />

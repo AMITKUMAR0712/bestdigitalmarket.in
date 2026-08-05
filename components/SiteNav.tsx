@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import {
   FiBriefcase,
+  FiChevronDown,
   FiGrid,
   FiHelpCircle,
   FiHome,
@@ -13,6 +14,7 @@ import {
   FiMail,
   FiMenu,
   FiMessageCircle,
+  FiPackage,
   FiPhoneCall,
   FiSettings,
   FiX,
@@ -21,11 +23,19 @@ import { FaWhatsapp } from "react-icons/fa";
 import { BrandLogo } from "@/components/BrandLogo";
 import { TopHeader } from "@/components/TopHeader";
 import { callLink, whatsappLink } from "@/lib/site";
+import { productsMenu, servicesMenu, type NavMenuColumn } from "@/lib/nav-menu";
 
-const links = [
+const links: {
+  label: string;
+  href: string;
+  icon: typeof FiHome;
+  menu?: NavMenuColumn[];
+  menuOnly?: boolean;
+}[] = [
   { label: "Home", href: "/", icon: FiHome },
   { label: "About", href: "/about", icon: FiInfo },
-  { label: "Services", href: "/services", icon: FiLayers },
+  { label: "Services", href: "/services", icon: FiLayers, menu: servicesMenu },
+  { label: "Products", href: "/products", icon: FiPackage, menu: productsMenu },
   { label: "Portfolio", href: "/portfolio", icon: FiGrid },
   { label: "Case Studies", href: "/case-studies", icon: FiBriefcase },
   { label: "Process", href: "/process", icon: FiSettings },
@@ -37,12 +47,36 @@ export function SiteNav() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [spacerHeight, setSpacerHeight] = useState(0);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
+
+  function clearCloseTimer() {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  }
+
+  function openMenuNow(label: string) {
+    clearCloseTimer();
+    setOpenMenu(label);
+  }
+
+  function scheduleMenuClose() {
+    clearCloseTimer();
+    closeTimerRef.current = setTimeout(() => setOpenMenu(null), 150);
+  }
 
   useEffect(() => {
     setIsOpen(false);
+    setOpenMenu(null);
+    setExpandedMobile(null);
   }, [pathname]);
+
+  useEffect(() => () => clearCloseTimer(), []);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -95,44 +129,103 @@ export function SiteNav() {
           <BrandLogo compact />
 
           <nav
-            className="absolute left-1/2 hidden max-w-[58vw] -translate-x-1/2 items-center xl:flex"
+            className="absolute left-1/2 hidden max-w-[62vw] -translate-x-1/2 items-center lg:flex"
             aria-label="Main navigation"
           >
             {links.map((link) => {
               const active = pathname === link.href;
+              const isMenuOpen = openMenu === link.label;
+              const linkClassName = `nav-link-item flex shrink-0 items-center gap-1 whitespace-nowrap rounded-lg px-1.5 py-2 text-[10.5px] font-medium transition-all duration-200 lg:text-[11px] xl:px-2 xl:text-[11.5px] 2xl:px-2.5 2xl:text-[13px] ${
+                active ? "nav-link-active bg-terracotta/10 text-terracotta" : "text-charcoal-muted hover:bg-cream-100 hover:text-terracotta"
+              }`;
+
+              if (!link.menu) {
+                return (
+                  <Link key={link.label} href={link.href} className={linkClassName}>
+                    {link.label}
+                  </Link>
+                );
+              }
+
               return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`nav-link-item rounded-lg px-2 py-2 text-[11.5px] font-medium transition-all duration-200 2xl:px-2.5 2xl:text-[13px] ${
-                    active ? "nav-link-active bg-terracotta/10 text-terracotta" : "text-charcoal-muted hover:bg-cream-100 hover:text-terracotta"
-                  }`}
+                <div
+                  key={link.label}
+                  className="relative"
+                  onMouseEnter={() => openMenuNow(link.label)}
+                  onMouseLeave={scheduleMenuClose}
                 >
-                  {link.label}
-                </Link>
+                  {link.menuOnly ? (
+                    <button
+                      type="button"
+                      className={linkClassName}
+                      aria-expanded={isMenuOpen}
+                      onClick={() => setOpenMenu(isMenuOpen ? null : link.label)}
+                    >
+                      {link.label}
+                      <FiChevronDown className={`text-[13px] transition-transform duration-200 ${isMenuOpen ? "rotate-180" : ""}`} />
+                    </button>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className={linkClassName}
+                      aria-expanded={isMenuOpen}
+                      onFocus={() => openMenuNow(link.label)}
+                    >
+                      {link.label}
+                      <FiChevronDown className={`text-[13px] transition-transform duration-200 ${isMenuOpen ? "rotate-180" : ""}`} />
+                    </Link>
+                  )}
+                </div>
               );
             })}
           </nav>
 
+          {(() => {
+            const activeColumns = links.find((link) => link.label === openMenu)?.menu;
+            if (!activeColumns) return null;
+            return (
+              <div
+                className="nav-mega-panel absolute inset-x-0 top-full z-[95] hidden lg:block"
+                onMouseEnter={() => openMenuNow(openMenu as string)}
+                onMouseLeave={scheduleMenuClose}
+              >
+                <div className="mx-auto max-w-5xl px-6 pt-3 lg:px-8">
+                  <div className="nav-mega-panel-card grid grid-cols-3 gap-8 rounded-[1.75rem] border border-[var(--border-warm)] bg-[var(--card-white)] p-8 shadow-2xl">
+                    {activeColumns.map((column) => (
+                      <div key={column.heading}>
+                        <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-terracotta">{column.heading}</p>
+                        <div className="mt-4 flex flex-col gap-4">
+                          {column.items.map((item) => (
+                            <Link
+                              key={item.title}
+                              href={item.href}
+                              className="group -mx-2 block rounded-xl px-2 py-1.5 transition hover:bg-cream-100"
+                              onClick={() => setOpenMenu(null)}
+                            >
+                              <p className="text-sm font-bold text-charcoal transition group-hover:text-terracotta">{item.title}</p>
+                              <p className="mt-0.5 text-xs leading-5 text-charcoal-light">{item.description}</p>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <Link
               href="/contact"
-              className="hidden rounded-full border border-[var(--border-warm)] bg-[var(--card-white)] px-3 py-2 text-[11px] font-semibold text-charcoal transition hover:border-terracotta/35 md:inline-flex lg:text-xs xl:text-[13px]"
+              className="inline-flex rounded-full border border-[var(--border-warm)] bg-[var(--card-white)] px-3 py-2 text-[11px] font-semibold text-charcoal transition hover:border-terracotta/35 sm:px-4 lg:text-xs xl:text-[13px]"
             >
               Book Consultation
             </Link>
-            <a
-              href={callLink}
-              className="inline-flex items-center gap-1.5 rounded-full bg-terracotta px-3 py-2 text-[11px] font-semibold text-white shadow-soft transition hover:bg-terracotta-600 sm:px-4 lg:text-xs xl:text-[13px]"
-            >
-              <FiPhoneCall className="text-sm" />
-              <span className="hidden min-[420px]:inline">Call Now</span>
-              <span className="min-[420px]:hidden">Call</span>
-            </a>
             <button
               type="button"
               onClick={() => setIsOpen((current) => !current)}
-              className="grid h-9 w-9 place-items-center rounded-full border border-[var(--border-warm)] bg-[var(--card-white)] text-charcoal transition hover:border-terracotta/30 xl:hidden"
+              className="grid h-9 w-9 place-items-center rounded-full border border-[var(--border-warm)] bg-[var(--card-white)] text-charcoal transition hover:border-terracotta/30 lg:hidden"
               aria-label={isOpen ? "Close menu" : "Open menu"}
               aria-expanded={isOpen}
             >
@@ -145,7 +238,7 @@ export function SiteNav() {
       <div aria-hidden="true" className="site-header-spacer" style={{ height: spacerHeight }} />
 
       <div
-        className={`mobile-nav-sheet fixed inset-0 z-[85] xl:hidden ${isOpen ? "mobile-nav-sheet-open" : "pointer-events-none"}`}
+        className={`mobile-nav-sheet fixed inset-0 z-[85] lg:hidden ${isOpen ? "mobile-nav-sheet-open" : "pointer-events-none"}`}
         aria-hidden={!isOpen}
       >
         <button
@@ -210,37 +303,98 @@ export function SiteNav() {
               {links.map((link, index) => {
                 const Icon = link.icon;
                 const active = pathname === link.href;
+                const isExpanded = expandedMobile === link.label;
+
+                if (!link.menu) {
+                  return (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className={`mobile-nav-link group flex items-center gap-3 rounded-2xl px-3 py-3 text-[14px] font-semibold transition ${
+                        active
+                          ? "bg-terracotta text-white shadow-soft"
+                          : "bg-white/55 text-charcoal hover:bg-white hover:text-terracotta"
+                      }`}
+                      style={{ animationDelay: `${index * 35}ms` }}
+                    >
+                      <span
+                        className={`grid h-9 w-9 place-items-center rounded-xl transition ${
+                          active
+                            ? "bg-white/20 text-white"
+                            : "bg-cream-100 text-terracotta group-hover:bg-terracotta/10"
+                        }`}
+                      >
+                        <Icon className="text-[16px]" />
+                      </span>
+                      <span className="flex-1">{link.label}</span>
+                      <span
+                        className={`text-[16px] transition ${
+                          active ? "text-white/80" : "text-charcoal-muted opacity-0 group-hover:opacity-100"
+                        }`}
+                        aria-hidden="true"
+                      >
+                        →
+                      </span>
+                    </Link>
+                  );
+                }
+
                 return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`mobile-nav-link group flex items-center gap-3 rounded-2xl px-3 py-3 text-[14px] font-semibold transition ${
-                      active
-                        ? "bg-terracotta text-white shadow-soft"
-                        : "bg-white/55 text-charcoal hover:bg-white hover:text-terracotta"
-                    }`}
+                  <div
+                    key={link.label}
+                    className="mobile-nav-link overflow-hidden rounded-2xl bg-white/55"
                     style={{ animationDelay: `${index * 35}ms` }}
                   >
-                    <span
-                      className={`grid h-9 w-9 place-items-center rounded-xl transition ${
-                        active
-                          ? "bg-white/20 text-white"
-                          : "bg-cream-100 text-terracotta group-hover:bg-terracotta/10"
+                    <div
+                      className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-[14px] font-semibold transition ${
+                        active ? "bg-terracotta text-white shadow-soft" : "text-charcoal"
                       }`}
                     >
-                      <Icon className="text-[16px]" />
-                    </span>
-                    <span className="flex-1">{link.label}</span>
-                    <span
-                      className={`text-[16px] transition ${
-                        active ? "text-white/80" : "text-charcoal-muted opacity-0 group-hover:opacity-100"
-                      }`}
-                      aria-hidden="true"
-                    >
-                      →
-                    </span>
-                  </Link>
+                      <Link href={link.href} onClick={() => setIsOpen(false)} className="flex flex-1 items-center gap-3">
+                        <span
+                          className={`grid h-9 w-9 place-items-center rounded-xl transition ${
+                            active ? "bg-white/20 text-white" : "bg-cream-100 text-terracotta"
+                          }`}
+                        >
+                          <Icon className="text-[16px]" />
+                        </span>
+                        <span className="flex-1">{link.label}</span>
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => setExpandedMobile(isExpanded ? null : link.label)}
+                        aria-label={`${isExpanded ? "Collapse" : "Expand"} ${link.label} menu`}
+                        aria-expanded={isExpanded}
+                        className={`grid h-8 w-8 shrink-0 place-items-center rounded-lg transition ${
+                          active ? "text-white" : "text-charcoal-muted hover:bg-cream-100 hover:text-terracotta"
+                        }`}
+                      >
+                        <FiChevronDown className={`text-base transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`} />
+                      </button>
+                    </div>
+                    {isExpanded && (
+                      <div className="grid gap-3 border-t border-[var(--border-warm)]/60 bg-cream-50/70 px-3 py-3">
+                        {link.menu.map((column) => (
+                          <div key={column.heading}>
+                            <p className="px-1 text-[10px] font-bold uppercase tracking-[0.14em] text-terracotta">{column.heading}</p>
+                            <div className="mt-1.5 grid gap-1">
+                              {column.items.map((item) => (
+                                <Link
+                                  key={item.title}
+                                  href={item.href}
+                                  onClick={() => setIsOpen(false)}
+                                  className="rounded-xl px-2.5 py-2 text-[13px] font-medium text-charcoal-light transition hover:bg-white hover:text-terracotta"
+                                >
+                                  {item.title}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 );
               })}
             </div>
@@ -275,7 +429,7 @@ export function MobileBottomNav() {
 
   return (
     <nav
-      className="mobile-tab-bar fixed inset-x-0 bottom-0 z-[70] border-t border-[var(--border-warm)] bg-[var(--card-white)]/95 backdrop-blur-lg xl:hidden"
+      className="mobile-tab-bar fixed inset-x-0 bottom-0 z-[70] border-t border-[var(--border-warm)] bg-[var(--card-white)]/95 backdrop-blur-lg lg:hidden"
       aria-label="Mobile app navigation"
     >
       <div className="mx-auto grid max-w-lg grid-cols-4 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-1.5">

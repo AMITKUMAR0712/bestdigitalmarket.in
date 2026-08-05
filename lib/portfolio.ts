@@ -193,16 +193,6 @@ export const portfolioProjects: PortfolioProject[] = [
     url: "https://www.hotelcaravancentre.com/",
   },
   {
-    id: "quick-construction-solutions-2",
-    title: "Quick Construction Solutions",
-    client: "Quick Construction Solutions Pvt. Ltd.",
-    category: "Real Estate & Construction",
-    description:
-      "A professional corporate website developed for Quick Construction Solutions, showcasing their services in residential and commercial bu.",
-    image: "/portfolio/quick-construction-solutions.jpg",
-    url: "http://quickconstructionsolutions.com/",
-  },
-  {
     id: "optimyz-learning",
     title: "Optimyz Learning",
     client: "Optimyz Learning",
@@ -375,26 +365,6 @@ export const portfolioProjects: PortfolioProject[] = [
     url: "https://cadetsacademy.com/",
   },
   {
-    id: "templepure-incense-2",
-    title: "Templepure Incense",
-    client: "Templepure Incense",
-    category: "E-Commerce",
-    description:
-      "We developed a modern e-commerce website for Temple Pure Incense, designed to showcase and sell natural incense sticks and cones with a.",
-    image: "/portfolio/templepure-incense.jpg",
-    url: "https://templepureincense.com/",
-  },
-  {
-    id: "tirppyjiffy",
-    title: "TirppyJiffy",
-    client: "TirppyJiffy",
-    category: "Travel & Hospitality",
-    description:
-      "We developed a modern and responsive travel website for Trippy Jiffy, designed to showcase travel packages, destinations, and experienc.",
-    image: "/portfolio/tirppyjiffy.jpg",
-    url: "https://trippyjiffy.com/",
-  },
-  {
     id: "indiva-hospitality",
     title: "Indiva Hospitality",
     client: "Indiva Hospitality",
@@ -405,14 +375,86 @@ export const portfolioProjects: PortfolioProject[] = [
     url: "https://indivahospitality.com/",
   },
   {
-    id: "onog-industries-2",
-    title: "ONOG Industries",
-    client: "ONOG Industries",
+    id: "aquafleet360",
+    title: "aQuafleet360",
+    client: "aQuafleet360",
     category: "Corporate & Business",
     description:
-      "We developed a modern and responsive corporate website for ONOG Industries, focusing on clean design, user-friendly navigation, and cle.",
-    image: "/portfolio/onog-industries.jpg",
-    url: "https://onogindustries.in/",
+      "A modern B2B SaaS website developed for aQuafleet360, an AI-powered, IIoT-enabled vessel management system helping maritime operators optimize fleet operations, compliance, and efficiency.",
+    image: "/portfolio/aquafleet360.png",
+    url: "https://aquafleet360.com/",
+  },
+  {
+    id: "jarv-franchise",
+    title: "JARV Franchise",
+    client: "JARV Franchise",
+    category: "Corporate & Business",
+    description:
+      "A dedicated franchise and distribution expansion portal developed for JARV Franchise, connecting dealers, distributors, and franchise seekers across automotive, beauty, fashion, food, and education categories.",
+    image: "/portfolio/jarv-franchise.png",
+    url: "https://franchiseind.com/",
+  },
+  {
+    id: "paramhamsa-clinic",
+    title: "Paramhamsa Clinic",
+    client: "Paramhamsa Clinic",
+    category: "Health & Wellness",
+    description:
+      "A doctor appointment and clinic management system developed for Paramhamsa Clinic, offering patient booking, doctor profiles, and streamlined multi-specialty consultation scheduling.",
+    image: "/portfolio/paramhamsa-clinic.png",
+    url: "https://paramhamsa.in/clinic",
+  },
+  {
+    id: "ramhari-enterprises",
+    title: "Ramhari Enterprises",
+    client: "Ramhari Enterprises",
+    category: "E-Commerce",
+    description:
+      "A premium e-commerce store developed for Ramhari Enterprises, showcasing brass idols and handcrafted products with export-ready quality, bulk pricing, and a fast enquiry-driven shopping experience.",
+    image: "/portfolio/ramhari-enterprises.png",
+    url: "https://ramhariindia.com/",
+    featured: true,
+  },
+  {
+    id: "ramhari-enterprises-2",
+    title: "Ramhari Enterprises",
+    client: "Ramhari Enterprises",
+    category: "E-Commerce",
+    description:
+      "An alternate corporate build developed for Ramhari Enterprises, presenting their digital and IT capabilities alongside brand partners under a modern, tech-forward design.",
+    image: "/portfolio/ramhari-enterprises-2.png",
+    url: "https://ramhari-enterprises-h8bd8ce8g-amit-kumars-projects-66394a26.vercel.app/",
+  },
+  {
+    id: "smcs",
+    title: "SMCS",
+    client: "SMCS",
+    category: "Corporate Website",
+    description:
+      "A professional corporate website developed for SMCS, an engineering firm, showcasing their products, services, technology capabilities, and industrial project execution.",
+    image: "/portfolio/smcs.png",
+    url: "https://smcsystem.com/",
+  },
+  {
+    id: "sri-vedic-puja",
+    title: "Sri Vedic Puja",
+    client: "Sri Vedic Puja",
+    category: "Health, Beauty & Wellness",
+    description:
+      "A modern puja booking platform developed for Sri Vedic Puja, connecting users with verified pandits for home puja, temple puja, katha jaap, and pitra dosh ceremonies.",
+    image: "/portfolio/sri-vedic-puja.png",
+    url: "https://srivedicpuja.com/",
+    featured: true,
+  },
+  {
+    id: "jiffylabs-lead-extractor",
+    title: "JiffyLabs Lead Extractor",
+    client: "JiffyLabs",
+    category: "Travel & Hospitality",
+    description:
+      "A travel intelligence lead-generation tool developed for JiffyLabs, helping discover travel agencies worldwide, extract verified business emails, and export qualified leads for outreach.",
+    image: "/portfolio/jiffylabs-lead-extractor.png",
+    url: "#",
   },
 ];
 

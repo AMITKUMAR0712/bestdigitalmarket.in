@@ -59,15 +59,14 @@ export default function PortfolioPage() {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((project) => (
               <article key={project.id} className="portfolio-card premium-card overflow-hidden rounded-2xl border border-[var(--border-warm)] bg-[var(--card-white)]">
-                <div className="relative h-44 overflow-hidden bg-cream-200">
+                <div className="relative aspect-[2.2/1] overflow-hidden bg-cream-200">
                   <Image
                     src={project.image}
                     alt={project.title}
-                    width={640}
-                    height={360}
+                    fill
                     quality={70}
                     sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="h-full w-full object-cover"
+                    className="object-cover object-top"
                   />
                 </div>
                 <div className="p-4 sm:p-5">

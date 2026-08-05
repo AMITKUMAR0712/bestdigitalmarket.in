@@ -30,7 +30,7 @@ export const teamMembers: TeamMember[] = [
     role: "Senior Full Stack Developer",
     description:
       "Builds high-performance web applications with clean architecture, strong API design and production-ready frontends that stay fast, secure and easy to scale.",
-    image: "/team/samarth-sharma.jpg",
+    image: "/team/samarth-sharma.png",
   },
   {
     id: "saurabh-singh",

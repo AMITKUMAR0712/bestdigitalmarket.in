@@ -31,6 +31,12 @@ function categoryAnchor(title: string) {
   if (title === "Websites & CRO") return "websites";
   if (title === "Software & Full-Stack Development") return "software";
   if (title === "SEO Growth Engine") return "leads";
+  if (title === "Paid Acquisition") return "paid-acquisition";
+  if (title === "Revenue Automation") return "revenue-automation";
+  if (title === "Social & Creative") return "social-creative";
+  if (title === "DevOps, Testing & Deployment") return "devops";
+  if (title === "AI, ML & Agentic Systems") return "ai-ml";
+  if (title === "Mobile Apps & Business Systems") return "mobile-apps";
   return undefined;
 }
 

@@ -224,6 +224,27 @@ main {
   transition: height 0.3s ease;
 }
 
+.products-detail-fade {
+  animation: navMegaIn 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nav-mega-panel-card {
+  background: rgba(248, 244, 239, 0.98);
+  backdrop-filter: blur(20px);
+  animation: navMegaIn 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes navMegaIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes navEnter {
   from {
     opacity: 0;
